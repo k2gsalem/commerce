@@ -20,8 +20,8 @@ class CreateProdSubCatsTable extends Migration
             $table->string('sub_category_short_code',500)->nullable();
             $table->mediumText('sub_category_desc');
             $table->string('sub_category_image',1000)->nullable();
-            $table->bigInteger('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('config_statuses');
+            $table->integer('status_id')->default(1);
+            // $table->foreign('status_id')->references('id')->on('conf_statuses');
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

@@ -11,6 +11,7 @@ class ConfStatusSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Entities\Config\ConfStatus::class,20)->create();
         //
     }
 }

@@ -18,13 +18,13 @@ class CreateVendorsTable extends Migration
             $table->string('vendor_name',1000);
             $table->string('vendor_logo',1000)->nullable();
             $table->bigInteger('vendor_category_id')->unsigned();
-            $table->foreign('vendor_category_id')->references('id')->on('config_vendor_cats');
+            $table->foreign('vendor_category_id')->references('id')->on('conf_vendor_cats');
             $table->mediumText('vendor_desc')->nullable();
             $table->mediumText('vendor_address')->nullable();
             $table->mediumText('vendor_contact')->nullable();
             $table->mediumText('vendor_email')->nullable();
-            $table->bigInteger('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('config_statuses');
+            // $table->bigInteger('status_id')->unsigned();
+            $table->integer('status_id')->default(1);
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

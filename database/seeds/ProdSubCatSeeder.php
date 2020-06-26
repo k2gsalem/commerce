@@ -11,6 +11,7 @@ class ProdSubCatSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Entities\Config\ProdSubCat::class,100)->create();
         //
     }
 }

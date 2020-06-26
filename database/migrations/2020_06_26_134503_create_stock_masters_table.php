@@ -23,8 +23,8 @@ class CreateStockMastersTable extends Migration
             $table->foreign('vendor_id')->references('id')->on('vendors');
             $table->integer('stock_quantity')->unsigned();
             $table->integer('stock_threshold')->unsigned();
-            $table->bigInteger('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('config_statuses');
+            $table->integer('status_id')->default(1);
+            // $table->foreign('status_id')->references('id')->on('conf_statuses');
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

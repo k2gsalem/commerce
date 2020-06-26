@@ -11,6 +11,7 @@ class ItemSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Entities\Catalogue\Item::class,100)->create();
         //
     }
 }

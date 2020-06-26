@@ -11,6 +11,7 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Entities\Vendor\Supplier::class,120)->create();
         //
     }
 }

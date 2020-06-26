@@ -11,6 +11,7 @@ class ConfVendorCatSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Entities\Config\ConfVendorCat::class,40)->create();
         //
     }
 }
