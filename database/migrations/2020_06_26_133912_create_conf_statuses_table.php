@@ -15,6 +15,9 @@ class CreateConfStatusesTable extends Migration
     {
         Schema::create('conf_statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->mediumText('status_desc');
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->timestamps();
         });
     }

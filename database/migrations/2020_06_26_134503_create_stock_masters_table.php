@@ -15,6 +15,18 @@ class CreateStockMastersTable extends Migration
     {
         Schema::create('stock_masters', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('item_id')->unsigned();
+            $table->foreign('item_id')->references('id')->on('items');
+            $table->bigInteger('variant_id')->unsigned();
+            $table->foreign('variant_id')->references('id')->on('item_variants');
+            $table->bigInteger('vendor_id')->unsigned();
+            $table->foreign('vendor_id')->references('id')->on('vendors');
+            $table->integer('stock_quantity')->unsigned();
+            $table->integer('stock_threshold')->unsigned();
+            $table->bigInteger('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('config_statuses');
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->timestamps();
         });
     }

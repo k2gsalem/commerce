@@ -15,6 +15,13 @@ class CreateProdCatsTable extends Migration
     {
         Schema::create('prod_cats', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('category_short_code',500);
+            $table->mediumText('category_desc');
+            $table->string('category_image',1000)->nullable();
+            $table->bigInteger('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('config_statuses');
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->timestamps();
         });
     }
