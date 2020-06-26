@@ -42,11 +42,11 @@ $api->version('v1', function($api){
             $api->group(['prefix' => 'assets'], function($api) {
                 $api->post('/', 'Api\Assets\UploadFileController@store');
             });
-            $api->resource('ConfigStatus','Api\Config\ConfStatusController');
-            $api->resource('ConfSupplierCat','Api\Config\ConfSupplierCatController');
-            $api->resource('ConfVendorCat','Api\Config\ConfVendorCatController');
-            $api->resource('ProdCat','Api\Config\ProdCatController');
-            $api->resource('ProdSubCat','Api\Config\ProdSubCatController');
+            $api->resource('confStatus','Api\Config\ConfStatusController');
+            $api->resource('confSupplierCat','Api\Config\ConfSupplierCatController');
+            $api->resource('confVendorCat','Api\Config\ConfVendorCatController');
+            $api->resource('prodCat','Api\Config\ProdCatController');
+            $api->resource('prodSubCat','Api\Config\ProdSubCatController');
         });
 
     });

@@ -15,6 +15,10 @@ class ConfStatusController extends Controller
      */
     public function index()
     {
+        return [
+            'status'=>true,
+            'msg'=>'working'
+        ];
         //
     }
 
