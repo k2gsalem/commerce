@@ -4,22 +4,41 @@ namespace App\Http\Controllers\Api\Config;
 
 use App\Entities\Config\ConfStatus;
 use App\Http\Controllers\Controller;
+use App\Transformers\Config\ConfStatusTransformer;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
 class ConfStatusController extends Controller
 {
+    use Helpers;    
+    protected $model;
+    public function __construct(ConfStatus $model)
+    {
+        $this->model = $model;
+        // $this->middleware('permission:List users')->only('index');
+        // $this->middleware('permission:List users')->only('show');
+        // $this->middleware('permission:Create users')->only('store');
+        // $this->middleware('permission:Update users')->only('update');
+        // $this->middleware('permission:Delete users')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return [
-            'status'=>true,
-            'msg'=>'working'
-        ];
-        //
+        $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
+        if ($request->has('limit')) {
+            $paginator->appends('limit', $request->get('limit'));
+        }      
+       
+        return $this->response->paginator($paginator, new ConfStatusTransformer());
+
+        // return $this->response->Collection($this->model->all(), new ConfStatusTransformer());
+        // $cs = $this->model::all();
+        // return $this->response->item($cs, new ConfStatusTransformer());  
+        
     }
 
     /**
