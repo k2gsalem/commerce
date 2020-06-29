@@ -28,8 +28,8 @@ class ConfStatusController extends Controller
      */
     public function index(Request $request)
     {
-        $cs = $this->model::all();
-        return $cs->audits;
+        // $cs = $this->model::all();
+        // return $cs->audits;
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
