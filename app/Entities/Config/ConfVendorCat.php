@@ -4,7 +4,16 @@ namespace App\Entities\Config;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ConfVendorCat extends Model
+use OwenIt\Auditing\Auditable as AuditingAuditable;
+use OwenIt\Auditing\Contracts\Auditable;
+
+class ConfVendorCat extends Model implements Auditable
 {
-    //
+    
+    use AuditingAuditable;
+
+    protected $fillable = [
+        'vendor_cat_desc','status_id', 'created_by', 'updated_by',
+    ];
+  
 }
