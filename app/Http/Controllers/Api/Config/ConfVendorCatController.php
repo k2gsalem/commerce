@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api\Config;
 
 use App\Entities\Config\ConfVendorCat;
 use App\Http\Controllers\Controller;
+use App\Transformers\Config\ConfVendorTransformer;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
+
 
 class ConfVendorCatController extends Controller
 {
@@ -13,9 +16,32 @@ class ConfVendorCatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    use Helpers;    
+    protected $model;
+
+    public function __construct(ConfVendorCat $model)
     {
+        $this->model = $model;
+        // $this->middleware('permission:List users')->only('index');
+        // $this->middleware('permission:List users')->only('show');
+        // $this->middleware('permission:Create users')->only('store');
+        // $this->middleware('permission:Update users')->only('update');
+        // $this->middleware('permission:Delete users')->only('destroy');
+    }
+  
+
+    public function index(Request $request)
+   {
         //
+        $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
+        if ($request->has('limit')) {
+            $paginator->appends('limit', $request->get('limit'));
+        }      
+       
+        return $this->response->paginator($paginator, new ConfVendorTransformer());
+
+
+
     }
 
     /**

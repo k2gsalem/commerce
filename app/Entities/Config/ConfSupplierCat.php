@@ -8,7 +8,7 @@ use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 
 
-class ConfSupplierCat extends Model  implements Auditable
+class ConfSupplierCat extends Model implements Auditable
 {
     //
 
