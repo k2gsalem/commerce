@@ -9,13 +9,15 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use OwenIt\Auditing\Auditable as AuditingAuditable;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Class User.
  */
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    use Notifiable, UuidScopeTrait, HasApiTokens, HasRoles, SoftDeletes, HasRolesUuid {
+    use Notifiable,AuditingAuditable, UuidScopeTrait, HasApiTokens, HasRoles, SoftDeletes, HasRolesUuid {
         HasRolesUuid::getStoredRole insteadof HasRoles;
     }
 

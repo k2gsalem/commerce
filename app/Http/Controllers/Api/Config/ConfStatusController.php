@@ -28,6 +28,8 @@ class ConfStatusController extends Controller
      */
     public function index(Request $request)
     {
+        $cs = $this->model::all();
+        return $cs->audits;
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
@@ -49,6 +51,14 @@ class ConfStatusController extends Controller
      */
     public function store(Request $request)
     {
+  
+        $this->validate($request, [
+            'status_desc' => 'required',
+            'created_by' => 'required',
+            'updated_by' => 'required',
+        ]);
+        $confStatus = $this->model->create($request->all());
+        return $this->response->created(url('api/confStatus/'.$confStatus->id));
         //
     }
 
