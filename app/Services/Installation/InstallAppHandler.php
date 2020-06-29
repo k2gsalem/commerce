@@ -40,6 +40,66 @@ class InstallAppHandler
         'permissions' => [
             ['name' => 'List permissions'],
         ],
+        'config_status' => [
+            ['name' => 'List config status'],
+            ['name' => 'Create config status'],
+            ['name' => 'Delete config status'],
+            ['name' => 'Update config status'],
+        ],
+        'config_suppliers' => [
+            ['name' => 'List config supplier'],
+            ['name' => 'Create config supplier'],
+            ['name' => 'Delete config supplier'],
+            ['name' => 'Update config supplier'],
+        ],
+        'config_vendor' => [
+            ['name' => 'List config vendor'],
+            ['name' => 'Create config vendor'],
+            ['name' => 'Delete config vendor'],
+            ['name' => 'Update config vendor'],
+        ],
+        'config_prod_cat' => [
+            ['name' => 'List product category'],
+            ['name' => 'Create product category'],
+            ['name' => 'Delete product category'],
+            ['name' => 'Update product category'],
+        ],
+        'config_prod_sub_cat' => [
+            ['name' => 'List product sub category'],
+            ['name' => 'Create product sub category'],
+            ['name' => 'Delete product sub category'],
+            ['name' => 'Update product sub category'],
+        ],
+        'supplier' => [
+            ['name' => 'List supplier'],
+            ['name' => 'Create supplier'],
+            ['name' => 'Delete supplier'],
+            ['name' => 'Update supplier'],
+        ],
+        'vendor' => [
+            ['name' => 'List vendor'],
+            ['name' => 'Create vendor'],
+            ['name' => 'Delete vendor'],
+            ['name' => 'Update vendor'],
+        ],
+        'item' => [
+            ['name' => 'List item'],
+            ['name' => 'Create item'],
+            ['name' => 'Delete item'],
+            ['name' => 'Update item'],
+        ],
+        'item_variant' => [
+            ['name' => 'List item variant'],
+            ['name' => 'Create item variant'],
+            ['name' => 'Delete item variant'],
+            ['name' => 'Update item variant'],
+        ],
+        'stock' => [
+            ['name' => 'List stock'],
+            ['name' => 'Create stock'],
+            ['name' => 'Delete stock'],
+            ['name' => 'Update stock'],
+        ],
     ];
 
     /**
