@@ -150,6 +150,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ErrorHandlerServiceProvider::class,
+        OwenIt\Auditing\AuditingServiceProvider::class,
     ],
     /*
     |--------------------------------------------------------------------------
