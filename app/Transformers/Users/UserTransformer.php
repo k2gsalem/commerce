@@ -25,8 +25,8 @@ class UserTransformer extends TransformerAbstract
             'id' => $model->uuid,
             'name' => $model->name,
             'email' => $model->email,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at->getTimestamp(),
+            'updated_at' => $model->updated_at->getTimestamp(),
         ];
     }
 

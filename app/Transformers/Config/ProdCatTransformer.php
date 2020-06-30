@@ -16,8 +16,8 @@ class ProdCatTransformer extends TransformerAbstract
             'category_desc' =>(string)$model->category_desc,
             'category_image' =>(string)$model->category_image,
             'status_id'=>(int)$model->status_id, 
-            'created_at' => (string)$model->created_at->toIso8601String(),
-            'updated_by' => (string)$model->updated_at            
+            'created_at' => (string)$model->created_at->getTimestamp(),
+            'updated_by' => (string)$model->updated_at->getTimestamp(),            
             // 'created_by' => $model->created_by,
             // 'updated_by' => $model->updated_by->toIso8601String(),
             // 'created_at' => $model->created_at->toIso8601String(),

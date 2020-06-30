@@ -24,8 +24,8 @@ class RoleTransformer extends TransformerAbstract
         return [
             'id' => $model->uuid,
             'name' => $model->name,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at->getTimestamp(),
+            'updated_at' => $model->updated_at->getTimestamp(),
         ];
     }
 
