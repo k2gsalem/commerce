@@ -25,6 +25,7 @@ class CreateStockMastersTable extends Migration
             $table->integer('stock_threshold')->unsigned();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses');
+            $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('updated_by');
             $table->foreign('updated_by')->references('id')->on('users');

@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(ConfSupplierCat::class, function (Faker $faker) {
     return [
         'supplier_cat_desc'=>$faker->lexify('Supplier ???'),
-        'status_id'=>$faker->boolean(),
+        'status_id'=>ConfStatus::all()->random()->id,
         'created_by'=>1,
         'updated_by'=>1
 

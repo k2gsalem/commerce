@@ -4,6 +4,7 @@
 
 use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariant;
+use App\Entities\Config\ConfStatus;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -13,7 +14,7 @@ $factory->define(ItemVariant::class, function (Faker $faker) {
         'variant_code' => Str::upper(Str::random(5)),
         'variant_desc' => $faker->sentence(),
         'variant_image' => $faker->imageUrl(),
-        'status_id' => $faker->boolean(),
+        'status_id' =>ConfStatus::all()->random()->id,
         'created_by' => 1,
         'updated_by' => 1,
         //

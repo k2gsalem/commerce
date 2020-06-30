@@ -15,7 +15,7 @@ $factory->define(ProdSubCat::class, function (Faker $faker) {
         'sub_category_short_code' =>Str::upper(Str::random(3)),
         'sub_category_desc' => $faker->word(),
         'sub_category_image' => $faker->imageUrl($width = 640, $height = 480),
-        'status_id' => $faker->boolean(),
+        'status_id' => ConfStatus::all()->random()->id,
         'created_by' => 1,
         'updated_by' => 1,
     ];

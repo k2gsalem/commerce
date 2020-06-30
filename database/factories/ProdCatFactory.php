@@ -12,7 +12,7 @@ $factory->define(ProdCat::class, function (Faker $faker) {
         'category_short_code' => Str::upper(Str::random(3)),
         'category_desc' => $faker->word(),
         'category_image' => $faker->imageUrl($width = 640, $height = 480),
-        'status_id' => $faker->boolean(),
+        'status_id' => ConfStatus::all()->random()->id,
         'created_by' => 1,
         'updated_by' => 1,
         //
