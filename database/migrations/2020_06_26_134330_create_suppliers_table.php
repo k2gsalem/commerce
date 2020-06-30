@@ -23,10 +23,11 @@ class CreateSuppliersTable extends Migration
             $table->mediumText('supplier_address')->nullable();
             $table->mediumText('supplier_contact')->nullable();
             $table->mediumText('supplier_email')->nullable();
-            // $table->bigInteger('status_id')->unsigned();
-            $table->integer('status_id')->default(1);
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned();
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('conf_statuses');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
         });
     }

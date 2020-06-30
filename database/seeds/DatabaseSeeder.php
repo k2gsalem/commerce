@@ -1,8 +1,6 @@
 <?php
 
-use App\Entities\Config\ConfSupplierCat;
-use App\Entities\Config\ConfVendorCat;
-use App\Entities\Config\ProdCat;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,5 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemVariantSeeder::class);
 
         $this->call(StockMasterSeeder::class);
+
+        $this->call(PassportSeeder::class);
     }
 }

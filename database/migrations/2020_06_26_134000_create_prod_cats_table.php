@@ -18,10 +18,11 @@ class CreateProdCatsTable extends Migration
             $table->string('category_short_code',500);
             $table->mediumText('category_desc');
             $table->string('category_image',1000)->nullable();
-            $table->integer('status_id')->default(1);
-            // $table->foreign('status_id')->references('id')->on('conf_statuses');
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned();
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('conf_statuses');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
         });
     }

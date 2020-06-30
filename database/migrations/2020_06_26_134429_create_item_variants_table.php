@@ -20,10 +20,11 @@ class CreateItemVariantsTable extends Migration
             $table->string('variant_code',500)->unique();
             $table->mediumText('variant_desc',1000);      
             $table->string('variant_image',500)->nullable();
-            $table->integer('status_id')->default(1);
-            // $table->foreign('status_id')->references('id')->on('conf_statuses');
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned();
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('conf_statuses');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
         });
     }
