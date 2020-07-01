@@ -4,17 +4,36 @@ namespace App\Http\Controllers\Api\Vendor;
 
 use App\Entities\Vendor\Vendor;
 use App\Http\Controllers\Controller;
+use App\Transformers\Vendor\VendorTransformer;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
+    use Helpers;    
+    protected $model;
+    public function __construct(Vendor $model)
+    {
+        $this->model = $model;
+        // $this->middleware('permission:List users')->only('index');
+        // $this->middleware('permission:List users')->only('show');
+        // $this->middleware('permission:Create users')->only('store');
+        // $this->middleware('permission:Update users')->only('update');
+        // $this->middleware('permission:Delete users')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
+        if ($request->has('limit')) {
+            $paginator->appends('limit', $request->get('limit'));
+        }      
+       
+        return $this->response->paginator($paginator, new VendorTransformer());
         //
     }
 

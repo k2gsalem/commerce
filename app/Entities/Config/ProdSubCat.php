@@ -16,4 +16,9 @@ class ProdSubCat extends Model implements Auditable
     protected $fillable = [
         'category_id,sub_category_short_code','sub_category_desc','sub_category_image','status_id', 'created_by', 'updated_by',
     ];
+    public function confStatus()
+    {
+        return $this->hasOne('\App\Entities\Config\ConfStatus','id');
+       
+    }
 }
