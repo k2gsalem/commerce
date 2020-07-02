@@ -12,6 +12,8 @@ class ProdSubCatTransformer extends TransformerAbstract
         
         return [
             'id' =>(int)$model->id,
+            'category_id'=>(int)$model->category_id,
+            'category_desc'=>$model->category->category_desc,
             'sub_category_short_code' =>(string)$model->sub_category_short_code,
             'sub_category_desc' =>(string)$model->sub_category_desc,
             'sub_category_image' =>(string)$model->sub_category_image,

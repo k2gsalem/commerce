@@ -17,5 +17,20 @@ class StockMaster extends Model
         'updated_by',
         'created_at',
     ];
-    //
+    public function confStatus()
+    {
+        return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');
+    }
+    public function item()
+    {
+        return $this->belongsTo('App\Entities\Catalogue\Item','id','item_id');
+    }
+    public function variant()
+    {
+        return $this->belongsTo('App\Entities\Catalogue\ItemVariant');
+    }
+    public function vendor()
+    {
+        return $this->belongsTo('App\Entities\Vendor\Vendor');
+    }
 }

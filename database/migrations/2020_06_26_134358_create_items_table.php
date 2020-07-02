@@ -20,7 +20,8 @@ class CreateItemsTable extends Migration
             $table->string('item_code',500)->unique();
             $table->mediumText('item_desc',1000);      
             $table->string('item_image',1000)->nullable();
-            $table->integer('vendor_store_id')->unsigned();
+            $table->unsignedBigInteger('vendor_store_id');
+            $table->foreign('vendor_store_id')->references('id')->on('vendors');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses');
             $table->unsignedBigInteger('created_by');

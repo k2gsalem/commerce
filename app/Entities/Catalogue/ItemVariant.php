@@ -2,6 +2,7 @@
 
 namespace App\Entities\Catalogue;
 
+use App\Entities\Stock\StockMaster;
 use Illuminate\Database\Eloquent\Model;
 
 class ItemVariant extends Model
@@ -17,7 +18,15 @@ class ItemVariant extends Model
     ];
     public function item()
     {
-
+        return $this->belongsTo(Item::class);
+    }
+    public function conStatus()
+    {
+       return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');
+    }
+    public function stock()
+    {
+        return $this->hasMany(StockMaster::class,'variant_id','id');
     }
     //
 }

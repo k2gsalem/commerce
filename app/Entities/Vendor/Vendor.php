@@ -2,6 +2,8 @@
 
 namespace App\Entities\Vendor;
 
+use App\Entities\Catalogue\Item;
+use App\Entities\Stock\StockMaster;
 use Illuminate\Database\Eloquent\Model;
 
 class Vendor extends Model
@@ -26,6 +28,14 @@ class Vendor extends Model
     {
         return $this->hasOne('App\Entities\Config\ConfVendorCat','id','vendor_category_id');
        
+    }
+    public function items()
+    {
+        return $this->hasMany(Item::class,'vendor_store_id');
+    }
+    public function stock()
+    {
+        return $this->hasMany(StockMaster::class,'vendor_id');
     }
     //
 }
