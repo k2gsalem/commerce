@@ -1,0 +1,6 @@
+{
+    "workbench.colorCustomizations" : {
+         "terminal.ansiRed": "#000000",
+        //  "terminal.foreground": "#ffffff"
+    }
+}

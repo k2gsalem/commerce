@@ -3,11 +3,15 @@
 namespace App\Transformers\Stock;
 
 use App\Entities\Stock\StockMaster;
+use App\Transformers\Catalogue\ItemVariantTransformer;
 use League\Fractal\TransformerAbstract;
 use PhpParser\Node\Expr\Cast\Double;
 
 class StockMasterTransformer extends TransformerAbstract
 {
+    //  protected $defaultIncludes = [
+    //     'ItemVariants'
+    // ];
     public function transform(StockMaster $model)
     {
         return [
@@ -25,4 +29,9 @@ class StockMasterTransformer extends TransformerAbstract
            
         ];
     }
+    // public function includeItemVariants(StockMaster $model)
+    // {
+    //         return $this->collection($model->variant ,new ItemVariantTransformer());
+    // }
+ 
 }

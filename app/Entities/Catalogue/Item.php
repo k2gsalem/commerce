@@ -2,6 +2,7 @@
 
 namespace App\Entities\Catalogue;
 
+use App\Entities\Config\ProdSubCat;
 use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -22,7 +23,7 @@ class Item extends Model implements Auditable
     ];
     public function subCategory()
     {
-        return $this->hasOne('App\Entities\Config\ProdSubCat','id','sub_category_id');
+        return $this->belongsTo(ProdSubCat::class,'sub_category_id');
     }
     public function store()
     {

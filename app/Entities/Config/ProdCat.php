@@ -13,11 +13,11 @@ class ProdCat extends Model implements Auditable
     use AuditingAuditable;
 
     protected $fillable = [
-        'category_short_code', 'category_desc', 'category_image', 'status_id', 'created_by', 'updated_by',
+        'category_short_code', 'category_desc', 'category_image', 'status_id', 'created_by', 'updated_by'
     ];
     public function confStatus()
     {
-        return $this->hasOne('\App\Entities\Config\ConfStatus', 'id');
+        return $this->hasOne(ConfStatus::class,'id','status_id');
     }
     public function subCategory()
     {

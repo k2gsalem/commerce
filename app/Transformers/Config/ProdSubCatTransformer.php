@@ -2,10 +2,14 @@
 namespace App\Transformers\Config;
 
 use App\Entities\Config\ProdSubCat;
+use App\Transformers\Catalogue\ItemTransfomer;
 use League\Fractal\TransformerAbstract;
 
 class ProdSubCatTransformer extends TransformerAbstract
 {
+    // protected $defaultIncludes = [
+    //     'Items'
+    // ];
     
     public function transform(ProdSubCat $model)
     {
@@ -21,10 +25,12 @@ class ProdSubCatTransformer extends TransformerAbstract
             'status_desc'=>(string)$model->confStatus->status_desc, 
             'created_at' => (string)$model->created_at->getTimestamp(),
             'updated_at' => (string)$model->updated_at->getTimestamp(),            
-            // 'created_by' => $model->created_by,
-            // 'updated_by' => $model->updated_by->toIso8601String(),
-            // 'created_at' => $model->created_at->toIso8601String(),
+           
         ];
 
     }
+    // public function includeItems(ProdSubCat $model)
+    // {
+    //         return $this->collection($model->item ,new ItemTransfomer());
+    // }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entities\Config;
 
+use App\Entities\Catalogue\Item;
 use Illuminate\Database\Eloquent\Model;
 
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -20,17 +21,17 @@ class ProdSubCat extends Model implements Auditable
         'sub_category_image',
         'status_id',
         'created_by',
-        'updated_by',
+        'updated_by'
     ];
     public function confStatus()
     {
-        return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');
+        return $this->hasOne(ConfStatus::class,'id','status_id');
        
     }
 
     public function item()
     {
-        return $this->belongsTo('App\Entities\Catalogue\Item','sub_category_id','id');
+        return $this->hasMany(Item::class,'sub_category_id','id');
     }
     public function category()
     {

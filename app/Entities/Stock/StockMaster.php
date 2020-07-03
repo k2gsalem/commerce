@@ -2,6 +2,9 @@
 
 namespace App\Entities\Stock;
 
+use App\Entities\Catalogue\Item;
+use App\Entities\Catalogue\ItemVariant;
+use App\Entities\Config\ConfStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class StockMaster extends Model
@@ -19,15 +22,15 @@ class StockMaster extends Model
     ];
     public function confStatus()
     {
-        return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');
+        return $this->hasOne(ConfStatus::class,'id','status_id');
     }
     public function item()
     {
-        return $this->belongsTo('App\Entities\Catalogue\Item','id','item_id');
+        return $this->belongsTo(Item::class,'id','item_id');
     }
     public function variant()
     {
-        return $this->belongsTo('App\Entities\Catalogue\ItemVariant');
+        return $this->belongsTo(ItemVariant::class);
     }
     public function vendor()
     {

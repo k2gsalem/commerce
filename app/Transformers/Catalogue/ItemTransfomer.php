@@ -7,6 +7,9 @@ use League\Fractal\TransformerAbstract;
 
 class ItemTransfomer extends TransformerAbstract
 {
+    // protected $defaultIncludes = [
+    //     'ItemVariants'
+    // ];
     public function transform(Item $model)
     {
         return [
@@ -26,5 +29,9 @@ class ItemTransfomer extends TransformerAbstract
             'updated_at' => (string)$model->updated_at->getTimestamp(),
           ];
     }
+    // public function includeItemVariants(Item $model)
+    // {
+    //         return $this->collection($model->itemVariant ,new ItemVariantTransformer());
+    // }
 
 }

@@ -17,7 +17,7 @@ class ConfVendorCat extends Model implements Auditable
     ];
     public function confStatus()
     {
-        return $this->hasOne('\App\Entities\Config\ConfStatus','id');
+        return $this->hasOne(ConfStatus::class,'id','status_id');
         # code...
     }
     public function vendor()
