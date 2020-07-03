@@ -51,6 +51,14 @@ class ConfSupplierCatController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'supplier_cat_desc' => 'required|max:300',
+            'status_id' => 'required|numeric',
+            'created_by' => 'required|numeric',
+            'updated_by' => 'required|numeric',
+        ]);
+        $confSupplierCat = $this->model->create($request->all());
+        return $this->response->created(url('api/confSupplierCat/'.$confSupplierCat->id));
     }
 
     /**

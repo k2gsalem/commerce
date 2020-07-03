@@ -53,9 +53,9 @@ class ConfStatusController extends Controller
     {
   
         $this->validate($request, [
-            'status_desc' => 'required',
-            'created_by' => 'required',
-            'updated_by' => 'required',
+            'status_desc' => 'required|max:300',
+            'created_by' => 'required|numeric',
+            'updated_by' => 'required|numeric',
         ]);
         $confStatus = $this->model->create($request->all());
         return $this->response->created(url('api/confStatus/'.$confStatus->id));
