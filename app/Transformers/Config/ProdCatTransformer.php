@@ -2,13 +2,14 @@
 namespace App\Transformers\Config;
 
 use App\Entities\Config\ProdCat;
+use App\Transformers\Assets\AssetTransformer;
 use League\Fractal\TransformerAbstract;
 
 class ProdCatTransformer extends TransformerAbstract
 {
-    // protected $defaultIncludes = [
-    //     'ProdSubCats'
-    // ];
+    protected $defaultIncludes = [
+        'Assets'
+    ];
     
     public function transform(ProdCat $model)
     {
@@ -19,7 +20,7 @@ class ProdCatTransformer extends TransformerAbstract
             'category_desc' =>(string)$model->category_desc,
             'category_image' =>(string)$model->category_image,
             'status_id'=>(int)$model->status_id,
-             'status_desc'=>(string)$model->confStatus->status_desc, 
+            'status_desc'=>(string)$model->confStatus->status_desc, 
             'created_at' => (string)$model->created_at->getTimestamp(),
            'updated_at' => (string)$model->updated_at->getTimestamp()            
             
@@ -30,4 +31,8 @@ class ProdCatTransformer extends TransformerAbstract
     // {
     //         return $this->collection($model->subCategory ,new ProdSubCatTransformer());
     // }
+     public function includeAssets(ProdCat $model)
+    {
+            return $this->collection($model->assets ,new AssetTransformer());
+    }
 }

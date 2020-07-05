@@ -20,8 +20,10 @@ class CreateConfStatusesTable extends Migration
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('updated_by');
             $table->foreign('updated_by')->references('id')->on('users');
-            $table->nullableMorphs('statusable');
+            // $table->nullableMorphs('statusable');
             $table->timestamps();
+            $table->softDeletes();
+            
         });
     }
 

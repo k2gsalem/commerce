@@ -23,6 +23,7 @@ class CreateConfVendorCatsTable extends Migration
             $table->unsignedBigInteger('updated_by');
             $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

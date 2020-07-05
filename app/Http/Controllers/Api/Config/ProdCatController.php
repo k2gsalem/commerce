@@ -61,10 +61,14 @@ class ProdCatController extends Controller
         ]);
         ConfStatus::findOrFail($request->status_id);
         $proCat = $this->model->create($request->all());
-        // $assets =$this->api->attach(['file'=>$request->file])->post('api/assets');
+        foreach($request->file as $file){
+            $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+            $proCat->assets()->save($assets);
+        }
+        
 
-        $assets = $this->api->post('api/assets', ['url' => $request->url]);
-        $proCat->assets()->save($assets);
+       // $assets = $this->api->post('api/assets', ['url' => $request->url]);
+       
         //  $assets->imageable()->save($proCat);
         return $this->response->created(url('api/proCat/' . $proCat->id));
 
