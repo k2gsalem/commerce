@@ -16,4 +16,9 @@ class Asset extends Model
      * @var array
      */
     protected $guarded = ['id'];
+    
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
 }

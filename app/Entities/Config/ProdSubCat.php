@@ -2,6 +2,7 @@
 
 namespace App\Entities\Config;
 
+use App\Entities\Assets\Asset;
 use App\Entities\Catalogue\Item;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,5 +37,9 @@ class ProdSubCat extends Model implements Auditable
     public function category()
     {
         return $this->belongsTo(ProdCat::class,'category_id','id');
+    }
+    public function assets()
+    {
+        return $this->morphMany(Asset::class,'imageable');
     }
 }

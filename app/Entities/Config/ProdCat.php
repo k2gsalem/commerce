@@ -2,6 +2,7 @@
 
 namespace App\Entities\Config;
 
+use App\Entities\Assets\Asset;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -22,5 +23,9 @@ class ProdCat extends Model implements Auditable
     public function subCategory()
     {
         return $this->hasMany(ProdSubCat::class, 'category_id','id');
+    }
+    public function assets()
+    {
+        return $this->morphMany(Asset::class,'imageable');
     }
 }

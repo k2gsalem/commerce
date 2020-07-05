@@ -18,6 +18,10 @@ class CreateProdCatsTable extends Migration
             $table->string('category_short_code',500);
             $table->mediumText('category_desc');
             $table->string('category_image',1000)->nullable();
+            // $table->unsignedBigInteger('asset_id')->nullable();
+            // $table->foreign('asset_id')->references('id')->on('assets')->onDelete('cascade');
+            // $table->uuid('asset_uuid')->index()->unique()->nullable();
+            // $table->foreign('asset_uuid')->references('uuid')->on('assets');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses');
             $table->unsignedBigInteger('created_by');
@@ -35,6 +39,7 @@ class CreateProdCatsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('prod_cats');
     }
 }

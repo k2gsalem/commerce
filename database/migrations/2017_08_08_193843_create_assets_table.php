@@ -20,6 +20,7 @@ class CreateAssetsTable extends Migration
             $table->string('type', 45)->nullable();
             $table->string('path', 45)->nullable();
             $table->string('mime', 45)->nullable();
+            $table->nullableMorphs('imageable');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

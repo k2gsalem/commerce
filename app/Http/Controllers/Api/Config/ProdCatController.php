@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\Config;
 
+use App\Entities\Assets\Asset;
+use App\Entities\Config\ConfStatus;
 use App\Entities\Config\ProdCat;
 use App\Http\Controllers\Controller;
 use App\Transformers\Config\ProdCatTransformer;
@@ -15,7 +17,7 @@ class ProdCatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    use Helpers;    
+    use Helpers;
     protected $model;
 
     public function __construct(ProdCat $model)
@@ -27,18 +29,17 @@ class ProdCatController extends Controller
         // $this->middleware('permission:Update users')->only('update');
         // $this->middleware('permission:Delete users')->only('destroy');
     }
-   
+
     public function index(Request $request)
     {
         //
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
-        }      
-       
-    
-        return $this->response->paginator($paginator, new ProdCatTransformer());
+        }
 
+
+        return $this->response->paginator($paginator, new ProdCatTransformer());
     }
 
     /**
@@ -49,6 +50,24 @@ class ProdCatController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $this->validate($request, [
+            'category_short_code' => 'required|max:300',
+            'category_desc' => 'required|max:300',
+            'category_desc' => 'required|max:300',
+            'status_id' => 'required|numeric',
+            'created_by' => 'required|numeric',
+            'updated_by' => 'required|numeric',
+        ]);
+        ConfStatus::findOrFail($request->status_id);     
+        $proCat = $this->model->create($request->all());
+       // $assets =$this->api->attach(['file'=>$request->file])->post('api/assets');
+       
+       $assets =$this->api->post('api/assets',['url'=>$request->url]);
+        $proCat->assets()->save($assets);
+      //  $assets->imageable()->save($proCat);
+         return $this->response->created(url('api/proCat/' . $proCat->id));
+
         //
     }
 

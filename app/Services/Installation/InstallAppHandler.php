@@ -161,7 +161,10 @@ class InstallAppHandler
      * @throws ValidationException
      */
     public function createAdminUser(array $attributes = [])
-    {
+    {   $attributes['name']="Admin";
+        $attributes['email']="admin@gmail.com";
+        $attributes['password']="12345678";
+        $attributes['password_confirmation']="12345678";
         $validator = validator($attributes, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
