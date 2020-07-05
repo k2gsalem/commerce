@@ -50,7 +50,7 @@ class ProdCatController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $this->validate($request, [
             'category_short_code' => 'required|max:300',
             'category_desc' => 'required|max:300',
@@ -59,14 +59,14 @@ class ProdCatController extends Controller
             'created_by' => 'required|numeric',
             'updated_by' => 'required|numeric',
         ]);
-        ConfStatus::findOrFail($request->status_id);     
+        ConfStatus::findOrFail($request->status_id);
         $proCat = $this->model->create($request->all());
-       // $assets =$this->api->attach(['file'=>$request->file])->post('api/assets');
-       
-       $assets =$this->api->post('api/assets',['url'=>$request->url]);
+        // $assets =$this->api->attach(['file'=>$request->file])->post('api/assets');
+
+        $assets = $this->api->post('api/assets', ['url' => $request->url]);
         $proCat->assets()->save($assets);
-      //  $assets->imageable()->save($proCat);
-         return $this->response->created(url('api/proCat/' . $proCat->id));
+        //  $assets->imageable()->save($proCat);
+        return $this->response->created(url('api/proCat/' . $proCat->id));
 
         //
     }
