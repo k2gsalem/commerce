@@ -5,9 +5,13 @@ namespace App\Entities\Vendor;
 use App\Entities\Catalogue\Item;
 use App\Entities\Stock\StockMaster;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as AuditingAuditable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Vendor extends Model
+class Vendor extends Model implements Auditable
 {
+    use SoftDeletes,AuditingAuditable;
     protected $fillable = [
         'vendor_name',
         'vendor_logo',

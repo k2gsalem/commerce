@@ -15,11 +15,11 @@ class VendorController extends Controller
     public function __construct(Vendor $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List vendor')->only('index');
+        $this->middleware('permission:List vendor')->only('show');
+        $this->middleware('permission:Create vendor')->only('store');
+        $this->middleware('permission:Update vendor')->only('update');
+        $this->middleware('permission:Delete vendor')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -79,6 +79,8 @@ class VendorController extends Controller
      */
     public function destroy(Vendor $vendor)
     {
-        //
+        $record = $this->model->findOrFail($vendor->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

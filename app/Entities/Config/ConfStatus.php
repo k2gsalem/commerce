@@ -8,12 +8,15 @@ use App\Entities\Stock\StockMaster;
 use App\Entities\Vendor\Supplier;
 use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class ConfStatus extends Model implements Auditable
 {
-    use AuditingAuditable;
+    use AuditingAuditable,SoftDeletes;
+   
+
     protected $fillable = [
         'status_desc', 'created_by', 'updated_by'
     ];

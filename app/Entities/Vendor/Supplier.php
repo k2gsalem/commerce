@@ -3,9 +3,13 @@
 namespace App\Entities\Vendor;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as AuditingAuditable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Supplier extends Model
+class Supplier extends Model implements Auditable
 {
+    use SoftDeletes,AuditingAuditable;
     protected $fillable = [
         'supplier_name',
         'supplier_logo',

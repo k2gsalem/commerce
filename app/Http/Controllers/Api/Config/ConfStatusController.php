@@ -15,11 +15,11 @@ class ConfStatusController extends Controller
     public function __construct(ConfStatus $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List config status')->only('index');
+        $this->middleware('permission:List config status')->only('show');
+        $this->middleware('permission:Create config status')->only('store');
+        $this->middleware('permission:Update config status')->only('update');
+        $this->middleware('permission:Delete config status')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -92,7 +92,10 @@ class ConfStatusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(ConfStatus $confStatus)
-    {
+    {       
+        $record = $this->model->findOrFail($confStatus->id);
+        $record->delete();
+        return $this->response->noContent();
         //
     }
 }

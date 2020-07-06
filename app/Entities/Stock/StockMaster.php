@@ -6,9 +6,13 @@ use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariant;
 use App\Entities\Config\ConfStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as AuditingAuditable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class StockMaster extends Model
+class StockMaster extends Model implements Auditable
 {
+    use SoftDeletes,AuditingAuditable;
     protected $fillable=[
         'item_id',
         'variant_id',

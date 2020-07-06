@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Config;
 
+use App\Entities\Config\ConfStatus;
 use App\Entities\Config\ConfSupplierCat;
 use App\Http\Controllers\Controller;
 use App\Transformers\Config\ConfSupplierTransformer;
@@ -21,11 +22,11 @@ class ConfSupplierCatController extends Controller
     public function __construct(ConfSupplierCat $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List config supplier')->only('index');
+        $this->middleware('permission:List config supplier')->only('show');
+        $this->middleware('permission:Create config supplier')->only('store');
+        $this->middleware('permission:Update config supplier')->only('update');
+        $this->middleware('permission:Delete config supplier')->only('destroy');
     }
      
     public function index(Request $request)
@@ -57,6 +58,7 @@ class ConfSupplierCatController extends Controller
             'created_by' => 'required|numeric',
             'updated_by' => 'required|numeric',
         ]);
+        ConfStatus::findOrFail($request->id);
         $confSupplierCat = $this->model->create($request->all());
         return $this->response->created(url('api/confSupplierCat/'.$confSupplierCat->id));
     }
@@ -92,6 +94,8 @@ class ConfSupplierCatController extends Controller
      */
     public function destroy(ConfSupplierCat $confSupplierCat)
     {
-        //
+        $record = $this->model->findOrFail($confSupplierCat->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

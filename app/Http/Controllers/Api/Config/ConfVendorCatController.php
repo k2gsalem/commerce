@@ -22,11 +22,11 @@ class ConfVendorCatController extends Controller
     public function __construct(ConfVendorCat $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List config vendor')->only('index');
+        $this->middleware('permission:List config vendor')->only('show');
+        $this->middleware('permission:Create config vendor')->only('store');
+        $this->middleware('permission:Update config vendor')->only('update');
+        $this->middleware('permission:Delete config vendor')->only('destroy');
     }
   
 
@@ -95,6 +95,8 @@ class ConfVendorCatController extends Controller
      */
     public function destroy(ConfVendorCat $confVendorCat)
     {
-        //
+        $record = $this->model->findOrFail($confVendorCat->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

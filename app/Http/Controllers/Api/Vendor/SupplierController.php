@@ -15,11 +15,11 @@ class SupplierController extends Controller
     public function __construct(Supplier $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List supplier')->only('index');
+        $this->middleware('permission:List supplier')->only('show');
+        $this->middleware('permission:Create supplier')->only('store');
+        $this->middleware('permission:Update supplier')->only('update');
+        $this->middleware('permission:Delete supplier')->only('destroy');
     }
 
     /**
@@ -80,6 +80,8 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        $record = $this->model->findOrFail($supplier->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

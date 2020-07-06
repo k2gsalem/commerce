@@ -23,11 +23,11 @@ class ProdCatController extends Controller
     public function __construct(ProdCat $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List product category')->only('index');
+        $this->middleware('permission:List product category')->only('show');
+        $this->middleware('permission:Create product category')->only('store');
+        $this->middleware('permission:Update product category')->only('update');
+        $this->middleware('permission:Delete product category')->only('destroy');
     }
 
     public function index(Request $request)
@@ -61,10 +61,21 @@ class ProdCatController extends Controller
         ]);
         ConfStatus::findOrFail($request->status_id);
         $proCat = $this->model->create($request->all());
-        foreach($request->file as $file){
-            $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+        if($request->has('file')){
+            foreach($request->file as $file){
+                $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+                $proCat->assets()->save($assets);
+            }
+        }else if($request->has('url')){
+            $assets = $this->api->post('api/assets', ['url' => $request->url]);
             $proCat->assets()->save($assets);
+        }else if($request->has('uuid')){
+            $a=Asset::byUuid($request->uuid)->get();
+            $assets= Asset::findOrFail($a[0]->id);
+            $proCat->assets()->save($assets);         
+
         }
+        
         
 
        // $assets = $this->api->post('api/assets', ['url' => $request->url]);
@@ -106,6 +117,8 @@ class ProdCatController extends Controller
      */
     public function destroy(ProdCat $prodCat)
     {
-        //
+        $record = $this->model->findOrFail($prodCat->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

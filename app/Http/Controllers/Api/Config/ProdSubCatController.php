@@ -21,11 +21,11 @@ class ProdSubCatController extends Controller
     public function __construct(ProdSubCat $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List product sub category')->only('index');
+        $this->middleware('permission:List product sub category')->only('show');
+        $this->middleware('permission:Create product sub category')->only('store');
+        $this->middleware('permission:Update product sub category')->only('update');
+        $this->middleware('permission:Delete product sub category')->only('destroy');
     }
     public function index(Request $request)
     {
@@ -82,6 +82,8 @@ class ProdSubCatController extends Controller
      */
     public function destroy(ProdSubCat $prodSubCat)
     {
-        //
+        $record = $this->model->findOrFail($prodSubCat->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

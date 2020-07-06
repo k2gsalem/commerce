@@ -16,11 +16,11 @@ class ItemVariantController extends Controller
     public function __construct(ItemVariant $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List item variant')->only('index');
+        $this->middleware('permission:List item variant')->only('show');
+        $this->middleware('permission:Create item variant')->only('store');
+        $this->middleware('permission:Update item variant')->only('update');
+        $this->middleware('permission:Delete item variant')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -83,6 +83,8 @@ class ItemVariantController extends Controller
      */
     public function destroy(ItemVariant $itemVariant)
     {
-        //
+        $record = $this->model->findOrFail($itemVariant->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

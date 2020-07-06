@@ -4,13 +4,16 @@ namespace App\Entities\Assets;
 
 use App\Support\UuidScopeTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as AuditingAuditable;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Class Asset.
  */
-class Asset extends Model
+class Asset extends Model implements Auditable
 {
-    use UuidScopeTrait;
+    use UuidScopeTrait,AuditingAuditable,SoftDeletes;
 
     /**
      * @var array

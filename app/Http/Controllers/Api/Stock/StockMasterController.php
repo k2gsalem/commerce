@@ -16,11 +16,11 @@ class StockMasterController extends Controller
     public function __construct(StockMaster $model)
     {
         $this->model = $model;
-        // $this->middleware('permission:List users')->only('index');
-        // $this->middleware('permission:List users')->only('show');
-        // $this->middleware('permission:Create users')->only('store');
-        // $this->middleware('permission:Update users')->only('update');
-        // $this->middleware('permission:Delete users')->only('destroy');
+        $this->middleware('permission:List stock')->only('index');
+        $this->middleware('permission:List stock')->only('show');
+        $this->middleware('permission:Create stock')->only('store');
+        $this->middleware('permission:Update stock')->only('update');
+        $this->middleware('permission:Delete stock')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -83,6 +83,8 @@ class StockMasterController extends Controller
      */
     public function destroy(StockMaster $stockMaster)
     {
-        //
+        $record = $this->model->findOrFail($stockMaster->id);
+        $record->delete();
+        return $this->response->noContent();
     }
 }

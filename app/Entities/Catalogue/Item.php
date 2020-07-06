@@ -5,12 +5,13 @@ namespace App\Entities\Catalogue;
 use App\Entities\Config\ProdSubCat;
 use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Item extends Model implements Auditable
 {
-    use AuditingAuditable;
+    use AuditingAuditable,SoftDeletes;
     protected $fillable=[
         'sub_category_id',
         'item_code',
