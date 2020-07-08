@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Config;
 
 use App\Entities\Assets\Asset;
-use App\Entities\Config\ConfStatus;
 use App\Entities\Config\ProdCat;
 use App\Http\Controllers\Controller;
 use App\Transformers\Config\ProdCatTransformer;
@@ -50,16 +49,14 @@ class ProdCatController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate($request, [
-            'category_short_code' => 'required|max:300',
-            'category_desc' => 'required|max:300',
-            'category_desc' => 'required|max:300',
-            'status_id' => 'required|numeric',
-            'created_by' => 'required|numeric',
-            'updated_by' => 'required|numeric',
-        ]);
-        ConfStatus::findOrFail($request->status_id);
+        $rules = [
+            'category_short_code' => 'required|string|min:3|max:20',
+            'category_desc' => 'required|string|max:300',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+            'created_by' => 'required|integer|exists:users,id',
+            'updated_by' => 'required|integer|exists:users,id',
+        ];
+        $this->validate($request,$rules);           
         $proCat = $this->model->create($request->all());
         if($request->has('file')){
             foreach($request->file as $file){
@@ -74,8 +71,7 @@ class ProdCatController extends Controller
             $assets= Asset::findOrFail($a[0]->id);
             $proCat->assets()->save($assets);         
 
-        }
-        
+        } 
         
 
        // $assets = $this->api->post('api/assets', ['url' => $request->url]);

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\Catalogue;
 
+use App\Entities\Assets\Asset;
 use App\Entities\Catalogue\ItemVariant;
+use App\Entities\Config\ConfStatus;
 use App\Http\Controllers\Controller;
 use App\Transformers\Catalogue\ItemVariantTransformer;
 use Dingo\Api\Routing\Helpers;
@@ -49,7 +51,32 @@ class ItemVariantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [    
+            'sub_category_id'=>'required|numeric',
+            'item_code'=>'required|min:3|max:100',
+            'item_desc'=>'required|max:300',           
+            'vendor_store_id'=>'required|numeric',
+            'status_id'=>'required|numeric',
+            'created_by'=>'required|numeric',
+            'updated_by'=>'required|numeric',                       
+        ]);
+        ConfStatus::findOrFail($request->status_id);
+        $itemVariant = $this->model->create($request->all());
+        if($request->has('file')){
+            foreach($request->file as $file){
+                $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+                $itemVariant->assets()->save($assets);
+            }
+        }else if($request->has('url')){
+            $assets = $this->api->post('api/assets', ['url' => $request->url]);
+            $itemVariant->assets()->save($assets);
+        }else if($request->has('uuid')){
+            $a=Asset::byUuid($request->uuid)->get();
+            $assets= Asset::findOrFail($a[0]->id);
+            $itemVariant->assets()->save($assets);         
+
+        } 
+        return $this->response->created(url('api/itemVariant/' . $itemVariant->id));
     }
 
     /**
