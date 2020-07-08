@@ -16,7 +16,7 @@ class CreateVendorsTable extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('vendor_name',1000);
-            $table->string('vendor_logo',1000)->nullable();
+            // $table->string('vendor_logo',1000)->nullable();
             $table->bigInteger('vendor_category_id')->unsigned();
             $table->foreign('vendor_category_id')->references('id')->on('conf_vendor_cats');
             $table->mediumText('vendor_desc')->nullable();

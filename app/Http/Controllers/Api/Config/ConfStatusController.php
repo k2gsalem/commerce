@@ -51,12 +51,14 @@ class ConfStatusController extends Controller
      */
     public function store(Request $request)
     {
+        //  return $request->user()->id;
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;  
+       
         $rules=[
-            'status_desc' => 'required|string|min:5|max:300',
-            'status_id' => 'required|integer|exists:conf_statuses,id',
-            'created_by' => 'required|integer|exists:users,id',
-            'updated_by' => 'required|integer|exists:users,id',
+            'status_desc' => 'required|string|min:1|max:300'         
         ];  
+        
         $this->validate($request,$rules);
         $confStatus = $this->model->create($request->all());
         return $this->response->created(url('api/confStatus/'.$confStatus->id));

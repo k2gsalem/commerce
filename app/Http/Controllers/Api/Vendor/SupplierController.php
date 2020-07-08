@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api\Vendor;
 
 use App\Entities\Assets\Asset;
-use App\Entities\Config\ConfStatus;
-use App\Entities\Config\ConfSupplierCat;
 use App\Entities\Vendor\Supplier;
 use App\Http\Controllers\Controller;
 use App\Transformers\Vendor\SupplierTransformer;
@@ -49,21 +47,23 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;
         $this->validate($request,[
             'supplier_name'=>'required|string',
-            'supplier_logo'=>'file|size:512|mimes:jpeg,jpg,png',
-            'supplier_category_id'=>'required|integer',
-            'supplier_desc'=>'required|srting|max:300',
-            'supplier_address'=>'required|string|max:300',
-            'supplier_contact'=>'required|size:10',
+            'file'=>'file|size:512|mimes:jpeg,jpg,png',
+            'supplier_category_id'=>'required|exists:conf_supplier_cats,id',
+            'supplier_desc'=>'required|srting|min:5|max:300',
+            'supplier_address'=>'required|string|max:200',
+            'supplier_contact'=>'required|numeric|min:10|max:13',
             'supplier_email'=>'required|email',
-            'status_id'=>'required|integer',
-            'created_by'=>'required|integer',
-            'updated_by'=>'required|integer'
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+            // 'created_by' => 'required|integer|exists:users,id',
+            // 'updated_by' => 'required|integer|exists:users,id'    
            
         ]);
-        ConfStatus::findOrFail($request->status_id);
-        ConfSupplierCat::findOrFail($request->supplier_category_id);
+        // ConfStatus::findOrFail($request->status_id);
+        // ConfSupplierCat::findOrFail($request->supplier_category_id);
         $supplier = $this->model->create($request->all());
         if($request->has('file')){
             foreach($request->file as $file){

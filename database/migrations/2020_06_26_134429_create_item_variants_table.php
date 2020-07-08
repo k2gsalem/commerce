@@ -17,9 +17,9 @@ class CreateItemVariantsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items');
-            $table->string('variant_code',500)->unique();
+            $table->string('variant_code',200)->unique();
             $table->mediumText('variant_desc',1000);      
-            $table->string('variant_image',500)->nullable();
+            // $table->string('variant_image',500)->nullable();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses');
             $table->unsignedBigInteger('created_by');

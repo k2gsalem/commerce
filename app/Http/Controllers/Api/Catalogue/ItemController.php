@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Catalogue;
 
 use App\Entities\Assets\Asset;
 use App\Entities\Catalogue\Item;
-use App\Entities\Config\ConfStatus;
 use App\Http\Controllers\Controller;
 use App\Transformers\Catalogue\ItemTransfomer;
 use Dingo\Api\Routing\Helpers;
@@ -51,16 +50,19 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [    
-            'sub_category_id'=>'required|numeric',
-            'item_code'=>'required|min:3|max:100',
-            'item_desc'=>'required|max:300',           
-            'vendor_store_id'=>'required|numeric',
-            'status_id'=>'exists:App\Entities\Config\ConfStatus,id',
-            'created_by'=>'required|numeric',
-            'updated_by'=>'required|numeric',                       
-        ]);
-        ConfStatus::findOrFail($request->status_id);
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;
+        $rules=[
+            'sub_category_id'=>'required|exists:prod_sub_cats,id',
+            'item_code'=>'required|srting|min:3|max:100',
+            'item_desc'=>'required|string|min:5|max:300',
+            'file'=>'file|size:512|mimes:jpeg,jpg,png',           
+            'vendor_store_id'=>'required|integer|exists:vendors,id',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+            // 'created_by' => 'required|integer|exists:users,id',
+            // 'updated_by' => 'required|integer|exists:users,id'  
+        ];
+        $this->validate($request, $rules);
         $item = $this->model->create($request->all());
         if($request->has('file')){
             foreach($request->file as $file){

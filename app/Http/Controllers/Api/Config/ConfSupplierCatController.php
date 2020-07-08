@@ -51,13 +51,15 @@ class ConfSupplierCatController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $this->validate($request, [
-            'supplier_cat_desc' => 'required|max:300',
-            'status_id' => 'required|numeric',
-            'created_by' => 'required|numeric',
-            'updated_by' => 'required|numeric',
-        ]);
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;
+        $rules=[
+            'supplier_cat_desc' => 'required|string|min:5|max:300',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+            // 'created_by' => 'required|integer|exists:users,id',
+            // 'updated_by' => 'required|integer|exists:users,id',
+        ];
+        $this->validate($request, $rules);
         ConfStatus::findOrFail($request->id);
         $confSupplierCat = $this->model->create($request->all());
         return $this->response->created(url('api/confSupplierCat/'.$confSupplierCat->id));

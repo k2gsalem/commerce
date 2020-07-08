@@ -52,13 +52,17 @@ class ConfVendorCatController extends Controller
      */
     public function store(Request $request)
     {
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;
+        $rules=[
+            'vendor_cat_desc' => 'required|string|min:5|max:300',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+            // 'created_by' => 'required|integer|exists:users,id',
+            // 'updated_by' => 'required|integer|exists:users,id',
+        ];
+
         //
-        $this->validate($request, [
-            'vendor_cat_desc' => 'required|max:300',
-            'status_id' => 'required|numeric',
-            'created_by' => 'required|numeric',
-            'updated_by' => 'required|numeric',
-        ]);
+        $this->validate($request, $rules);
         $ConfVendorCat = $this->model->create($request->all());
         return $this->response->created(url('api/ConfVendorCat/'.$ConfVendorCat->id));
 

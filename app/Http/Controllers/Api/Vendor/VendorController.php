@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Vendor;
 
+use App\Entities\Assets\Asset;
 use App\Entities\Vendor\Vendor;
 use App\Http\Controllers\Controller;
 use App\Transformers\Vendor\VendorTransformer;
@@ -45,7 +46,39 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;
+        $rules=[
+            'vendor_name'=>'required|string',
+            'file'=>'file:2048|mimes:png,jpg,jpeg',
+            'vendor_category_id'=>'required|integer|exists:conf_vendor_cats,id',
+            'vendor_desc'=>'required|string|min:5|max:300',
+            'vendor_address'=>'required|string|min:5|max:200',
+            'vendor_contact'=>'required|string|min:10|max:13',
+            'vendor_email'=>'required|email',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+            // 'created_by' => 'required|integer|exists:users,id',
+            // 'updated_by' => 'required|integer|exists:users,id'         
+           
+            
+        ];
+        $this->validate($request,$rules);
+        $vendor = $this->model->create($request->all());
+        if($request->has('file')){
+            foreach($request->file as $file){
+                $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+                $vendor->assets()->save($assets);
+            }
+        }else if($request->has('url')){
+            $assets = $this->api->post('api/assets', ['url' => $request->url]);
+            $vendor->assets()->save($assets);
+        }else if($request->has('uuid')){
+            $a=Asset::byUuid($request->uuid)->get();
+            $assets= Asset::findOrFail($a[0]->id);
+            $vendor->assets()->save($assets);         
+
+        } 
+        return $this->response->created(url('api/vendor/' . $vendor->id));
     }
 
     /**

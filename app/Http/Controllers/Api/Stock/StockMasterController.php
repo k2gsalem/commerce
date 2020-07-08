@@ -49,6 +49,19 @@ class StockMasterController extends Controller
      */
     public function store(Request $request)
     {
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;
+        $rules=[
+            'item_id'=>'required|integer|exists:items,id',
+            'variant_id'=>'required|integer|exists:item_variants,id',
+            'vendor_id'=>'required|integer|exists:vendors,id',
+            'stock_quantity'=>'required|integer',
+            'stock_threshold'=>'required|integer',
+            'status_id' => 'required|integer|exists:conf_statuses,id',           
+        ];
+        $this->validate($request,$rules);
+        $stock = $this->model->create($request->all());
+        return $this->response->created(url('api/stock/'.$stock->id));
         //
     }
 

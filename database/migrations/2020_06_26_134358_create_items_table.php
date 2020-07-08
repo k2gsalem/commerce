@@ -17,9 +17,9 @@ class CreateItemsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('sub_category_id')->unsigned();
             $table->foreign('sub_category_id')->references('id')->on('prod_sub_cats');
-            $table->string('item_code',500)->unique();
+            $table->string('item_code',200)->unique();
             $table->mediumText('item_desc',1000);      
-            $table->string('item_image',1000)->nullable();
+            // $table->string('item_image',1000)->nullable();
             $table->unsignedBigInteger('vendor_store_id');
             $table->foreign('vendor_store_id')->references('id')->on('vendors');
             $table->unsignedBigInteger('status_id');

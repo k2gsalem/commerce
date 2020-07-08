@@ -15,9 +15,9 @@ class CreateProdCatsTable extends Migration
     {
         Schema::create('prod_cats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category_short_code',500);
+            $table->string('category_short_code',200)->unique();
             $table->mediumText('category_desc');
-            $table->string('category_image',1000)->nullable();
+            // $table->string('category_image',1000)->nullable();
             // $table->unsignedBigInteger('asset_id')->nullable();
             // $table->foreign('asset_id')->references('id')->on('assets')->onDelete('cascade');
             // $table->uuid('asset_uuid')->index()->unique()->nullable();

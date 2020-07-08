@@ -16,7 +16,7 @@ class CreateSuppliersTable extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('supplier_name',1000);
-            $table->string('supplier_logo',1000)->nullable();
+            // $table->string('supplier_logo',1000)->nullable();
             $table->bigInteger('supplier_category_id')->unsigned();
             $table->foreign('supplier_category_id')->references('id')->on('conf_supplier_cats');
             $table->mediumText('supplier_desc')->nullable();

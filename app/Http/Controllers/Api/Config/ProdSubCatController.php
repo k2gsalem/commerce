@@ -49,14 +49,16 @@ class ProdSubCatController extends Controller
      */
     public function store(Request $request)
     {
+        $request['created_by']=$request->user()->id;
+        $request['updated_by']=$request->user()->id;
         $rules = [
             'category_id'=>'required|exists:prod_cats,id',
-            'sub_category_short_code'=>'required|string|min:3|max:20',
-            'sub_category_desc'=>'required|string|max:300',
-            'sub_category_image'=>'file:2048|mimes:png,jpg,jpeg',           
+            'sub_category_short_code'=>'required|unique:prod_sub_cats,sub_category_short_code|string|min:3|max:20',
+            'sub_category_desc'=>'required|string|min:5|max:300',
+            'file'=>'file|size:512|mimes:jpeg,jpg,png',           
             'status_id' => 'required|integer|exists:conf_statuses,id',
-            'created_by' => 'required|integer|exists:users,id',
-            'updated_by' => 'required|integer|exists:users,id'          
+            // 'created_by' => 'required|integer|exists:users,id',
+            // 'updated_by' => 'required|integer|exists:users,id'          
         ];
         $this->validate($request,$rules);
         $proSubCat = $this->model->create($request->all());

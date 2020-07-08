@@ -17,9 +17,9 @@ class CreateProdSubCatsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('prod_cats');
-            $table->string('sub_category_short_code',500)->nullable();
+            $table->string('sub_category_short_code',200)->unique();
             $table->mediumText('sub_category_desc');
-            $table->string('sub_category_image',1000)->nullable();
+            // $table->string('sub_category_image',1000)->nullable();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses');
             $table->unsignedBigInteger('created_by');
