@@ -32,7 +32,7 @@ $factory->define(Asset::class, function (Faker $faker) {
         'user_id'=>1,
         'uuid'=>$faker->uuid,
         'type'=>'image',
-        'path'=>$faker->image(storage_path(),200,200, null, false),
+        'path'=>$faker->image(storage_path('app/public'),200,200, null, false),
         // 'path'=>$faker->image($filepath,400, 300),
         'mime'=>'jpg',
         'imageable_type'=>$imageableType,
