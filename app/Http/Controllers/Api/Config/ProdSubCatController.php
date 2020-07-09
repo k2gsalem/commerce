@@ -55,7 +55,8 @@ class ProdSubCatController extends Controller
             'category_id'=>'required|exists:prod_cats,id',
             'sub_category_short_code'=>'required|unique:prod_sub_cats,sub_category_short_code|string|min:3|max:20',
             'sub_category_desc'=>'required|string|min:5|max:300',
-            'file'=>'file|size:512|mimes:jpeg,jpg,png',           
+            'file'=>'array',
+            'file.*'=>'image|mimes:jpeg,jpg,png|max:2048',           
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
             // 'updated_by' => 'required|integer|exists:users,id'          

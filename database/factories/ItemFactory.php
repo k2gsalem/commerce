@@ -14,7 +14,7 @@ $factory->define(Item::class, function (Faker $faker) {
         'sub_category_id' => ProdSubCat::all()->random()->id,
         'item_code' => Str::upper(Str::random(5)),
         'item_desc' => $faker->sentence(),
-        'item_image' => $faker->imageUrl(),
+        // 'item_image' => $faker->imageUrl(),
         'vendor_store_id' => Vendor::all()->random()->id,
         'status_id' => ConfStatus::all()->random()->id,
         'created_by' => 1,

@@ -51,7 +51,8 @@ class SupplierController extends Controller
         $request['updated_by']=$request->user()->id;
         $this->validate($request,[
             'supplier_name'=>'required|string',
-            'file'=>'file|size:512|mimes:jpeg,jpg,png',
+            'file'=>'array',
+            'file.*'=>'image|mimes:jpeg,jpg,png|max:1024',
             'supplier_category_id'=>'required|exists:conf_supplier_cats,id',
             'supplier_desc'=>'required|srting|min:5|max:300',
             'supplier_address'=>'required|string|max:200',

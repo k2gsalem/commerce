@@ -11,7 +11,7 @@ $factory->define(Supplier::class, function (Faker $faker) {
     return [
         
         'supplier_name' => $faker->name(),
-        'supplier_logo' => $faker->imageUrl($width = 640, $height = 480),
+        // 'supplier_logo' => $faker->imageUrl($width = 640, $height = 480),
         'supplier_category_id' => ConfSupplierCat::all()->random()->id,
         'supplier_desc' => $faker->paragraph(),
         'supplier_address' => $faker->address,

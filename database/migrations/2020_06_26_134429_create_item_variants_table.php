@@ -16,16 +16,16 @@ class CreateItemVariantsTable extends Migration
         Schema::create('item_variants', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('item_id')->unsigned();
-            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->string('variant_code',200)->unique();
             $table->mediumText('variant_desc',1000);      
             // $table->string('variant_image',500)->nullable();
             $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('conf_statuses');
+            $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');
             $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('updated_by');
-            $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

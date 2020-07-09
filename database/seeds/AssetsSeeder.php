@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SupplierSeeder extends Seeder
+class AssetsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,6 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Entities\Vendor\Supplier::class,10)->create();
-        //
+        factory(\App\Entities\Assets\Asset::class,10)->create();
     }
 }

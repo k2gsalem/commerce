@@ -10,7 +10,7 @@ use Faker\Generator as Faker;
 $factory->define(Vendor::class, function (Faker $faker) {
     return [
         'vendor_name' => $faker->name(),
-        'vendor_logo' => $faker->imageUrl($width = 640, $height = 480),
+        // 'vendor_logo' => $faker->imageUrl($width = 640, $height = 480),
         'vendor_category_id' => ConfVendorCat::all()->random()->id,
         'vendor_desc' => $faker->paragraph(),
         'vendor_address' => $faker->address,

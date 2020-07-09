@@ -50,7 +50,8 @@ class VendorController extends Controller
         $request['updated_by']=$request->user()->id;
         $rules=[
             'vendor_name'=>'required|string',
-            'file'=>'file:2048|mimes:png,jpg,jpeg',
+            'file'=>'array',
+            'file.*'=>'image|mimes:jpeg,jpg,png|max:1024',
             'vendor_category_id'=>'required|integer|exists:conf_vendor_cats,id',
             'vendor_desc'=>'required|string|min:5|max:300',
             'vendor_address'=>'required|string|min:5|max:200',

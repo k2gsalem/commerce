@@ -17,9 +17,9 @@ class CreateConfStatusesTable extends Migration
             $table->bigIncrements('id');
             $table->mediumText('status_desc');
             $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('updated_by');
-            $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             // $table->nullableMorphs('statusable');
             $table->timestamps();
             $table->softDeletes();

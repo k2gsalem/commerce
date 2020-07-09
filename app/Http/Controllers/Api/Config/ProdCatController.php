@@ -52,9 +52,10 @@ class ProdCatController extends Controller
         $request['created_by']=$request->user()->id;
         $request['updated_by']=$request->user()->id;
         $rules = [
-            'category_short_code' => 'required|string|min:3|max:20',
+            'category_short_code' => 'required|string|unique:prod_cats,category_short_code|min:3|max:20',
             'category_desc' => 'required|string|max:300',
-            'file'=>'file|size:512|mimes:jpeg,jpg,png',
+            'file'=>'array',
+            'file.*'=>'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
             // 'updated_by' => 'required|integer|exists:users,id',

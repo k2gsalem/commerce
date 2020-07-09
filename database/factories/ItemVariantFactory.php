@@ -13,7 +13,7 @@ $factory->define(ItemVariant::class, function (Faker $faker) {
         'item_id' => Item::all()->unique()->random()->id,
         'variant_code' => Str::upper(Str::random(5)),
         'variant_desc' => $faker->sentence(),
-        'variant_image' => $faker->imageUrl(),
+        // 'variant_image' => $faker->imageUrl(),
         'status_id' =>ConfStatus::all()->random()->id,
         'created_by' => 1,
         'updated_by' => 1,
