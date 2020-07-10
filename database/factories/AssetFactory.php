@@ -18,7 +18,7 @@ $factory->define(Asset::class, function (Faker $faker) {
         ProdSubCat::class,
         Supplier::class,
         Vendor::class,
-        // Item::class,
+       // Item::class,
         // ItemVariant::class,
 
     ]; // Add new noteables here as we make them
