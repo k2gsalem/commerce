@@ -17,8 +17,8 @@ $factory->define(Asset::class, function (Faker $faker) {
         ProdSubCat::class,
         Supplier::class,
         Vendor::class,
-        Item::class,
-        ItemVariant::class,
+        // Item::class,
+        // ItemVariant::class,
        
             
        
@@ -32,7 +32,7 @@ $factory->define(Asset::class, function (Faker $faker) {
         'user_id'=>1,
         'uuid'=>$faker->uuid,
         'type'=>'image',
-        'path'=>$faker->image(storage_path('app/'),400,300, null, false),
+        'path'=>$faker->image(storage_path('app/'),200,200, null, false),
         // 'path'=>$faker->image($filepath,400, 300),
         'mime'=>'jpg',
         'imageable_type'=>$imageableType,

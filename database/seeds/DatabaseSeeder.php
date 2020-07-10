@@ -24,10 +24,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ItemSeeder::class);
         $this->call(ItemVariantSeeder::class);
-        $this->call(AssetsSeeder::class);
+        
 
         $this->call(StockMasterSeeder::class);
 
         $this->call(PassportSeeder::class);
+        $this->call(AssetsSeeder::class);
     }
 }
