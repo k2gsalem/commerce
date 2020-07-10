@@ -11,6 +11,6 @@ class AssetsSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Entities\Assets\Asset::class,470)->create();
+        factory(\App\Entities\Assets\Asset::class,450)->create();
     }
 }
