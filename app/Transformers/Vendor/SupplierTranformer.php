@@ -2,13 +2,16 @@
 namespace App\Transformers\Vendor;
 
 use App\Entities\Vendor\Supplier;
+use App\Transformers\Assets\AssetTransformer;
 use App\Transformers\Config\ConfSupplierTransformer;
 use League\Fractal\TransformerAbstract;
 
 class SupplierTransformer extends TransformerAbstract
 {
     // protected $defaultIncludes = ['consupplier'];
-   
+    protected $defaultIncludes = [
+        'Assets',
+    ];
     public function transform(Supplier $model)
     {
         
@@ -36,4 +39,9 @@ class SupplierTransformer extends TransformerAbstract
     //     return $this->item($model->supplierCategory, new ConfSupplierTransformer()); 
     //    // return $this->collection($model->confStatus, new ConfStatusTransformer());
     // }
+    public function includeAssets(Supplier $model)
+    {
+        
+        return $this->collection($model->assets, new AssetTransformer());
+    }
 }

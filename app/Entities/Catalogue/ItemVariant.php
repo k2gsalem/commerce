@@ -2,6 +2,7 @@
 
 namespace App\Entities\Catalogue;
 
+use App\Entities\Assets\Asset;
 use App\Entities\Config\ConfStatus;
 use App\Entities\Stock\StockMaster;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,10 @@ class ItemVariant extends Model implements Auditable
     public function stock()
     {
         return $this->hasMany(StockMaster::class,'variant_id','id');
+    }
+    public function assets()
+    {
+        return $this->morphMany(Asset::class,'imageable');
     }
     //
 }

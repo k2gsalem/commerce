@@ -2,6 +2,7 @@
 
 namespace App\Entities\Vendor;
 
+use App\Entities\Assets\Asset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -32,6 +33,10 @@ class Supplier extends Model implements Auditable
     {
         return $this->hasOne('App\Entities\Config\ConfSupplierCat','id','supplier_category_id');
        
+    }
+    public function assets()
+    {
+        return $this->morphMany(Asset::class,'imageable');
     }
     //
 }

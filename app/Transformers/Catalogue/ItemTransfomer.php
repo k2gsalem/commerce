@@ -3,6 +3,7 @@
 namespace App\Transformers\Catalogue;
 
 use App\Entities\Catalogue\Item;
+use App\Transformers\Assets\AssetTransformer;
 use League\Fractal\TransformerAbstract;
 
 class ItemTransfomer extends TransformerAbstract
@@ -10,6 +11,9 @@ class ItemTransfomer extends TransformerAbstract
     // protected $defaultIncludes = [
     //     'ItemVariants'
     // ];
+    protected $defaultIncludes = [
+        'Assets',
+    ];
     public function transform(Item $model)
     {
         return [
@@ -33,5 +37,9 @@ class ItemTransfomer extends TransformerAbstract
     // {
     //         return $this->collection($model->itemVariant ,new ItemVariantTransformer());
     // }
+    public function includeAssets(Item $model)
+    {
+        return $this->collection($model->assets, new AssetTransformer());
+    }
 
 }

@@ -65,21 +65,26 @@ class SupplierController extends Controller
         ]);
         // ConfStatus::findOrFail($request->status_id);
         // ConfSupplierCat::findOrFail($request->supplier_category_id);
-        $supplier = $this->model->create($request->all());
+        
         if($request->has('file')){
             foreach($request->file as $file){
                 $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+                $supplier = $this->model->create($request->all());
                 $supplier->assets()->save($assets);
             }
         }else if($request->has('url')){
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
+            $supplier = $this->model->create($request->all());
             $supplier->assets()->save($assets);
         }else if($request->has('uuid')){
             $a=Asset::byUuid($request->uuid)->get();
             $assets= Asset::findOrFail($a[0]->id);
+            $supplier = $this->model->create($request->all());
             $supplier->assets()->save($assets);         
 
-        } 
+        } else{
+            $supplier = $this->model->create($request->all());
+        }
         return $this->response->created(url('api/supplier/' . $supplier->id));
         //
     }

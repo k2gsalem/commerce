@@ -64,21 +64,26 @@ class VendorController extends Controller
             
         ];
         $this->validate($request,$rules);
-        $vendor = $this->model->create($request->all());
+        
         if($request->has('file')){
             foreach($request->file as $file){
                 $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+                $vendor = $this->model->create($request->all());
                 $vendor->assets()->save($assets);
             }
         }else if($request->has('url')){
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
+            $vendor = $this->model->create($request->all());
             $vendor->assets()->save($assets);
         }else if($request->has('uuid')){
             $a=Asset::byUuid($request->uuid)->get();
             $assets= Asset::findOrFail($a[0]->id);
-            $vendor->assets()->save($assets);         
+            $vendor = $this->model->create($request->all());
+            $vendor->assets()->save($assets);        
 
-        } 
+        } else{
+            $vendor = $this->model->create($request->all());
+        }
         return $this->response->created(url('api/vendor/' . $vendor->id));
     }
 

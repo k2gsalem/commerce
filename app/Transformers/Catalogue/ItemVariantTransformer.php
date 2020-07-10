@@ -3,10 +3,14 @@
 namespace App\Transformers\Catalogue;
 
 use App\Entities\Catalogue\ItemVariant;
+use App\Transformers\Assets\AssetTransformer;
 use League\Fractal\TransformerAbstract;
 
 class ItemVariantTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = [
+        'Assets',
+    ];
     public function transform(ItemVariant $model)
     {
         return [
@@ -22,5 +26,9 @@ class ItemVariantTransformer extends TransformerAbstract
             'updated_by'=>(int)$model->updated_by,
         ];
 
+    }
+    public function includeAssets(ItemVariant $model)
+    {
+        return $this->collection($model->assets, new AssetTransformer());
     }
 }

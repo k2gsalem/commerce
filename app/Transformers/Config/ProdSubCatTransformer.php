@@ -2,6 +2,7 @@
 namespace App\Transformers\Config;
 
 use App\Entities\Config\ProdSubCat;
+use App\Transformers\Assets\AssetTransformer;
 use App\Transformers\Catalogue\ItemTransfomer;
 use League\Fractal\TransformerAbstract;
 
@@ -10,6 +11,9 @@ class ProdSubCatTransformer extends TransformerAbstract
     // protected $defaultIncludes = [
     //     'Items'
     // ];
+    protected $defaultIncludes = [
+        'Assets',
+    ];
     
     public function transform(ProdSubCat $model)
     {
@@ -33,4 +37,8 @@ class ProdSubCatTransformer extends TransformerAbstract
     // {
     //         return $this->collection($model->item ,new ItemTransfomer());
     // }
+    public function includeAssets(ProdSubCat $model)
+    {
+        return $this->collection($model->assets, new AssetTransformer());
+    }
 }

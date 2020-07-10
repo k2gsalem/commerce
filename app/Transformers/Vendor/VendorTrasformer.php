@@ -2,10 +2,14 @@
 namespace App\Transformers\Vendor;
 
 use App\Entities\Vendor\Vendor;
+use App\Transformers\Assets\AssetTransformer;
 use League\Fractal\TransformerAbstract;
 
 class VendorTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = [
+        'Assets',
+    ];
 
     public function transform(Vendor $model)
     {
@@ -29,5 +33,9 @@ class VendorTransformer extends TransformerAbstract
             // 'created_at' => $model->created_at->toIso8601String(),
         ];
 
+    }
+    public function includeAssets(Vendor $model)
+    {
+        return $this->collection($model->assets, new AssetTransformer());
     }
 }

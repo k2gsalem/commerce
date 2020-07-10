@@ -16,7 +16,7 @@ class ProdSubCatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    use Helpers;    
+    use Helpers;
     protected $model;
 
     public function __construct(ProdSubCat $model)
@@ -34,9 +34,8 @@ class ProdSubCatController extends Controller
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
-        }      
-       
-    
+        }
+
         return $this->response->paginator($paginator, new ProdSubCatTransformer());
 
     }
@@ -49,33 +48,41 @@ class ProdSubCatController extends Controller
      */
     public function store(Request $request)
     {
-        $request['created_by']=$request->user()->id;
-        $request['updated_by']=$request->user()->id;
+        $request['created_by'] = $request->user()->id;
+        $request['updated_by'] = $request->user()->id;
         $rules = [
-            'category_id'=>'required|exists:prod_cats,id',
-            'sub_category_short_code'=>'required|unique:prod_sub_cats,sub_category_short_code|string|min:3|max:20',
-            'sub_category_desc'=>'required|string|min:5|max:300',
-            'file'=>'array',
-            'file.*'=>'image|mimes:jpeg,jpg,png|max:2048',           
+            'category_id' => 'required|exists:prod_cats,id',
+            'sub_category_short_code' => 'required|unique:prod_sub_cats,sub_category_short_code|string|min:3|max:20',
+            'sub_category_desc' => 'required|string|min:5|max:300',
+            'file' => 'array',
+            'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
-            // 'updated_by' => 'required|integer|exists:users,id'          
+            // 'updated_by' => 'required|integer|exists:users,id'
         ];
-        $this->validate($request,$rules);
-        $proSubCat = $this->model->create($request->all());
-        if($request->has('file')){
-            foreach($request->file as $file){
-                $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+        $this->validate($request, $rules);
+
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
+                $proSubCat = $this->model->create($request->all());
                 $proSubCat->assets()->save($assets);
+
             }
-        }else if($request->has('url')){
+        } else if ($request->has('url')) {
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
+            $proSubCat = $this->model->create($request->all());
             $proSubCat->assets()->save($assets);
-        }else if($request->has('uuid')){
-            $a=Asset::byUuid($request->uuid)->get();
-            $assets= Asset::findOrFail($a[0]->id);
+
+        } else if ($request->has('uuid')) {
+            $a = Asset::byUuid($request->uuid)->get();
+            $assets = Asset::findOrFail($a[0]->id);
+            $proSubCat = $this->model->create($request->all());
             $proSubCat->assets()->save($assets);
-        }    
+
+        } else {
+            $proSubCat = $this->model->create($request->all());
+        }
         return $this->response->created(url('api/proSubCat/' . $proSubCat->id));
     }
 

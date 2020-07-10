@@ -2,6 +2,7 @@
 
 namespace App\Entities\Vendor;
 
+use App\Entities\Assets\Asset;
 use App\Entities\Catalogue\Item;
 use App\Entities\Stock\StockMaster;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +41,10 @@ class Vendor extends Model implements Auditable
     public function stock()
     {
         return $this->hasMany(StockMaster::class,'vendor_id');
+    }
+    public function assets()
+    {
+        return $this->morphMany(Asset::class,'imageable');
     }
     //
 }

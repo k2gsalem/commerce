@@ -37,7 +37,6 @@ class ProdCatController extends Controller
             $paginator->appends('limit', $request->get('limit'));
         }
 
-
         return $this->response->paginator($paginator, new ProdCatTransformer());
     }
 
@@ -49,41 +48,39 @@ class ProdCatController extends Controller
      */
     public function store(Request $request)
     {
-        $request['created_by']=$request->user()->id;
-        $request['updated_by']=$request->user()->id;
+        $request['created_by'] = $request->user()->id;
+        $request['updated_by'] = $request->user()->id;
         $rules = [
             'category_short_code' => 'required|string|unique:prod_cats,category_short_code|min:3|max:20',
             'category_desc' => 'required|string|max:300',
-            'file'=>'array',
-            'file.*'=>'image|mimes:jpeg,jpg,png|max:2048',
+            'file' => 'array',
+            'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
             // 'updated_by' => 'required|integer|exists:users,id',
         ];
-        $this->validate($request,$rules);           
-        $proCat = $this->model->create($request->all());
-        if($request->has('file')){
-            foreach($request->file as $file){
-                $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+        $this->validate($request, $rules);
+
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
+                $proCat = $this->model->create($request->all());
                 $proCat->assets()->save($assets);
             }
-        }else if($request->has('url')){
+        } else if ($request->has('url')) {
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
+            $proCat = $this->model->create($request->all());
             $proCat->assets()->save($assets);
-        }else if($request->has('uuid')){
-            $a=Asset::byUuid($request->uuid)->get();
-            $assets= Asset::findOrFail($a[0]->id);
-            $proCat->assets()->save($assets);         
+        } else if ($request->has('uuid')) {
+            $a = Asset::byUuid($request->uuid)->get();
+            $assets = Asset::findOrFail($a[0]->id);
+            $proCat = $this->model->create($request->all());
+            $proCat->assets()->save($assets);
 
-        } 
-        
-
-       // $assets = $this->api->post('api/assets', ['url' => $request->url]);
-       
-        //  $assets->imageable()->save($proCat);
+        } else {
+            $proCat = $this->model->create($request->all());
+        }
         return $this->response->created(url('api/proCat/' . $proCat->id));
-
-        //
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Entities\Catalogue;
 
+use App\Entities\Assets\Asset;
 use App\Entities\Config\ProdSubCat;
 use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
@@ -41,5 +42,9 @@ class Item extends Model implements Auditable
     public function stock()
     {
         return $this->hasMany('App\Entities\Stock\StockMaster','item_id','id');
+    }
+    public function assets()
+    {
+        return $this->morphMany(Asset::class,'imageable');
     }
 }
