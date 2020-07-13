@@ -35,7 +35,7 @@ class Item extends Model implements Auditable
     {
        return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');
     }
-    public function itemVariant()
+    public function itemVariants()
     {
         return $this->hasMany(ItemVariant::class,'item_id');
     }

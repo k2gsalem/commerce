@@ -8,6 +8,7 @@ use League\Fractal\TransformerAbstract;
 
 class ItemVariantTransformer extends TransformerAbstract
 {
+   
     protected $defaultIncludes = [
         'Assets',
     ];

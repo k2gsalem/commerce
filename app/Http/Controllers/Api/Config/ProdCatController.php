@@ -22,8 +22,8 @@ class ProdCatController extends Controller
     public function __construct(ProdCat $model)
     {
         $this->model = $model;
-        $this->middleware('permission:List product category')->only('index');
-        $this->middleware('permission:List product category')->only('show');
+        // $this->middleware('permission:List product category')->only('index');
+        // $this->middleware('permission:List product category')->only('show');
         $this->middleware('permission:Create product category')->only('store');
         $this->middleware('permission:Update product category')->only('update');
         $this->middleware('permission:Delete product category')->only('destroy');
@@ -91,7 +91,11 @@ class ProdCatController extends Controller
      */
     public function show(ProdCat $prodCat)
     {
-        //
+        
+        $pCat = $this->model->with('subCategory')->find($prodCat->id);  
+       
+        return $this->response->item($pCat, new ProdCatTransformer());
+        
     }
 
     /**

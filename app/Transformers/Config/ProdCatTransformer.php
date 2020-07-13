@@ -7,10 +7,13 @@ use League\Fractal\TransformerAbstract;
 
 class ProdCatTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = [
-        'Assets',
+  
+    protected $availableIncludes = [
+        'subCategory'
     ];
-
+    protected $defaultIncludes = [
+        'Assets'
+    ];
     public function transform(ProdCat $model)
     {
 
@@ -27,12 +30,13 @@ class ProdCatTransformer extends TransformerAbstract
         ];
 
     }
-    // public function includeProdSubCats(ProdCat $model)
-    // {
-    //         return $this->collection($model->subCategory ,new ProdSubCatTransformer());
-    // }
+   
     public function includeAssets(ProdCat $model)
     {
         return $this->collection($model->assets, new AssetTransformer());
+    }
+    public function includesubCategory(ProdCat $model)
+    {
+            return $this->collection($model->subCategory ,new ProdSubCatTransformer());
     }
 }

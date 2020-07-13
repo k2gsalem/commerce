@@ -17,8 +17,8 @@ class ItemController extends Controller
     public function __construct(Item $model)
     {
         $this->model = $model;
-        $this->middleware('permission:List item')->only('index');
-        $this->middleware('permission:List item')->only('show');
+        // $this->middleware('permission:List item')->only('index');
+        // $this->middleware('permission:List item')->only('show');
         $this->middleware('permission:Create item')->only('store');
         $this->middleware('permission:Update item')->only('update');
         $this->middleware('permission:Delete item')->only('destroy');
@@ -96,7 +96,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return $this->response->item($item, new ItemTransfomer());
     }
 
     /**

@@ -8,20 +8,18 @@ use League\Fractal\TransformerAbstract;
 
 class ProdSubCatTransformer extends TransformerAbstract
 {
-    // protected $defaultIncludes = [
-    //     'Items'
-    // ];
+    
+    protected $availableIncludes=['Items'];
     protected $defaultIncludes = [
         'Assets',
     ];
-    
     public function transform(ProdSubCat $model)
     {
         
         return [
             'id' =>(int)$model->id,
             'category_id'=>(int)$model->category_id,
-            'category_desc'=>$model->category->category_desc,
+            'category_desc'=>(string)$model->category->category_desc,
             'sub_category_short_code' =>(string)$model->sub_category_short_code,
             'sub_category_desc' =>(string)$model->sub_category_desc,
             'sub_category_image' =>(string)$model->sub_category_image,
@@ -33,12 +31,13 @@ class ProdSubCatTransformer extends TransformerAbstract
         ];
 
     }
-    // public function includeItems(ProdSubCat $model)
-    // {
-    //         return $this->collection($model->item ,new ItemTransfomer());
-    // }
+    
     public function includeAssets(ProdSubCat $model)
     {
         return $this->collection($model->assets, new AssetTransformer());
+    }
+    public function includeItems(ProdSubCat $model)
+    {
+            return $this->collection($model->items ,new ItemTransfomer());
     }
 }

@@ -30,9 +30,9 @@ class ProdSubCat extends Model implements Auditable
        
     }
 
-    public function item()
+    public function items()
     {
-        return $this->hasMany(Item::class,'sub_category_id','id');
+        return $this->hasMany(Item::class,'sub_category_id');
     }
     public function category()
     {

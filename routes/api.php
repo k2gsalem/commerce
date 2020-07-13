@@ -2,15 +2,15 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', function($api){
+$api->version('v1', function ($api) {
 
-    $api->group(['middleware' => ['throttle:60,1', 'bindings'], 'namespace' => 'App\Http\Controllers'], function($api) {
+    $api->group(['middleware' => ['throttle:60,1', 'bindings'], 'namespace' => 'App\Http\Controllers'], function ($api) {
 
         $api->get('ping', 'Api\PingController@index');
-
+        $api->get('member/register', 'Api\Users\UsersController@store');
         $api->get('assets/{uuid}/render', 'Api\Assets\RenderFileController@show');
 
-        $api->group(['middleware' => ['auth:api'], ], function ($api) {
+        $api->group(['middleware' => ['auth:api'], ['role:Administrator']], function ($api) {
 
             $api->group(['prefix' => 'users'], function ($api) {
                 $api->get('/', 'Api\Users\UsersController@index');
@@ -32,33 +32,55 @@ $api->version('v1', function($api){
 
             $api->get('permissions', 'Api\Users\PermissionsController@index');
 
-            $api->group(['prefix' => 'me'], function($api) {
+            $api->group(['prefix' => 'me'], function ($api) {
                 $api->get('/', 'Api\Users\ProfileController@index');
                 $api->put('/', 'Api\Users\ProfileController@update');
                 $api->patch('/', 'Api\Users\ProfileController@update');
                 $api->put('/password', 'Api\Users\ProfileController@updatePassword');
             });
 
-            $api->group(['prefix' => 'assets'], function($api) {
+            $api->group(['prefix' => 'assets'], function ($api) {
                 $api->post('/', 'Api\Assets\UploadFileController@store');
             });
-            $api->resource('confStatus','Api\Config\ConfStatusController');
-            $api->resource('confSupplierCat','Api\Config\ConfSupplierCatController');
-            $api->resource('confVendorCat','Api\Config\ConfVendorCatController');
-            $api->resource('prodCat','Api\Config\ProdCatController');
-            $api->resource('prodSubCat','Api\Config\ProdSubCatController');
-            $api->resource('vendor','Api\Vendor\VendorController');
-            $api->resource('supplier','Api\Vendor\SupplierController');
+            $api->resource('confStatus', 'Api\Config\ConfStatusController');
+            $api->resource('confSupplierCat', 'Api\Config\ConfSupplierCatController');
+            $api->resource('confVendorCat', 'Api\Config\ConfVendorCatController');
+            $api->resource('prodCat', 'Api\Config\ProdCatController');
+            $api->resource('prodSubCat', 'Api\Config\ProdSubCatController');
+            $api->resource('vendor', 'Api\Vendor\VendorController');
+            $api->resource('supplier', 'Api\Vendor\SupplierController');
 
-            $api->resource('item','Api\Catalogue\ItemController');
-            $api->resource('itemVariant','Api\Catalogue\ItemVariantController');
-            $api->resource('stock','Api\Stock\StockMasterController');
+            $api->resource('item', 'Api\Catalogue\ItemController');
+            $api->resource('itemVariant', 'Api\Catalogue\ItemVariantController');
+            $api->resource('stock', 'Api\Stock\StockMasterController');
+
+        });
+
+        $api->group(['prefix' => 'member'], function ($api) {
+            $api->group(['prefix' => 'me'], function ($api) {
+                $api->get('/', 'Api\Users\ProfileController@index');
+                $api->put('/', 'Api\Users\ProfileController@update');
+                $api->patch('/', 'Api\Users\ProfileController@update');
+                $api->put('/password', 'Api\Users\ProfileController@updatePassword');
+            });
+            $api->get('/confStatus/{confStatus}', 'Api\Config\ConfStatusController@show');
+            $api->get('/prodCat', 'Api\Config\ProdCatController@index');
+            $api->get('/prodCat/{prodCat}', 'Api\Config\ProdCatController@show');
+
+            $api->get('/prodSubCat', 'Api\Config\ProdSubCatController@index');
+            $api->get('/prodSubCat/{prodSubCat}', 'Api\Config\ProdSubCatController@show');
+
+            $api->get('/item', 'Api\Catalogue\ItemController@index');
+            $api->get('/item/{item}', 'Api\Catalogue\ItemController@show');
+
+            $api->get('/itemVariant', 'Api\Catalogue\ItemVariantController@index');
+            $api->get('/itemVariant/{itemVariant}', 'Api\Catalogue\ItemVariantController@show');
+
+            $api->get('/stock/{stock}', 'Api\Stock\StockMasterController@show');
+            $api->get('/vendor/{vendor}', 'Api\Vendor\VendorController@show');
 
         });
 
     });
 
 });
-
-
-

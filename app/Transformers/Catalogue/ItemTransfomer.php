@@ -8,11 +8,11 @@ use League\Fractal\TransformerAbstract;
 
 class ItemTransfomer extends TransformerAbstract
 {
-    // protected $defaultIncludes = [
-    //     'ItemVariants'
-    // ];
+    protected $availableIncludes = [
+        'ItemVariants'
+    ];
     protected $defaultIncludes = [
-        'Assets',
+        'Assets'
     ];
     public function transform(Item $model)
     {
@@ -33,13 +33,14 @@ class ItemTransfomer extends TransformerAbstract
             'updated_at' => (string)$model->updated_at->getTimestamp(),
           ];
     }
-    // public function includeItemVariants(Item $model)
-    // {
-    //         return $this->collection($model->itemVariant ,new ItemVariantTransformer());
-    // }
     public function includeAssets(Item $model)
     {
         return $this->collection($model->assets, new AssetTransformer());
     }
+    public function includeItemVariants(Item $model)
+    {
+            return $this->collection($model->itemVariants ,new ItemVariantTransformer());
+    }
+ 
 
 }

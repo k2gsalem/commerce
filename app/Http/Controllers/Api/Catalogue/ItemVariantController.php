@@ -17,8 +17,8 @@ class ItemVariantController extends Controller
     public function __construct(ItemVariant $model)
     {
         $this->model = $model;
-        $this->middleware('permission:List item variant')->only('index');
-        $this->middleware('permission:List item variant')->only('show');
+        // $this->middleware('permission:List item variant')->only('index');
+        // $this->middleware('permission:List item variant')->only('show');
         $this->middleware('permission:Create item variant')->only('store');
         $this->middleware('permission:Update item variant')->only('update');
         $this->middleware('permission:Delete item variant')->only('destroy');
