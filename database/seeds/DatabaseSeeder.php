@@ -1,5 +1,6 @@
 <?php
 
+use Dingo\Blueprint\Annotation\Member;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StockMasterSeeder::class);
 
         $this->call(PassportSeeder::class);
-        
+        $this->call(MemberSeeder::class);
     }
 }

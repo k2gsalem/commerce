@@ -21,7 +21,7 @@ class ProdCat extends Model implements Auditable
     {
         return $this->hasOne(ConfStatus::class,'id','status_id');
     }
-    public function subCategory()
+    public function subCategories()
     {
         return $this->hasMany(ProdSubCat::class, 'category_id');
     }

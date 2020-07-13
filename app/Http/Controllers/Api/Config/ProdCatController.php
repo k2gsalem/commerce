@@ -92,9 +92,9 @@ class ProdCatController extends Controller
     public function show(ProdCat $prodCat)
     {
         
-        $pCat = $this->model->with('subCategory')->find($prodCat->id);  
+       // $pCat = $this->model->with('subCategory')->find($prodCat->id);  
        
-        return $this->response->item($pCat, new ProdCatTransformer());
+        return $this->response->item($prodCat, new ProdCatTransformer());
         
     }
 

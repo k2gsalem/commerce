@@ -9,7 +9,7 @@ class ProdCatTransformer extends TransformerAbstract
 {
   
     protected $availableIncludes = [
-        'subCategory'
+        'SubCategories'
     ];
     protected $defaultIncludes = [
         'Assets'
@@ -35,8 +35,8 @@ class ProdCatTransformer extends TransformerAbstract
     {
         return $this->collection($model->assets, new AssetTransformer());
     }
-    public function includesubCategory(ProdCat $model)
+    public function includeSubCategories(ProdCat $model)
     {
-            return $this->collection($model->subCategory ,new ProdSubCatTransformer());
+            return $this->collection($model->subCategories ,new ProdSubCatTransformer());
     }
 }

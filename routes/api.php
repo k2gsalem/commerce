@@ -54,15 +54,18 @@ $api->version('v1', function ($api) {
             $api->resource('itemVariant', 'Api\Catalogue\ItemVariantController');
             $api->resource('stock', 'Api\Stock\StockMasterController');
 
+            $api->group(['prefix' => 'member'], function ($api) {
+                $api->group(['prefix' => 'me'], function ($api) {
+                    $api->get('/', 'Api\Users\ProfileController@index');
+                    $api->put('/', 'Api\Users\ProfileController@update');
+                    $api->patch('/', 'Api\Users\ProfileController@update');
+                    $api->put('/password', 'Api\Users\ProfileController@updatePassword');
+                });
+            });
         });
 
         $api->group(['prefix' => 'member'], function ($api) {
-            $api->group(['prefix' => 'me'], function ($api) {
-                $api->get('/', 'Api\Users\ProfileController@index');
-                $api->put('/', 'Api\Users\ProfileController@update');
-                $api->patch('/', 'Api\Users\ProfileController@update');
-                $api->put('/password', 'Api\Users\ProfileController@updatePassword');
-            });
+
             $api->get('/confStatus/{confStatus}', 'Api\Config\ConfStatusController@show');
             $api->get('/prodCat', 'Api\Config\ProdCatController@index');
             $api->get('/prodCat/{prodCat}', 'Api\Config\ProdCatController@show');
@@ -78,9 +81,6 @@ $api->version('v1', function ($api) {
 
             $api->get('/stock/{stock}', 'Api\Stock\StockMasterController@show');
             $api->get('/vendor/{vendor}', 'Api\Vendor\VendorController@show');
-
         });
-
     });
-
 });
