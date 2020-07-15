@@ -3,6 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Entities\Assets\Asset;
+use App\Entities\Catalogue\Item;
+use App\Entities\Catalogue\ItemVariant;
 use App\Entities\Config\ProdCat;
 use App\Entities\Config\ProdSubCat;
 use App\Entities\Vendor\Supplier;
@@ -18,7 +20,7 @@ $factory->define(Asset::class, function (Faker $faker) {
         ProdSubCat::class,
         Supplier::class,
         Vendor::class,
-       // Item::class,
+        // Item::class,
         // ItemVariant::class,
 
     ]; // Add new noteables here as we make them
