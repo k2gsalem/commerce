@@ -7,7 +7,7 @@ $api->version('v1', function ($api) {
     $api->group(['middleware' => ['throttle:60,1', 'bindings'], 'namespace' => 'App\Http\Controllers'], function ($api) {
 
         $api->get('ping', 'Api\PingController@index');
-        $api->get('member/register', 'Api\Users\UsersController@store');
+        $api->post('member/register', 'Api\Users\UsersController@store');
         $api->get('assets/{uuid}/render', 'Api\Assets\RenderFileController@show');
 
         $api->group(['middleware' => ['auth:api'], ['role:Administrator']], function ($api) {
@@ -79,7 +79,7 @@ $api->version('v1', function ($api) {
             $api->get('/itemVariant', 'Api\Catalogue\ItemVariantController@index');
             $api->get('/itemVariant/{itemVariant}', 'Api\Catalogue\ItemVariantController@show');
 
-            $api->get('/stock/{stock}', 'Api\Stock\StockMasterController@show');
+            // $api->get('/stock/{stock}', 'Api\Stock\StockMasterController@show');
             $api->get('/vendor/{vendor}', 'Api\Vendor\VendorController@show');
         });
     });

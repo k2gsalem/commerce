@@ -32,7 +32,7 @@ class UsersController extends Controller
         $this->model = $model;
         $this->middleware('permission:List users')->only('index');
         $this->middleware('permission:List users')->only('show');
-        $this->middleware('permission:Create users')->only('store');
+        // $this->middleware('permission:Create users')->only('store');
         $this->middleware('permission:Update users')->only('update');
         $this->middleware('permission:Delete users')->only('destroy');
     }
