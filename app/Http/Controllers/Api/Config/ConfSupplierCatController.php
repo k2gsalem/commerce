@@ -60,7 +60,7 @@ class ConfSupplierCatController extends Controller
             // 'updated_by' => 'required|integer|exists:users,id',
         ];
         $this->validate($request, $rules);
-        ConfStatus::findOrFail($request->id);
+        // ConfStatus::findOrFail($request->id);
         $confSupplierCat = $this->model->create($request->all());
         return $this->response->created(url('api/confSupplierCat/'.$confSupplierCat->id));
     }
