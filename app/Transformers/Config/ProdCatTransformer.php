@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Transformers\Config;
 
 use App\Entities\Config\ProdCat;
@@ -7,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 
 class ProdCatTransformer extends TransformerAbstract
 {
-  
+
     protected $availableIncludes = [
         'SubCategories'
     ];
@@ -28,15 +29,14 @@ class ProdCatTransformer extends TransformerAbstract
             'updated_at' => (string) $model->updated_at->getTimestamp(),
 
         ];
-
     }
-   
+
     public function includeAssets(ProdCat $model)
     {
         return $this->collection($model->assets, new AssetTransformer());
     }
     public function includeSubCategories(ProdCat $model)
     {
-            return $this->collection($model->subCategories ,new ProdSubCatTransformer());
+        return $this->collection($model->subCategories, new ProdSubCatTransformer());
     }
 }

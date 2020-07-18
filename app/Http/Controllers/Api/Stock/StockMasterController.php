@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class StockMasterController extends Controller
 {
-    use Helpers;    
+    use Helpers;
     protected $model;
 
     public function __construct(StockMaster $model)
@@ -34,11 +34,10 @@ class StockMasterController extends Controller
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
-        }      
-       
-    
-        return $this->response->paginator($paginator, new StockMasterTransformer());
+        }
 
+
+        return $this->response->paginator($paginator, new StockMasterTransformer());
     }
 
     /**
@@ -49,19 +48,19 @@ class StockMasterController extends Controller
      */
     public function store(Request $request)
     {
-        $request['created_by']=$request->user()->id;
-        $request['updated_by']=$request->user()->id;
-        $rules=[
-            'item_id'=>'required|integer|exists:items,id',
-            'variant_id'=>'required|integer|exists:item_variants,id',
-            'vendor_id'=>'required|integer|exists:vendors,id',
-            'stock_quantity'=>'required|integer',
-            'stock_threshold'=>'required|integer',
-            'status_id' => 'required|integer|exists:conf_statuses,id',           
+        $request['created_by'] = $request->user()->id;
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'item_id' => 'required|integer|exists:items,id',
+            'variant_id' => 'required|integer|exists:item_variants,id',
+            'vendor_id' => 'required|integer|exists:vendors,id',
+            'stock_quantity' => 'required|integer',
+            'stock_threshold' => 'required|integer',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
-        $this->validate($request,$rules);
+        $this->validate($request, $rules);
         $stock = $this->model->create($request->all());
-        return $this->response->created(url('api/stock/'.$stock->id));
+        return $this->response->created(url('api/stock/' . $stock->id));
         //
     }
 
@@ -73,6 +72,10 @@ class StockMasterController extends Controller
      */
     public function show(StockMaster $stockMaster)
     {
+        
+     //  $stockMaster= $this->model::findOrFail($id);
+        
+        return $this->response->item($stockMaster, new StockMasterTransformer());
         //
     }
 

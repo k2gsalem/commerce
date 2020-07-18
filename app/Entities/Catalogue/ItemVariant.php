@@ -32,7 +32,7 @@ class ItemVariant extends Model implements Auditable
     }
     public function stock()
     {
-        return $this->hasMany(StockMaster::class,'variant_id','id');
+        return $this->hasMany(StockMaster::class,'variant_id');
     }
     public function assets()
     {

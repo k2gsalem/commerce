@@ -96,6 +96,7 @@ class ItemVariantController extends Controller
      */
     public function show(ItemVariant $itemVariant)
     {
+        return $this->response->item($itemVariant, new ItemVariantTransformer());
         //
     }
 

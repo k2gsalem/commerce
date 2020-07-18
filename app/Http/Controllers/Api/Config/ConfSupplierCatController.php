@@ -73,6 +73,7 @@ class ConfSupplierCatController extends Controller
      */
     public function show(ConfSupplierCat $confSupplierCat)
     {
+        return $this->response->item($confSupplierCat, new ConfSupplierTransformer());
         //
     }
 

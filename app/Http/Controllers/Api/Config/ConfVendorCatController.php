@@ -76,6 +76,7 @@ class ConfVendorCatController extends Controller
      */
     public function show(ConfVendorCat $confVendorCat)
     {
+        return $this->response->item($confVendorCat, new ConfVendorTransformer());
         //
     }
 

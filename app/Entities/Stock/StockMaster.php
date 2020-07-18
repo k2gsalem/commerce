@@ -5,6 +5,7 @@ namespace App\Entities\Stock;
 use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariant;
 use App\Entities\Config\ConfStatus;
+use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -12,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class StockMaster extends Model implements Auditable
 {
-    use SoftDeletes,AuditingAuditable;
+    use AuditingAuditable,SoftDeletes;
     protected $fillable=[
         'item_id',
         'variant_id',
@@ -21,8 +22,7 @@ class StockMaster extends Model implements Auditable
         'stock_threshold',
         'status_id',
         'created_by',
-        'updated_by',
-        'created_at',
+        'updated_by'        
     ];
     public function confStatus()
     {
@@ -30,7 +30,7 @@ class StockMaster extends Model implements Auditable
     }
     public function item()
     {
-        return $this->belongsTo(Item::class,'id','item_id');
+        return $this->belongsTo(Item::class);
     }
     public function variant()
     {
@@ -38,6 +38,6 @@ class StockMaster extends Model implements Auditable
     }
     public function vendor()
     {
-        return $this->belongsTo('App\Entities\Vendor\Vendor');
+        return $this->belongsTo(Vendor::class);
     }
 }

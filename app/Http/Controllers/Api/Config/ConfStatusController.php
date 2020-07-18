@@ -73,6 +73,7 @@ class ConfStatusController extends Controller
      */
     public function show(ConfStatus $confStatus)
     {
+        return $this->response->item($confStatus, new ConfStatusTransformer());
         //
     }
 

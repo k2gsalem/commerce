@@ -3,7 +3,9 @@
 namespace App\Entities\Catalogue;
 
 use App\Entities\Assets\Asset;
+use App\Entities\Config\ConfStatus;
 use App\Entities\Config\ProdSubCat;
+use App\Entities\Stock\StockMaster;
 use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -41,7 +43,7 @@ class Item extends Model implements Auditable
     }
     public function stock()
     {
-        return $this->hasMany('App\Entities\Stock\StockMaster','item_id','id');
+        return $this->hasMany(StockMaster::class,'item_id');
     }
     public function assets()
     {
