@@ -55,12 +55,10 @@ class VendorController extends Controller
             'vendor_category_id'=>'required|integer|exists:conf_vendor_cats,id',
             'vendor_desc'=>'required|string|min:5|max:300',
             'vendor_address'=>'required|string|min:5|max:200',
-            'vendor_contact'=>'required|string|min:10|max:13',
-            'vendor_email'=>'required|email',
+            'vendor_contact'=>'required|string|min:10|unique:vendors,vendor_contact',
+            'vendor_email'=>'required|email|unique:vendors,vendor_email',
             'status_id' => 'required|integer|exists:conf_statuses,id',
-            // 'created_by' => 'required|integer|exists:users,id',
-            // 'updated_by' => 'required|integer|exists:users,id'         
-           
+                       
             
         ];
         $this->validate($request,$rules);
@@ -94,7 +92,8 @@ class VendorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Vendor $vendor)
-    {
+    {        
+        return $this->response->item($vendor, new VendorTransformer());
         //
     }
 

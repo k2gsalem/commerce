@@ -49,23 +49,19 @@ class SupplierController extends Controller
     {
         $request['created_by']=$request->user()->id;
         $request['updated_by']=$request->user()->id;
-        $this->validate($request,[
+        $rules=[
             'supplier_name'=>'required|string',
             'file'=>'array',
             'file.*'=>'image|mimes:jpeg,jpg,png|max:1024',
             'supplier_category_id'=>'required|exists:conf_supplier_cats,id',
-            'supplier_desc'=>'required|srting|min:5|max:300',
+            'supplier_desc'=>'required|string|min:5|max:300',
             'supplier_address'=>'required|string|max:200',
-            'supplier_contact'=>'required|numeric|min:10|max:13',
-            'supplier_email'=>'required|email',
+            'supplier_contact'=>'required|numeric|min:10|unique:suppliers,supplier_contact',
+            'supplier_email'=>'required|email|unique:suppliers,supplier_email',
             'status_id' => 'required|integer|exists:conf_statuses,id',
-            // 'created_by' => 'required|integer|exists:users,id',
-            // 'updated_by' => 'required|integer|exists:users,id'    
-           
-        ]);
-        // ConfStatus::findOrFail($request->status_id);
-        // ConfSupplierCat::findOrFail($request->supplier_category_id);
-        
+        ];
+        $this->validate($request,$rules);
+                
         if($request->has('file')){
             foreach($request->file as $file){
                 $assets =$this->api->attach(['file'=>$file])->post('api/assets');
@@ -97,6 +93,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
+        return $this->response->item($supplier, new SupplierTransformer());
         //
     }
 

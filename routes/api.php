@@ -47,8 +47,8 @@ $api->version('v1', function ($api) {
             $api->resource('confVendorCat', 'Api\Config\ConfVendorCatController');
             $api->resource('prodCat', 'Api\Config\ProdCatController');
             $api->resource('prodSubCat', 'Api\Config\ProdSubCatController');
-            $api->resource('vendor', 'Api\Vendor\VendorController');
-            $api->resource('supplier', 'Api\Vendor\SupplierController');
+            $api->resource('vendors', 'Api\Vendor\VendorController');
+            $api->resource('suppliers', 'Api\Vendor\SupplierController');
 
             $api->resource('item', 'Api\Catalogue\ItemController');
             $api->resource('itemVariant', 'Api\Catalogue\ItemVariantController');

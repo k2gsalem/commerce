@@ -52,7 +52,7 @@ class StockMasterController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_id' => 'required|integer|exists:item_variants,id',
+            'variant_id' => 'required|integer|exists:item_variants,id|unique:stock_masters,variant_id',
             'vendor_id' => 'required|integer|exists:vendors,id',
             'stock_quantity' => 'required|integer',
             'stock_threshold' => 'required|integer',
