@@ -83,7 +83,7 @@ class ProdSubCatController extends Controller
         } else {
             $proSubCat = $this->model->create($request->all());
         }
-        return $this->response->created(url('api/proSubCat/' . $proSubCat->id));
+        return $this->response->created(url('api/prodSubCat/' . $proSubCat->id));
     }
 
     /**

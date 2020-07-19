@@ -81,7 +81,7 @@ class SupplierController extends Controller
         } else{
             $supplier = $this->model->create($request->all());
         }
-        return $this->response->created(url('api/supplier/' . $supplier->id));
+        return $this->response->created(url('api/suppliers/' . $supplier->id));
         //
     }
 

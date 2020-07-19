@@ -60,7 +60,7 @@ class StockMasterController extends Controller
         ];
         $this->validate($request, $rules);
         $stock = $this->model->create($request->all());
-        return $this->response->created(url('api/stock/' . $stock->id));
+        return $this->response->created(url('api/stockMaster/' . $stock->id));
         //
     }
 

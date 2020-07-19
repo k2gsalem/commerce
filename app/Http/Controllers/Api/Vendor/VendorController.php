@@ -82,7 +82,7 @@ class VendorController extends Controller
         } else{
             $vendor = $this->model->create($request->all());
         }
-        return $this->response->created(url('api/vendor/' . $vendor->id));
+        return $this->response->created(url('api/vendors/' . $vendor->id));
     }
 
     /**

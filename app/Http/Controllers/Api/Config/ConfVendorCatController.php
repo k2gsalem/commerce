@@ -64,7 +64,7 @@ class ConfVendorCatController extends Controller
         //
         $this->validate($request, $rules);
         $ConfVendorCat = $this->model->create($request->all());
-        return $this->response->created(url('api/ConfVendorCat/'.$ConfVendorCat->id));
+        return $this->response->created(url('api/confVendorCat/'.$ConfVendorCat->id));
 
     }
 

@@ -80,7 +80,7 @@ class ProdCatController extends Controller
         } else {
             $proCat = $this->model->create($request->all());
         }
-        return $this->response->created(url('api/proCat/' . $proCat->id));
+        return $this->response->created(url('api/prodCat/' . $proCat->id));
     }
 
     /**
