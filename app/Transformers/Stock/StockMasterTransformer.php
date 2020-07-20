@@ -15,6 +15,8 @@ class StockMasterTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $model->id,
+            'item_id'=>(int)$model->item_id,
+            'item_variant'=>(string)$model->item->item_desc,
             'variant_id' => (int)$model->variant_id,
             'variant_desc' => (string)$model->variant->variant_desc,
             'vendor_id' => (int)$model->vendor_id,
@@ -23,8 +25,8 @@ class StockMasterTransformer extends TransformerAbstract
             'stock_threshold' => (float)$model->stock_threshold,
             'status_id' => (int)$model->status_id,
             'status_desc' => (string)$model->confStatus->status_desc,
-            'created_by' => (int)$model->created_by,
-            'updated_by' => (int)$model->updated_by,
+            'created_at' => (string)$model->created_at->getTimestamp(),
+            'updated_at' => (string)$model->updated_at->getTimestamp(),
 
         ];
     }
