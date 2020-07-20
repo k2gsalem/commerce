@@ -16,7 +16,7 @@ class StockMasterTransformer extends TransformerAbstract
         return [
             'id' => (int) $model->id,
             'item_id'=>(int)$model->item_id,
-            'item_variant'=>(string)$model->item->item_desc,
+            'item_desc'=>(string)$model->item->item_desc,
             'variant_id' => (int)$model->variant_id,
             'variant_desc' => (string)$model->variant->variant_desc,
             'vendor_id' => (int)$model->vendor_id,
