@@ -52,7 +52,7 @@ class ItemVariantController extends Controller
         $request['created_by'] = $request->user()->id;
         $request['updated_by'] = $request->user()->id;
         $rules = [
-            'item_id' => 'required|integer|exists:prod_sub_cats,id',
+            'item_id' => 'required|integer|exists:items,id',
             'variant_code' => 'required|string|min:3|max:100',
             'variant_desc' => 'required|string|min:5|max:300',
             'file' => 'array',
