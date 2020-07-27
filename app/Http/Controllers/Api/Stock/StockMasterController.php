@@ -35,8 +35,6 @@ class StockMasterController extends Controller
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
         }
-
-
         return $this->response->paginator($paginator, new StockMasterTransformer());
     }
 

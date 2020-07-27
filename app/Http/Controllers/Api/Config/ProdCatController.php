@@ -91,11 +91,11 @@ class ProdCatController extends Controller
      */
     public function show(ProdCat $prodCat)
     {
-        
-       // $pCat = $this->model->with('subCategory')->find($prodCat->id);  
-       
+
+        // $pCat = $this->model->with('subCategory')->find($prodCat->id);
+
         return $this->response->item($prodCat, new ProdCatTransformer());
-        
+
     }
 
     /**
@@ -107,6 +107,23 @@ class ProdCatController extends Controller
      */
     public function update(Request $request, ProdCat $prodCat)
     {
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'category_short_code' => 'required|string|unique:prod_cats,category_short_code|min:3|max:20',
+            'category_desc' => 'required|string|max:300,' . $prodCat->id,         
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+        ];
+        $this->validate($request, $rules);
+        if ($request->has('uuid')) {
+            $a = Asset::byUuid($request->uuid)->get();
+            $assets = Asset::findOrFail($a[0]->id);
+            $prodCat->update($request->except('created_by'));
+            $prodCat->assets()->save($assets);
+
+        } else {
+            $proCat = $this->model->create($request->except('created_by'));
+        }
+        return $this->response->item($prodCat->fresh(), new ProdCatTransformer());
         //
     }
 

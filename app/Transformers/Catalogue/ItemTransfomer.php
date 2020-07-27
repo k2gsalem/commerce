@@ -22,7 +22,7 @@ class ItemTransfomer extends TransformerAbstract
             'item_desc'=>(string)$model->item_desc,
             'sub_category_id'=>(int)$model->sub_category_id,
             'sub_category_desc'=>(string)$model->subCategory->sub_category_desc,
-            'item_image'=>(string)$model->item_image,
+            // 'item_image'=>(string)$model->item_image,
             'status_id'=>(int)$model->status_id,
             'status_desc'=>(string)$model->confStatus->status_desc,
             'created_by'=>(int)$model->created_by,

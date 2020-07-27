@@ -19,7 +19,7 @@ class SupplierTransformer extends TransformerAbstract
         return [
             'id' => (int) $model->id,
             'supplier_name' => (string) $model->supplier_name,
-            'supplier_logo' => (string) $model->supplier_logo,
+            // 'supplier_logo' => (string) $model->supplier_logo,
             'supplier_category_id' => (int) $model->supplier_category_id,
             'supplier_category_desc' => $model->supplierCategory->supplier_cat_desc,
             'supplier_desc' => (string) $model->supplier_desc,

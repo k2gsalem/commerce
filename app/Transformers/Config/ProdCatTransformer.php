@@ -13,7 +13,7 @@ class ProdCatTransformer extends TransformerAbstract
         'SubCategories'
     ];
     protected $defaultIncludes = [
-        'Assets'
+       'Assets'
     ];
     public function transform(ProdCat $model)
     {
@@ -22,7 +22,7 @@ class ProdCatTransformer extends TransformerAbstract
             'id' => (int) $model->id,
             'category_short_code' => (string) $model->category_short_code,
             'category_desc' => (string) $model->category_desc,
-            'category_image' => (string) $model->category_image,
+            //  'category_image' => (string) $model->assets->thumb,
             'status_id' => (int) $model->status_id,
             'status_desc' => (string) $model->confStatus->status_desc,
             'created_at' => (string) $model->created_at->getTimestamp(),

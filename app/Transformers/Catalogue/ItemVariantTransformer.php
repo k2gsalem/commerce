@@ -20,7 +20,7 @@ class ItemVariantTransformer extends TransformerAbstract
             'item_desc'=>(string)$model->item->item_desc,
             'variant_code'=>(string)$model->variant_code,
             'variant_desc'=>(string)$model->variant_desc,
-            'variant_image'=>(string)$model->variant_image,
+            // 'variant_image'=>(string)$model->variant_image,
             'status_id'=>(int)$model->status_id,
             'status_desc'=>(string)$model->conStatus->status_desc,
             'created_at' => (string)$model->created_at->getTimestamp(),

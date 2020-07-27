@@ -86,6 +86,16 @@ class ConfSupplierCatController extends Controller
      */
     public function update(Request $request, ConfSupplierCat $confSupplierCat)
     {
+       
+        $request['updated_by']=$request->user()->id;
+        $rules=[
+            'supplier_cat_desc' => 'required|string|min:5|max:300,'.$confSupplierCat->id,
+            'status_id' => 'required|integer|exists:conf_statuses,id',          
+        ];
+        $this->validate($request, $rules);
+      
+        $confSupplierCat->update($request->except('created_by'));
+        return $this->response->item($confSupplierCat->fresh(),new ConfSupplierTransformer());
         //
     }
 

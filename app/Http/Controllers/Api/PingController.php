@@ -23,7 +23,7 @@ class PingController extends Controller
     {
         return $this->response->array([
             'status' => 'ok',
-            'timestamp' => \Carbon\Carbon::now(),
+            'timestamp' => \Carbon\Carbon::now()->format('M d H:i:s.u'),
             'host' => request()->ip(),
         ]);
     }

@@ -89,6 +89,15 @@ class ConfVendorCatController extends Controller
      */
     public function update(Request $request, ConfVendorCat $confVendorCat)
     {
+        $request['updated_by']=$request->user()->id;
+        $rules=[
+            'vendor_cat_desc' => 'required|string|min:5|max:300,'.$confVendorCat->id,
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+        ];
+        $this->validate($request, $rules);
+      
+        $confVendorCat->update($request->except('created_by'));
+        return $this->response->item($confVendorCat->fresh(),new ConfVendorTransformer());
         //
     }
 

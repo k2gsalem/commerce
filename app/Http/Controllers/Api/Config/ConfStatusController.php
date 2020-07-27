@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class ConfStatusController extends Controller
 {
-    use Helpers;    
+    use Helpers;
     protected $model;
     public function __construct(ConfStatus $model)
     {
@@ -33,14 +33,14 @@ class ConfStatusController extends Controller
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
-        }      
-       
+        }
+
         return $this->response->paginator($paginator, new ConfStatusTransformer());
 
         // return $this->response->Collection($this->model->all(), new ConfStatusTransformer());
         // $cs = $this->model::all();
-        // return $this->response->item($cs, new ConfStatusTransformer());  
-        
+        // return $this->response->item($cs, new ConfStatusTransformer());
+
     }
 
     /**
@@ -52,17 +52,17 @@ class ConfStatusController extends Controller
     public function store(Request $request)
     {
         //  return $request->user()->id;
-        $request['created_by']=$request->user()->id;
-        $request['updated_by']=$request->user()->id;  
-       
-        $rules=[
-            'status_desc' => 'required|string|min:1|max:300'         
-        ];  
-        
-        $this->validate($request,$rules);
+        $request['created_by'] = $request->user()->id;
+        $request['updated_by'] = $request->user()->id;
+
+        $rules = [
+            'status_desc' => 'required|string|min:1|max:300',
+        ];
+
+        $this->validate($request, $rules);
         $confStatus = $this->model->create($request->all());
-        return $this->response->created(url('api/confStatus/'.$confStatus->id));
-      
+        return $this->response->created(url('api/confStatus/' . $confStatus->id));
+
     }
 
     /**
@@ -86,7 +86,16 @@ class ConfStatusController extends Controller
      */
     public function update(Request $request, ConfStatus $confStatus)
     {
-        //
+
+        $request['updated_by'] = $request->user()->id;
+
+        $rules = [
+            'status_desc' => 'required|string|min:1|max:300',
+        ];
+        $this->validate($request, $rules);
+        $confStatus->update($request->except('created_by'));
+        return $this->response->item($confStatus->fresh(), new ConfStatusTransformer());
+
     }
 
     /**
@@ -96,7 +105,7 @@ class ConfStatusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(ConfStatus $confStatus)
-    {       
+    {
         $record = $this->model->findOrFail($confStatus->id);
         $record->delete();
         return $this->response->noContent();

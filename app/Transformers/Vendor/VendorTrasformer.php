@@ -17,7 +17,7 @@ class VendorTransformer extends TransformerAbstract
         return [
             'id' => (int) $model->id,
             'vendor_name' => (string) $model->vendor_name,
-            'vendor_logo' => (string) $model->vendor_logo,
+            // 'vendor_logo' => (string) $model->vendor_logo,
             'vendor_category_id' => (int) $model->vendor_category_id,
             'vendor_category_desc' => (string) $model->vendorCategory->vendor_cat_desc,
             'vendor_desc' => (string) $model->vendor_desc,
