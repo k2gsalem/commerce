@@ -109,20 +109,20 @@ class ProdCatController extends Controller
     {
         $request['updated_by'] = $request->user()->id;
         $rules = [
-            'category_short_code' => 'required|string|unique:prod_cats,category_short_code|min:3|max:20',
-            'category_desc' => 'required|string|max:300,' . $prodCat->id,         
+            'category_short_code' => 'required|string|min:3|max:20|unique:prod_cats,category_short_code,'.$prodCat->id,
+            'category_desc' => 'required|string|max:300' ,
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
-        $this->validate($request, $rules);
-        if ($request->has('uuid')) {
-            $a = Asset::byUuid($request->uuid)->get();
-            $assets = Asset::findOrFail($a[0]->id);
-            $prodCat->update($request->except('created_by'));
-            $prodCat->assets()->save($assets);
-
-        } else {
-            $proCat = $this->model->create($request->except('created_by'));
+        if ($request->method() == 'PATCH') {
+            $rules = [
+                'category_short_code' => 'sometimes|required|string|min:3|max:20|unique:prod_cats,category_short_code,'.$prodCat->id,
+                'category_desc' => 'sometimes|required|string|max:300',
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+            ];
         }
+
+        $this->validate($request, $rules);
+        $prodCat->update($request->except('created_by'));
         return $this->response->item($prodCat->fresh(), new ProdCatTransformer());
         //
     }

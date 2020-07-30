@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    use Helpers;    
+    use Helpers;
     protected $model;
 
     public function __construct(Item $model)
@@ -35,9 +35,8 @@ class ItemController extends Controller
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
-        }      
-       
-    
+        }
+
         return $this->response->paginator($paginator, new ItemTransfomer());
 
     }
@@ -50,38 +49,38 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $request['created_by']=$request->user()->id;
-        $request['updated_by']=$request->user()->id;
-        $rules=[
-            'sub_category_id'=>'required|integer|exists:prod_sub_cats,id',
-            'item_code'=>'required|string|min:3|max:100',
-            'item_desc'=>'required|string|min:5|max:300',
-            'file'=>'array',
-            'file.*'=>'image|mimes:jpeg,jpg,png|max:2048',           
-            'vendor_store_id'=>'required|integer|exists:vendors,id',
+        $request['created_by'] = $request->user()->id;
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'sub_category_id' => 'required|integer|exists:prod_sub_cats,id',
+            'item_code' => 'required|string|min:3|max:100',
+            'item_desc' => 'required|string|min:5|max:300',
+            'file' => 'array',
+            'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'vendor_store_id' => 'required|integer|exists:vendors,id',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
-            // 'updated_by' => 'required|integer|exists:users,id'  
+            // 'updated_by' => 'required|integer|exists:users,id'
         ];
         $this->validate($request, $rules);
-        
-        if($request->has('file')){
-            foreach($request->file as $file){
-                $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
                 $item = $this->model->create($request->all());
                 $item->assets()->save($assets);
             }
-        }else if($request->has('url')){
+        } else if ($request->has('url')) {
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
             $item = $this->model->create($request->all());
             $item->assets()->save($assets);
-        }else if($request->has('uuid')){
-            $a=Asset::byUuid($request->uuid)->get();
-            $assets= Asset::findOrFail($a[0]->id);
+        } else if ($request->has('uuid')) {
+            $a = Asset::byUuid($request->uuid)->get();
+            $assets = Asset::findOrFail($a[0]->id);
             $item = $this->model->create($request->all());
-            $item->assets()->save($assets);         
+            $item->assets()->save($assets);
 
-        } else{
+        } else {
             $item = $this->model->create($request->all());
         }
         return $this->response->created(url('api/item/' . $item->id));
@@ -108,6 +107,28 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'sub_category_id' => 'required|integer|exists:prod_sub_cats,id',
+            'item_code' => 'required|string|min:3|max:100',
+            'item_desc' => 'required|string|min:5|max:300',
+            'file' => 'array',
+            'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'vendor_store_id' => 'required|integer|exists:vendors,id',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+        ];
+        if ($request->method() == 'PATCH') {
+            $rules = [
+                'sub_category_id' => 'sometimes|required|integer|exists:prod_sub_cats,id',
+                'item_code' => 'sometimes|required|string|min:3|max:100',
+                'item_desc' => 'sometimes|required|string|min:5|max:300',
+                'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+            ];
+
+        }
+        $this->validate($request, $rules);
+
         //
     }
 

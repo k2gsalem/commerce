@@ -106,6 +106,24 @@ class ProdSubCatController extends Controller
      */
     public function update(Request $request, ProdSubCat $prodSubCat)
     {
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'category_id' => 'required|exists:prod_cats,id',
+            'sub_category_short_code' => 'required|string|min:3|max:20|unique:prod_sub_cats,sub_category_short_code,' . $prodSubCat->id,
+            'sub_category_desc' => 'required|string|min:5|max:300',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+        ];
+        if ($request->method() == 'PATCH') {
+            $rules = [
+                'category_id' => 'sometimes|required|exists:prod_cats,id',
+                'sub_category_short_code' => 'sometimes|required|string|min:3|max:20|unique:prod_sub_cats,sub_category_short_code,' . $prodSubCat->id,
+                'sub_category_desc' => 'sometimes|required|string|min:5|max:300',
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+            ];
+        }
+        $this->validate($request, $rules);
+        $prodSubCat->update($request->except('created_by'));
+        return $this->response->item($prodSubCat->fresh(), new ProdSubCatTransformer());
         //
     }
 
