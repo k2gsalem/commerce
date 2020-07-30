@@ -95,6 +95,14 @@ class StockMasterController extends Controller
             'stock_threshold' => 'required|integer',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
+        if ($request->method() == 'PATCH') {
+            $rules = [
+                'item_id' => 'sometimes|required|integer|exists:items,id',
+                'variant_code' => 'sometimes|required|string|min:3|max:100',
+                'variant_desc' => 'sometimes|required|string|min:5|max:300',               
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',            
+            ];
+        }
         $this->validate($request, $rules);
         //
     }
