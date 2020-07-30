@@ -62,26 +62,27 @@ class ItemVariantController extends Controller
             // 'updated_by' => 'required|integer|exists:users,id'           
         ];
         $this->validate($request, $rules);
-
+        $itemVariant = $this->model->create($request->all());
 
         if ($request->has('file')) {
             foreach ($request->file as $file) {
                 $assets = $this->api->attach(['file' => $file])->post('api/assets');
-                $itemVariant = $this->model->create($request->all());
+                // $itemVariant = $this->model->create($request->all());
                 $itemVariant->assets()->save($assets);
             }
         } else if ($request->has('url')) {
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
-            $itemVariant = $this->model->create($request->all());
+            // $itemVariant = $this->model->create($request->all());
             $itemVariant->assets()->save($assets);
         } else if ($request->has('uuid')) {
             $a = Asset::byUuid($request->uuid)->get();
             $assets = Asset::findOrFail($a[0]->id);
-            $itemVariant = $this->model->create($request->all());
+            // $itemVariant = $this->model->create($request->all());
             $itemVariant->assets()->save($assets);
-        } else {
-            $itemVariant = $this->model->create($request->all());
-        }
+        } 
+        // else {
+        //     $itemVariant = $this->model->create($request->all());
+        // }
         return $this->response->created(url('api/itemVariant/' . $itemVariant->id));
     }
 

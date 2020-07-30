@@ -60,27 +60,22 @@ class ProdCatController extends Controller
             // 'updated_by' => 'required|integer|exists:users,id',
         ];
         $this->validate($request, $rules);
-
+        $prodCat = $this->model->create($request->all());
         if ($request->has('file')) {
             foreach ($request->file as $file) {
                 $assets = $this->api->attach(['file' => $file])->post('api/assets');
-                $proCat = $this->model->create($request->all());
-                $proCat->assets()->save($assets);
+                $prodCat->assets()->save($assets);
             }
         } else if ($request->has('url')) {
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
-            $proCat = $this->model->create($request->all());
-            $proCat->assets()->save($assets);
+            $prodCat->assets()->save($assets);
         } else if ($request->has('uuid')) {
             $a = Asset::byUuid($request->uuid)->get();
             $assets = Asset::findOrFail($a[0]->id);
-            $proCat = $this->model->create($request->all());
-            $proCat->assets()->save($assets);
+            $prodCat->assets()->save($assets);
 
-        } else {
-            $proCat = $this->model->create($request->all());
         }
-        return $this->response->created(url('api/prodCat/' . $proCat->id));
+        return $this->response->created(url('api/prodCat/' . $prodCat->id));
     }
 
     /**
@@ -109,13 +104,13 @@ class ProdCatController extends Controller
     {
         $request['updated_by'] = $request->user()->id;
         $rules = [
-            'category_short_code' => 'required|string|min:3|max:20|unique:prod_cats,category_short_code,'.$prodCat->id,
-            'category_desc' => 'required|string|max:300' ,
+            'category_short_code' => 'required|string|min:3|max:20|unique:prod_cats,category_short_code,' . $prodCat->id,
+            'category_desc' => 'required|string|max:300',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         if ($request->method() == 'PATCH') {
             $rules = [
-                'category_short_code' => 'sometimes|required|string|min:3|max:20|unique:prod_cats,category_short_code,'.$prodCat->id,
+                'category_short_code' => 'sometimes|required|string|min:3|max:20|unique:prod_cats,category_short_code,' . $prodCat->id,
                 'category_desc' => 'sometimes|required|string|max:300',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
                 'file' => 'array',
@@ -124,18 +119,14 @@ class ProdCatController extends Controller
         }
 
         $this->validate($request, $rules);
+        $prodCat->update($request->except('created_by'));
         if ($request->has('file')) {
             foreach ($request->file as $file) {
-                $assets = $this->api->attach(['file' => $file])->post('api/assets');               
-               // $prodCat->assets($assets)->update($request->except('created_by','_method'));
-               $prodCat->update($request->except('created_by'));
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
                 $prodCat->assets()->save($assets);
             }
-        }else{
-           
-            $prodCat->update($request->except('created_by'));
         }
-        
+
         return $this->response->item($prodCat->fresh(), new ProdCatTransformer());
         //
     }

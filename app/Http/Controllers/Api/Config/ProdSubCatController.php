@@ -61,28 +61,25 @@ class ProdSubCatController extends Controller
             // 'updated_by' => 'required|integer|exists:users,id'
         ];
         $this->validate($request, $rules);
-
+        $proSubCat = $this->model->create($request->all());
         if ($request->has('file')) {
             foreach ($request->file as $file) {
-                $assets = $this->api->attach(['file' => $file])->post('api/assets');
-                $proSubCat = $this->model->create($request->all());
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');                
                 $proSubCat->assets()->save($assets);
 
             }
         } else if ($request->has('url')) {
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
-            $proSubCat = $this->model->create($request->all());
+            // $proSubCat = $this->model->create($request->all());
             $proSubCat->assets()->save($assets);
 
         } else if ($request->has('uuid')) {
             $a = Asset::byUuid($request->uuid)->get();
             $assets = Asset::findOrFail($a[0]->id);
-            $proSubCat = $this->model->create($request->all());
+            // $proSubCat = $this->model->create($request->all());
             $proSubCat->assets()->save($assets);
 
-        } else {
-            $proSubCat = $this->model->create($request->all());
-        }
+        } 
         return $this->response->created(url('api/prodSubCat/' . $proSubCat->id));
     }
 
@@ -123,6 +120,12 @@ class ProdSubCatController extends Controller
         }
         $this->validate($request, $rules);
         $prodSubCat->update($request->except('created_by'));
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
+                $prodSubCat->assets()->save($assets);
+            }
+        }
         return $this->response->item($prodSubCat->fresh(), new ProdSubCatTransformer());
         //
     }
