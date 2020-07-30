@@ -118,11 +118,24 @@ class ProdCatController extends Controller
                 'category_short_code' => 'sometimes|required|string|min:3|max:20|unique:prod_cats,category_short_code,'.$prodCat->id,
                 'category_desc' => 'sometimes|required|string|max:300',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+                'file' => 'array',
+                'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',
             ];
         }
 
         $this->validate($request, $rules);
-        $prodCat->update($request->except('created_by'));
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');               
+               // $prodCat->assets($assets)->update($request->except('created_by','_method'));
+               $prodCat->update($request->except('created_by'));
+                $prodCat->assets()->save($assets);
+            }
+        }else{
+           
+            $prodCat->update($request->except('created_by'));
+        }
+        
         return $this->response->item($prodCat->fresh(), new ProdCatTransformer());
         //
     }

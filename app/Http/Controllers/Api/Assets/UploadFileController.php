@@ -61,7 +61,12 @@ class UploadFileController extends Controller
         $this->client = $client;
         $this->model = $model;
     }
-
+    public function destroy($uuid)
+    {
+        $model = $this->model->byUuid($uuid)->firstOrFail();
+        $model->delete();
+        return $this->response->noContent();
+    }
     /**
      * @param \Illuminate\Http\Request $request
      * @return $this
