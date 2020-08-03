@@ -53,7 +53,7 @@ class ItemVariantController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_code' => 'required|string|min:3|max:100',
+            'variant_code' => 'required|string|min:3|max:100|unique:item_variants,variant_code',
             'variant_desc' => 'required|string|min:5|max:300',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
@@ -110,7 +110,7 @@ class ItemVariantController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_code' => 'required|string|min:3|max:100',
+            'variant_code' => 'required|string|min:3|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
             'variant_desc' => 'required|string|min:5|max:300',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
@@ -119,12 +119,22 @@ class ItemVariantController extends Controller
         if ($request->method() == 'PATCH') {
             $rules = [
                 'item_id' => 'sometimes|required|integer|exists:items,id',
-                'variant_code' => 'sometimes|required|string|min:3|max:100',
+                'variant_code' => 'sometimes|required|string|min:3|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
                 'variant_desc' => 'sometimes|required|string|min:5|max:300',               
-                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',            
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+                'file' => 'array',
+                'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',            
             ];
         }
         $this->validate($request, $rules);
+        $itemVariant->update($request->except('created_by'));
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
+                $itemVariant->assets()->save($assets);
+            }
+        }
+        return $this->response->item($itemVariant->fresh(), new ItemVariantTransformer());
         //
     }
 

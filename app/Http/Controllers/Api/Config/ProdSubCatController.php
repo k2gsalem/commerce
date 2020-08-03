@@ -116,6 +116,8 @@ class ProdSubCatController extends Controller
                 'sub_category_short_code' => 'sometimes|required|string|min:3|max:20|unique:prod_sub_cats,sub_category_short_code,' . $prodSubCat->id,
                 'sub_category_desc' => 'sometimes|required|string|min:5|max:300',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+                'file' => 'array',
+                'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',
             ];
         }
         $this->validate($request, $rules);

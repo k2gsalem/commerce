@@ -70,9 +70,9 @@ class StockMasterController extends Controller
      */
     public function show(StockMaster $stockMaster)
     {
-        
-     //  $stockMaster= $this->model::findOrFail($id);
-        
+
+        //  $stockMaster= $this->model::findOrFail($id);
+
         return $this->response->item($stockMaster, new StockMasterTransformer());
         //
     }
@@ -89,7 +89,7 @@ class StockMasterController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_id' => 'required|integer|exists:item_variants,id|unique:stock_masters,variant_id',
+            'variant_id' => 'required|integer|exists:item_variants,id|unique:stock_masters,variant_id,'.$stockMaster->id,
             'vendor_id' => 'required|integer|exists:vendors,id',
             'stock_quantity' => 'required|integer',
             'stock_threshold' => 'required|integer',
@@ -98,9 +98,11 @@ class StockMasterController extends Controller
         if ($request->method() == 'PATCH') {
             $rules = [
                 'item_id' => 'sometimes|required|integer|exists:items,id',
-                'variant_code' => 'sometimes|required|string|min:3|max:100',
-                'variant_desc' => 'sometimes|required|string|min:5|max:300',               
-                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',            
+                'variant_id' => 'sometimes|required|integer|exists:item_variants,id|unique:stock_masters,variant_id,'.$stockMaster->id,
+                'vendor_id' => 'sometimes|required|integer|exists:vendors,id',
+                'stock_quantity' => 'sometimes|required|integer',
+                'stock_threshold' => 'sometimes|required|integer',
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
         }
         $this->validate($request, $rules);

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    use Helpers;    
+    use Helpers;
     protected $model;
     public function __construct(Vendor $model)
     {
@@ -32,8 +32,8 @@ class VendorController extends Controller
         $paginator = $this->model->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
-        }      
-       
+        }
+
         return $this->response->paginator($paginator, new VendorTransformer());
         //
     }
@@ -46,38 +46,37 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        $request['created_by']=$request->user()->id;
-        $request['updated_by']=$request->user()->id;
-        $rules=[
-            'vendor_name'=>'required|string',
-            'file'=>'array',
-            'file.*'=>'image|mimes:jpeg,jpg,png|max:1024',
-            'vendor_category_id'=>'required|integer|exists:conf_vendor_cats,id',
-            'vendor_desc'=>'required|string|min:5|max:300',
-            'vendor_address'=>'required|string|min:5|max:200',
-            'vendor_contact'=>'required|string|min:10|unique:vendors,vendor_contact',
-            'vendor_email'=>'required|email|unique:vendors,vendor_email',
+        $request['created_by'] = $request->user()->id;
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'vendor_name' => 'required|string',
+            'file' => 'array',
+            'file.*' => 'image|mimes:jpeg,jpg,png|max:1024',
+            'vendor_category_id' => 'required|integer|exists:conf_vendor_cats,id',
+            'vendor_desc' => 'required|string|min:5|max:300',
+            'vendor_address' => 'required|string|min:5|max:200',
+            'vendor_contact' => 'required|string|min:10|unique:vendors,vendor_contact',
+            'vendor_email' => 'required|email|unique:vendors,vendor_email',
             'status_id' => 'required|integer|exists:conf_statuses,id',
-                       
-            
+
         ];
-        $this->validate($request,$rules);
+        $this->validate($request, $rules);
         $vendor = $this->model->create($request->all());
-        if($request->has('file')){
-            foreach($request->file as $file){
-                $assets =$this->api->attach(['file'=>$file])->post('api/assets');
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
                 // $vendor = $this->model->create($request->all());
                 $vendor->assets()->save($assets);
             }
-        }else if($request->has('url')){
+        } else if ($request->has('url')) {
             $assets = $this->api->post('api/assets', ['url' => $request->url]);
             // $vendor = $this->model->create($request->all());
             $vendor->assets()->save($assets);
-        }else if($request->has('uuid')){
-            $a=Asset::byUuid($request->uuid)->get();
-            $assets= Asset::findOrFail($a[0]->id);
+        } else if ($request->has('uuid')) {
+            $a = Asset::byUuid($request->uuid)->get();
+            $assets = Asset::findOrFail($a[0]->id);
             // $vendor = $this->model->create($request->all());
-            $vendor->assets()->save($assets);        
+            $vendor->assets()->save($assets);
 
         }
         //  else{
@@ -93,7 +92,7 @@ class VendorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Vendor $vendor)
-    {        
+    {
         return $this->response->item($vendor, new VendorTransformer());
         //
     }
@@ -107,6 +106,43 @@ class VendorController extends Controller
      */
     public function update(Request $request, Vendor $vendor)
     {
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'vendor_name' => 'required|string',
+            'file' => 'array',
+            'file.*' => 'image|mimes:jpeg,jpg,png|max:1024',
+            'vendor_category_id' => 'required|integer|exists:conf_vendor_cats,id',
+            'vendor_desc' => 'required|string|min:5|max:300',
+            'vendor_address' => 'required|string|min:5|max:200',
+            'vendor_contact' => 'required|string|min:10|unique:vendors,vendor_contact,'.$vendor->id,
+            'vendor_email' => 'required|email|unique:vendors,vendor_email,'.$vendor->id,
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+
+        ];
+        if ($request->method() == 'PATCH') {
+            $rules = [
+                'vendor_name' => 'sometimes|required|string',
+                'file' => 'array',
+                'file.*' => 'sometimes|image|mimes:jpeg,jpg,png|max:1024',
+                'vendor_category_id' => 'sometimes|required|integer|exists:conf_vendor_cats,id',
+                'vendor_desc' => 'sometimes|required|string|min:5|max:300',
+                'vendor_address' => 'sometimes|required|string|min:5|max:200',
+                'vendor_contact' => 'sometimes|required|string|min:10|unique:vendors,vendor_contact,'.$vendor->id,
+                'vendor_email' => 'sometimes|required|email|unique:vendors,vendor_email,'.$vendor->id,
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+
+            ];
+
+        }
+        $this->validate($request, $rules);
+        $vendor->update($request->except('created_by'));
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $assets = $this->api->attach(['file' => $file])->post('api/assets');
+                $vendor->assets()->save($assets);
+            }
+        }
+        return $this->response->item($vendor->fresh(), new VendorTransformer());
         //
     }
 
