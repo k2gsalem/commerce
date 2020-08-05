@@ -106,6 +106,7 @@ class StockMasterController extends Controller
             ];
         }
         $this->validate($request, $rules);
+        $stockMaster->update($request->except('created_by'));
         //
     }
 
