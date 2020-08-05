@@ -154,8 +154,10 @@ class VendorController extends Controller
      */
     public function destroy(Vendor $vendor)
     {
-        $record = $this->model->findOrFail($vendor->id);
-        $record->delete();
+        $vendor->assets()->delete();
+        $vendor->delete();
+        // $record = $this->model->findOrFail($vendor->id);
+        // $record->delete();
         return $this->response->noContent();
     }
 }

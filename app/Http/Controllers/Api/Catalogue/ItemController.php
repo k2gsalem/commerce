@@ -151,8 +151,10 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        $record = $this->model->findOrFail($item->id);
-        $record->delete();
+        $item->assets()->delete();
+        $item->delete();
+        // $record = $this->model->findOrFail($item->id);
+        // $record->delete();
         return $this->response->noContent();
     }
 }

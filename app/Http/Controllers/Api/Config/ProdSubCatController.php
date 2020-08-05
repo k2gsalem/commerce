@@ -140,8 +140,10 @@ class ProdSubCatController extends Controller
      */
     public function destroy(ProdSubCat $prodSubCat)
     {
-        $record = $this->model->findOrFail($prodSubCat->id);
-        $record->delete();
+        $prodSubCat->assets()->delete();
+        $prodSubCat->delete();
+        // $record = $this->model->findOrFail($prodSubCat->id);
+        // $record->delete();
         return $this->response->noContent();
     }
 }

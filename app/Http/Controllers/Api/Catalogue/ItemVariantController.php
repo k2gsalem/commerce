@@ -146,8 +146,10 @@ class ItemVariantController extends Controller
      */
     public function destroy(ItemVariant $itemVariant)
     {
-        $record = $this->model->findOrFail($itemVariant->id);
-        $record->delete();
+        $itemVariant->assets()->delete();
+        $itemVariant->delete();
+        // $record = $this->model->findOrFail($itemVariant->id);
+        // $record->delete();
         return $this->response->noContent();
     }
 }

@@ -151,8 +151,10 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        $record = $this->model->findOrFail($supplier->id);
-        $record->delete();
+        $supplier->assets()->delete();
+        $supplier->delete();
+        // $record = $this->model->findOrFail($supplier->id);
+        // $record->delete();
         return $this->response->noContent();
     }
 }
