@@ -41,6 +41,10 @@ class Item extends Model implements Auditable
     {
         return $this->hasMany(ItemVariant::class,'item_id');
     }
+    public function itemVariantGroups()
+    {
+        return $this->hasMany(ItemVariantGroup::class,'item_id');
+    }
     public function stock()
     {
         return $this->hasMany(StockMaster::class,'item_id');

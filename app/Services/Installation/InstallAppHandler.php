@@ -100,6 +100,12 @@ class InstallAppHandler
             ['name' => 'Delete stock'],
             ['name' => 'Update stock'],
         ],
+        'item_variant_group' => [
+            ['name' => 'List item variant group'],
+            ['name' => 'Create item variant group'],
+            ['name' => 'Delete item variant group'],
+            ['name' => 'Update item variant group'],
+        ],
     ];
 
     /**

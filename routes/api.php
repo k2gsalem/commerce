@@ -53,6 +53,7 @@ $api->version('v1', function ($api) {
 
             $api->resource('item', 'Api\Catalogue\ItemController');
             $api->resource('itemVariant', 'Api\Catalogue\ItemVariantController');
+            $api->resource('itemVariantGroup', 'Api\Catalogue\ItemVariantGroupController');                                                             
             $api->resource('stockMaster', 'Api\Stock\StockMasterController');
 
             $api->group(['prefix' => 'member'], function ($api) {

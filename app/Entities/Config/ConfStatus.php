@@ -4,6 +4,7 @@ namespace App\Entities\Config;
 
 use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariant;
+use App\Entities\Catalogue\ItemVariantGroup;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Vendor\Supplier;
 use App\Entities\Vendor\Vendor;
@@ -52,6 +53,10 @@ class ConfStatus extends Model implements Auditable
     public function itemVariant()
     {
         return $this->belongsToMany(ItemVariant::class, 'status_id','id');
+    }
+    public function itemVariantGroup()
+    {
+        return $this->belongsToMany(ItemVariantGroup::class, 'status_id','id');
     }
     public function stock()
     {
