@@ -47,9 +47,9 @@ class ItemVariantGroupController extends Controller
         $request['created_by'] = $request->user()->id;
         $request['updated_by'] = $request->user()->id;
         $rules = [
-            'item_id' => 'required|integer|exists:items,id',            
-            'item_group_desc' => 'required|string|min:5|max:300',            
-            'status_id' => 'required|integer|exists:conf_statuses,id',          
+            'item_id' => 'required|integer|exists:items,id',
+            'item_group_desc' => 'required|string|min:5|max:300',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         $this->validate($request, $rules);
         $itemVariantGroup = $this->model->create($request->all());
@@ -65,6 +65,7 @@ class ItemVariantGroupController extends Controller
      */
     public function show(ItemVariantGroup $itemVariantGroup)
     {
+        return $this->response->item($itemVariantGroup, new ItemVariantGroupTransformer());
         //
     }
 
@@ -77,6 +78,22 @@ class ItemVariantGroupController extends Controller
      */
     public function update(Request $request, ItemVariantGroup $itemVariantGroup)
     {
+        $request['updated_by'] = $request->user()->id;
+        $rules = [
+            'item_id' => 'required|integer|exists:items,id',
+            'item_group_desc' => 'required|string|min:5|max:300',
+            'status_id' => 'required|integer|exists:conf_statuses,id',
+        ];
+        if ($request->method() == 'PATCH') {
+            $rules = [
+                'item_id' => 'sometimes|required|integer|exists:items,id',
+                'item_group_desc' => 'sometimes|required|string|min:5|max:300',
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+            ];
+        }
+        $this->validate($request, $rules);
+        $itemVariantGroup->update($request->except('created_by'));
+        return $this->response->item($itemVariantGroup->fresh(), new ItemVariantGroupTransformer());
         //
     }
 
@@ -88,6 +105,8 @@ class ItemVariantGroupController extends Controller
      */
     public function destroy(ItemVariantGroup $itemVariantGroup)
     {
+        $itemVariantGroup->delete();
+        return $this->response->noContent();
         //
     }
 }
