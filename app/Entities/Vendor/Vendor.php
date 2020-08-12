@@ -15,7 +15,7 @@ class Vendor extends Model implements Auditable
     use SoftDeletes,AuditingAuditable;
     protected $fillable = [
         'vendor_name',
-        'vendor_logo',
+        // 'vendor_logo',
         'vendor_category_id',
         'vendor_desc',
         'vendor_address',

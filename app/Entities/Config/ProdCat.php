@@ -12,14 +12,14 @@ class ProdCat extends Model implements Auditable
 {
     //
 
-    use AuditingAuditable,SoftDeletes;
+    use AuditingAuditable, SoftDeletes;
 
     protected $fillable = [
-        'category_short_code', 'category_desc', 'category_image', 'status_id', 'created_by', 'updated_by'
+        'category_short_code', 'category_desc', 'status_id', 'created_by', 'updated_by',
     ];
     public function confStatus()
     {
-        return $this->hasOne(ConfStatus::class,'id','status_id');
+        return $this->hasOne(ConfStatus::class, 'id', 'status_id');
     }
     public function subCategories()
     {
@@ -27,6 +27,6 @@ class ProdCat extends Model implements Auditable
     }
     public function assets()
     {
-        return $this->morphMany(Asset::class,'imageable');
+        return $this->morphMany(Asset::class, 'imageable');
     }
 }

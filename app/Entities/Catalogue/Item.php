@@ -20,7 +20,7 @@ class Item extends Model implements Auditable
         'sub_category_id',
         'item_code',
         'item_desc',
-        'item_image',
+        // 'item_image',
         'vendor_store_id',
         'status_id',
         'created_by',

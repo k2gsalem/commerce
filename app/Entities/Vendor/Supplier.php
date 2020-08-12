@@ -14,7 +14,7 @@ class Supplier extends Model implements Auditable
     use SoftDeletes,AuditingAuditable;
     protected $fillable = [
         'supplier_name',
-        'supplier_logo',
+        // 'supplier_logo',
         'supplier_category_id',
         'supplier_desc',
         'supplier_address',
