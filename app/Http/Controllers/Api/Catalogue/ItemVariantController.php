@@ -37,7 +37,6 @@ class ItemVariantController extends Controller
             $paginator->appends('limit', $request->get('limit'));
         }
 
-
         return $this->response->paginator($paginator, new ItemVariantTransformer());
     }
 
@@ -53,14 +52,17 @@ class ItemVariantController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_group_id'=>'integer|exists:item_variant_groups,id',
+            'variant_group_id' => 'integer|exists:item_variant_groups,id',
             'variant_code' => 'required|string|min:1|max:50|unique:item_variants,variant_code',
             'variant_desc' => 'required|string|min:5|max:500',
+            'MRP' => 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'selling_price' => 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+            'default' => 'boolean',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
-            // 'updated_by' => 'required|integer|exists:users,id'           
+            // 'updated_by' => 'required|integer|exists:users,id'
         ];
         $this->validate($request, $rules);
         $itemVariant = $this->model->create($request->all());
@@ -80,7 +82,7 @@ class ItemVariantController extends Controller
             $assets = Asset::findOrFail($a[0]->id);
             // $itemVariant = $this->model->create($request->all());
             $itemVariant->assets()->save($assets);
-        } 
+        }
         // else {
         //     $itemVariant = $this->model->create($request->all());
         // }
@@ -111,20 +113,28 @@ class ItemVariantController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_code' => 'required|string|min:1|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
+            'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
+            'variant_code' => 'required|string|min:1|max:50|unique:item_variants,variant_code,' . $itemVariant->id,
             'variant_desc' => 'required|string|min:5|max:500',
+            'MRP' => 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'selling_price' => 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+            'default' => 'boolean',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
-            'status_id' => 'required|integer|exists:conf_statuses,id',            
+            'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         if ($request->method() == 'PATCH') {
             $rules = [
                 'item_id' => 'sometimes|required|integer|exists:items,id',
-                'variant_code' => 'sometimes|required|string|min:1|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
-                'variant_desc' => 'sometimes|required|string|min:5|max:500',               
-                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
+                'variant_group_id' => 'sometimes|required|integer|exists:item_variant_groups,id',
+                'variant_code' => 'sometimes|required|string|min:1|max:50|unique:item_variants,variant_code,' . $itemVariant->id,
+                'variant_desc' => 'sometimes|required|string|min:5|max:500',
+                'MRP' => 'sometimes|required|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                'selling_price' => 'sometimes|required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+                'default' => 'sometimes|boolean',
                 'file' => 'array',
-                'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',            
+                'file.*' => 'sometimes|image|mimes:jpeg,jpg,png|max:2048',
+                'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
         }
         $this->validate($request, $rules);

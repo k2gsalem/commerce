@@ -18,9 +18,13 @@ class CreateItemVariantsTable extends Migration
             $table->bigInteger('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->string('variant_code',200)->unique();
-            $table->unsignedBigInteger('variant_group_id')->nullable();
+            $table->unsignedBigInteger('variant_group_id');
             $table->foreign('variant_group_id')->references('id')->on('item_variant_groups')->onDelete('cascade');
-            $table->mediumText('variant_desc',1000);      
+            $table->mediumText('variant_desc',1000);
+            $table->decimal('MRP',10,2);
+            $table->decimal('selling_price',10,2);
+            $table->boolean('default')->default(FALSE); 
+            $table->unique(['item_id','variant_code','variant_group_id']);           
             // $table->string('variant_image',500)->nullable();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');

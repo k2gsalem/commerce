@@ -5,6 +5,7 @@ namespace App\Transformers\Catalogue;
 use App\Entities\Catalogue\ItemVariant;
 use App\Transformers\Assets\AssetTransformer;
 use League\Fractal\TransformerAbstract;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class ItemVariantTransformer extends TransformerAbstract
 {
@@ -26,7 +27,9 @@ class ItemVariantTransformer extends TransformerAbstract
             'variant_desc'=>(string)$model->variant_desc,   
             'variant_group_id'=>$model->variant_group_id,
             'variant_group_desc'=>$variant_group_desc,
-            // 'variant_image'=>(string)$model->variant_image,
+            'MRP'=>(String)$model->MRP,
+            'selling_price'=>(String)$model->selling_price,
+            'default'=>(Boolean)$model->default,           
             'status_id'=>(int)$model->status_id,
             'status_desc'=>(string)$model->conStatus->status_desc,
             'created_at' => (string)$model->created_at->getTimestamp(),
