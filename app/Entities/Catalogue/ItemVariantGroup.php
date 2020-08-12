@@ -10,10 +10,10 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class ItemVariantGroup extends Model implements Auditable
 {
-    use SoftDeletes,AuditingAuditable;
+    use SoftDeletes, AuditingAuditable;
     protected $fillable = [
         'item_id',
-        'item_group_desc',        
+        'item_group_desc',
         'status_id',
         'created_by',
         'updated_by',
@@ -24,7 +24,11 @@ class ItemVariantGroup extends Model implements Auditable
     }
     public function conStatus()
     {
-       return $this->hasOne(ConfStatus::class,'id','status_id');
+        return $this->hasOne(ConfStatus::class, 'id', 'status_id');
+    }
+    public function itemVariants()
+    {
+        return $this->hasMany(ItemVariant::class, 'variant_group_id');
     }
     //
 }

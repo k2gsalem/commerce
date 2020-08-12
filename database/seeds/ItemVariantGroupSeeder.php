@@ -11,6 +11,7 @@ class ItemVariantGroupSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Entities\Catalogue\ItemVariantGroup::class,2)->create();
         //
     }
 }

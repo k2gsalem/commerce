@@ -3,6 +3,7 @@
 namespace App\Entities\Vendor;
 
 use App\Entities\Assets\Asset;
+use App\Entities\Stock\StockTracker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -37,6 +38,9 @@ class Supplier extends Model implements Auditable
     public function assets()
     {
         return $this->morphMany(Asset::class,'imageable');
+    }
+    public function stockTrackers(){
+        return $this->hasMany(StockTracker::class,'supplier_id');
     }
     //
 }

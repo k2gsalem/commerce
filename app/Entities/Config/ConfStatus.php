@@ -6,6 +6,7 @@ use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariant;
 use App\Entities\Catalogue\ItemVariantGroup;
 use App\Entities\Stock\StockMaster;
+use App\Entities\Stock\StockTracker;
 use App\Entities\Vendor\Supplier;
 use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
@@ -61,6 +62,10 @@ class ConfStatus extends Model implements Auditable
     public function stock()
     {
         return $this->belongsToMany(StockMaster::class, 'status_id','id');
+    }
+    public function stockTracker()
+    {
+        return $this->belongsToMany(StockTracker::class, 'status_id','id');
     }
 
 }

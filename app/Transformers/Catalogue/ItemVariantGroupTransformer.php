@@ -6,6 +6,9 @@ use League\Fractal\TransformerAbstract;
 
 class ItemVariantGroupTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = [
+        'ItemVariants',
+    ];
     public function transform(ItemVariantGroup $model)
     {
         return [
@@ -20,5 +23,8 @@ class ItemVariantGroupTransformer extends TransformerAbstract
         ];
 
     }
-
+    public function includeItemVariants(ItemVariantGroup $model)
+    {
+        return $this->collection($model->itemVariants, new ItemVariantTransformer());
+    }
 }

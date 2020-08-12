@@ -22,8 +22,8 @@ class CreateStockTrackersTable extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->string('purchase_order_ref')->nullable();
-            $table->timestamp('purchase_order_date')->nullable();
-            $table->decimal('purchase_price',10,0);
+            $table->date('purchase_order_date')->nullable();
+            $table->decimal('purchase_price',10,2);
             $table->integer('stock_quantity');
             $table->longText('comments')->nullable();
             $table->unsignedBigInteger('status_id');

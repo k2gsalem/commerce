@@ -106,6 +106,12 @@ class InstallAppHandler
             ['name' => 'Delete item variant group'],
             ['name' => 'Update item variant group'],
         ],
+        'stock_tracker' => [
+            ['name' => 'List stock tracker'],
+            ['name' => 'Create stock tracker'],
+            ['name' => 'Delete stock tracker'],
+            ['name' => 'Update stock tracker'],
+        ],
     ];
 
     /**

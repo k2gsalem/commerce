@@ -55,6 +55,7 @@ $api->version('v1', function ($api) {
             $api->resource('itemVariant', 'Api\Catalogue\ItemVariantController');
             $api->resource('itemVariantGroup', 'Api\Catalogue\ItemVariantGroupController');                                                             
             $api->resource('stockMaster', 'Api\Stock\StockMasterController');
+            $api->resource('stockTracker', 'Api\Stock\StockTrackerController');
 
             $api->group(['prefix' => 'member'], function ($api) {
                 $api->group(['prefix' => 'me'], function ($api) {

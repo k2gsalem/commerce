@@ -11,6 +11,7 @@ class StockTrackerSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Entities\Stock\StockTracker::class,1)->create();
         //
     }
 }

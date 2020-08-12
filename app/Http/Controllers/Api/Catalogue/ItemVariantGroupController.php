@@ -16,10 +16,10 @@ class ItemVariantGroupController extends Controller
     {
         $this->model = $model;
         // $this->middleware('permission:List item variant group')->only('index');
-        // $this->middleware('permission:List item variant group')->only('show');
-        // $this->middleware('permission:Create item variant group')->only('store');
-        // $this->middleware('permission:Update item variant group')->only('update');
-        // $this->middleware('permission:Delete item variant group')->only('destroy');
+        // $this->middleware('permission:List item variant group')->only('show');        
+        $this->middleware('permission:Create item variant group')->only('store');
+        $this->middleware('permission:Update item variant group')->only('update');
+        $this->middleware('permission:Delete item variant group')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -48,7 +48,7 @@ class ItemVariantGroupController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'item_group_desc' => 'required|string|min:5|max:300',
+            'item_group_desc' => 'required|string|min:1|max:50',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         $this->validate($request, $rules);
@@ -81,13 +81,13 @@ class ItemVariantGroupController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'item_group_desc' => 'required|string|min:5|max:300',
+            'item_group_desc' => 'required|string|min:1|max:50',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         if ($request->method() == 'PATCH') {
             $rules = [
                 'item_id' => 'sometimes|required|integer|exists:items,id',
-                'item_group_desc' => 'sometimes|required|string|min:5|max:300',
+                'item_group_desc' => 'sometimes|required|string|min:1|max:50',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
         }

@@ -53,8 +53,9 @@ class ItemVariantController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_code' => 'required|string|min:3|max:100|unique:item_variants,variant_code',
-            'variant_desc' => 'required|string|min:5|max:300',
+            'variant_group_id'=>'integer|exists:item_variant_groups,id',
+            'variant_code' => 'required|string|min:1|max:50|unique:item_variants,variant_code',
+            'variant_desc' => 'required|string|min:5|max:500',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',
@@ -110,8 +111,8 @@ class ItemVariantController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'variant_code' => 'required|string|min:3|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
-            'variant_desc' => 'required|string|min:5|max:300',
+            'variant_code' => 'required|string|min:1|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
+            'variant_desc' => 'required|string|min:5|max:500',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',            
@@ -119,8 +120,8 @@ class ItemVariantController extends Controller
         if ($request->method() == 'PATCH') {
             $rules = [
                 'item_id' => 'sometimes|required|integer|exists:items,id',
-                'variant_code' => 'sometimes|required|string|min:3|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
-                'variant_desc' => 'sometimes|required|string|min:5|max:300',               
+                'variant_code' => 'sometimes|required|string|min:1|max:100|unique:item_variants,variant_code,'.$itemVariant->id,
+                'variant_desc' => 'sometimes|required|string|min:5|max:500',               
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
                 'file' => 'array',
                 'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',            

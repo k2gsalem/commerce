@@ -13,7 +13,7 @@ class ItemVariantSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Entities\Catalogue\ItemVariant::class,300)->create()->each(function ($proCat) {
+        factory(\App\Entities\Catalogue\ItemVariant::class,8)->create()->each(function ($proCat) {
             $files = Storage::files('');
             $randomFile = $files[rand(0, count($files) - 1)];  
             $faker = Faker\Factory::create();

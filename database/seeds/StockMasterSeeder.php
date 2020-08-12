@@ -11,7 +11,7 @@ class StockMasterSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Entities\Stock\StockMaster::class,300)->create();
+        factory(\App\Entities\Stock\StockMaster::class,1)->create();
         //
     }
 }

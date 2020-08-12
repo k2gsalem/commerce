@@ -14,7 +14,7 @@ class ProdCatSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Entities\Config\ProdCat::class, 10)->create()->each(function ($proCat) {
+        factory(\App\Entities\Config\ProdCat::class, 2)->create()->each(function ($proCat) {
             $files = Storage::files('');
             $randomFile = $files[rand(0, count($files) - 1)];  
             $faker = Faker\Factory::create();

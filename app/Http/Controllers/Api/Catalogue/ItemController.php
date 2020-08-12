@@ -53,8 +53,8 @@ class ItemController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'sub_category_id' => 'required|integer|exists:prod_sub_cats,id',
-            'item_code' => 'required|string|min:3|max:100|unique:items,item_code',
-            'item_desc' => 'required|string|min:5|max:300',
+            'item_code' => 'required|string|min:1|max:50|unique:items,item_code',
+            'item_desc' => 'required|string|min:5|max:500',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'vendor_store_id' => 'required|integer|exists:vendors,id',
@@ -111,8 +111,8 @@ class ItemController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'sub_category_id' => 'required|integer|exists:prod_sub_cats,id',
-            'item_code' => 'required|string|min:3|max:100|unique:items,item_code,'.$item->id,
-            'item_desc' => 'required|string|min:5|max:300',
+            'item_code' => 'required|string|min:1|max:50|unique:items,item_code,'.$item->id,
+            'item_desc' => 'required|string|min:5|max:500',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'vendor_store_id' => 'required|integer|exists:vendors,id',

@@ -6,16 +6,19 @@ use App\Entities\Catalogue\Item;
 use App\Transformers\Assets\AssetTransformer;
 use League\Fractal\TransformerAbstract;
 
+
 class ItemTransfomer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'ItemVariants'
+        'ItemVariants','ItemVariantGroups'
     ];
     protected $defaultIncludes = [
         'Assets'
     ];
     public function transform(Item $model)
     {
+       
+        
         return [
             'id' => (int) $model->id,
             'item_code'=>(string)$model->item_code,
@@ -31,6 +34,7 @@ class ItemTransfomer extends TransformerAbstract
             'updated_by'=>(int)$model->updated_by,
             'created_at' => (string)$model->created_at->getTimestamp(),
             'updated_at' => (string)$model->updated_at->getTimestamp(),
+          //  'assets'=>['data'=>$model->itemVariants],
           ];
     }
     public function includeAssets(Item $model)
@@ -39,8 +43,11 @@ class ItemTransfomer extends TransformerAbstract
     }
     public function includeItemVariants(Item $model)
     {
-            return $this->collection($model->itemVariants ,new ItemVariantTransformer());
+        return $this->collection($model->itemVariants, new ItemVariantTransformer());
     }
- 
+    public function includeItemVariantGroups(Item $model)
+    {
+        return $this->collection($model->itemVariantGroups, new ItemVariantGroupTransformer());
+    }
 
 }
