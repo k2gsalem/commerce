@@ -49,6 +49,7 @@ class ItemVariantGroupController extends Controller
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
             'item_group_desc' => 'required|string|min:1|max:50',
+            'default' => 'boolean',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         $this->validate($request, $rules);
@@ -82,12 +83,14 @@ class ItemVariantGroupController extends Controller
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
             'item_group_desc' => 'required|string|min:1|max:50',
+            'default' => 'boolean',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         if ($request->method() == 'PATCH') {
             $rules = [
                 'item_id' => 'sometimes|required|integer|exists:items,id',
                 'item_group_desc' => 'sometimes|required|string|min:1|max:50',
+                'default' => 'sometimes|boolean',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
         }

@@ -14,6 +14,7 @@ class ItemVariantGroup extends Model implements Auditable
     protected $fillable = [
         'item_id',
         'item_group_desc',
+        'default',
         'status_id',
         'created_by',
         'updated_by',
