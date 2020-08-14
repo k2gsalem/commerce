@@ -15,8 +15,8 @@ class ConfStatusSeeder extends Seeder
         // factory(\App\Entities\Config\ConfStatus::class,20)->create();
         ConfStatus::create(['status_desc'=>'Active','created_by'=>1,'updated_by'=>1]);
         ConfStatus::create(['status_desc'=>'InActive','created_by'=>1,'updated_by'=>1]);
-        ConfStatus::create(['status_desc'=>'Processing','created_by'=>1,'updated_by'=>1]);
-        ConfStatus::create(['status_desc'=>'Hold','created_by'=>1,'updated_by'=>1]);
+        // ConfStatus::create(['status_desc'=>'Processing','created_by'=>1,'updated_by'=>1]);
+        // ConfStatus::create(['status_desc'=>'Hold','created_by'=>1,'updated_by'=>1]);
         //
     }
 }
