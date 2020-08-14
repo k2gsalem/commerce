@@ -57,7 +57,7 @@ class ItemVariantController extends Controller
             'variant_desc' => 'required|string|min:5|max:500',
             'MRP' => 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/',
             'selling_price' => 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
-            'default' => 'boolean|not_in:',
+            'default' => 'boolean',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',
