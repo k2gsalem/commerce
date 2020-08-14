@@ -29,7 +29,7 @@ class ItemVariantTransformer extends TransformerAbstract
             'variant_group_desc'=>$variant_group_desc,
             'MRP'=>(String)$model->MRP,
             'selling_price'=>(String)$model->selling_price,
-            'default'=>(Boolean)$model->default,           
+            'default'=>(boolean)$model->default,           
             'status_id'=>(int)$model->status_id,
             'status_desc'=>(string)$model->conStatus->status_desc,
             'created_at' => (string)$model->created_at->getTimestamp(),

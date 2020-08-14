@@ -53,7 +53,13 @@ class ItemVariantGroupController extends Controller
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         $this->validate($request, $rules);
+        if($request->has('default')){
+            if($request->default===true){
+                $this->model->query()->where('item_id',$request->item_id)->update(['default'=>false]);
+            }           
+        }        
         $itemVariantGroup = $this->model->create($request->all());
+        
         return $this->response->created(url('api/itemVariantGroup/' . $itemVariantGroup->id));
         //
     }
@@ -95,6 +101,11 @@ class ItemVariantGroupController extends Controller
             ];
         }
         $this->validate($request, $rules);
+        if($request->has('default')){
+            if($request->default===true){
+                $this->model->query()->where('item_id',$request->item_id)->update(['default'=>false]);
+            }           
+        }     
         $itemVariantGroup->update($request->except('created_by'));
         return $this->response->item($itemVariantGroup->fresh(), new ItemVariantGroupTransformer());
         //

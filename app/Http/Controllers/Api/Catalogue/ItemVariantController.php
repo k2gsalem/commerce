@@ -65,6 +65,11 @@ class ItemVariantController extends Controller
             // 'updated_by' => 'required|integer|exists:users,id'
         ];
         $this->validate($request, $rules);
+        if($request->has('default')){
+            if($request->default===true){
+                $this->model->query()->where('item_id',$request->variant_group_id)->update(['default'=>false]);
+            }           
+        }        
         $itemVariant = $this->model->create($request->all());
 
         if ($request->has('file')) {
@@ -138,6 +143,11 @@ class ItemVariantController extends Controller
             ];
         }
         $this->validate($request, $rules);
+        if($request->has('default')){
+            if($request->default===true){
+                $this->model->query()->where('item_id',$request->variant_group_id)->update(['default'=>false]);
+            }           
+        }        
         $itemVariant->update($request->except('created_by'));
         if ($request->has('file')) {
             foreach ($request->file as $file) {

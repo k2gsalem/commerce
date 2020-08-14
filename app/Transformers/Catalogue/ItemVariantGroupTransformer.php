@@ -3,6 +3,7 @@ namespace App\Transformers\Catalogue;
 
 use App\Entities\Catalogue\ItemVariantGroup;
 use League\Fractal\TransformerAbstract;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class ItemVariantGroupTransformer extends TransformerAbstract
 {
@@ -16,6 +17,7 @@ class ItemVariantGroupTransformer extends TransformerAbstract
             'item_id' => (int) $model->item_id,
             'item_desc' => (string) $model->item->item_desc,
             'item_group_desc' => (string) $model->item_group_desc,
+            'default'=>(boolean)$model->default,
             'status_id' => (int) $model->status_id,
             'status_desc' => (string) $model->conStatus->status_desc,
             'created_at' => (string) $model->created_at->getTimestamp(),
