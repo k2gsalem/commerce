@@ -57,6 +57,11 @@ $api->version('v1', function ($api) {
             $api->resource('stockMaster', 'Api\Stock\StockMasterController');
             $api->resource('stockTracker', 'Api\Stock\StockTrackerController');
 
+           
+                $api->get('/audits',['as'=>'model','uses' => 'Api\Audit\AuditController@show']);
+
+            
+
             $api->group(['prefix' => 'member'], function ($api) {
                 $api->group(['prefix' => 'me'], function ($api) {
                     $api->get('/', 'Api\Users\ProfileController@index');
