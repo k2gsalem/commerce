@@ -22,7 +22,7 @@
         "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0",
         "owen-it/laravel-auditing": "^10.0",
-        "spatie/laravel-permission": "^3.2"
+        "spatie/laravel-permission": "^3.15"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

@@ -6,6 +6,8 @@ use App\Entities\Assets\Asset;
 use App\Entities\Config\ConfStatus;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
+use App\Entities\Vendor\Supplier;
+use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -19,6 +21,17 @@ class ItemVariant extends Model implements Auditable
         'variant_code',
         'variant_group_id',
         'variant_desc',
+        'min_order_quantity',
+        'min_order_amount',  
+        'max_order_quantity',
+        'max_order_amount',
+        'discount_percentage',
+        'discount_amount',
+        'quantity',
+        'threshold',
+        'supplier_id',
+        // 'item_image',
+        'vendor_store_id',
         'MRP',
         'selling_price',
         'default',
@@ -33,6 +46,14 @@ class ItemVariant extends Model implements Auditable
     public function conStatus()
     {
         return $this->hasOne(ConfStatus::class, 'id', 'status_id');
+    }
+    public function store()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_store_id');
+    }
+    public function Supplier()
+    {
+        return $this->belongsTo(Supplier::class,'supplier_id');
     }
     public function stock()
     {
