@@ -5,6 +5,7 @@ namespace App\Entities\Catalogue;
 use App\Entities\Assets\Asset;
 use App\Entities\Config\ConfStatus;
 use App\Entities\Config\ProdSubCat;
+use App\Entities\Config\ProdCat;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
 use App\Entities\Vendor\Vendor;
@@ -18,6 +19,7 @@ class Item extends Model implements Auditable
 {
     use AuditingAuditable, SoftDeletes;
     protected $fillable = [
+        'category_id',
         'sub_category_id',
         'item_code',
         'item_desc',
@@ -36,6 +38,11 @@ class Item extends Model implements Auditable
         'created_by',
         'updated_by',
     ];
+
+    public function Category()
+    {
+        return $this->belongsTo(ProdCat::class, 'category_id');
+    }
     public function subCategory()
     {
         return $this->belongsTo(ProdSubCat::class, 'sub_category_id');
