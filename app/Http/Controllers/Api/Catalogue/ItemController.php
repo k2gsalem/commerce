@@ -53,7 +53,7 @@ class ItemController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'category_id' => 'required|integer|exists:prod_cats,id',
-            'sub_category_id' => 'required|integer|exists:prod_sub_cats,id',
+            'sub_category_id' => 'integer|exists:prod_sub_cats,id',
             'item_code' => 'required|string|min:1|max:50|unique:items,item_code',
             'item_desc' => 'required|string|min:5|max:500',
             'file' => 'array',
@@ -123,7 +123,7 @@ class ItemController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'category_id' => 'required|integer|exists:prod_cats,id',
-            'sub_category_id' => 'required|integer|exists:prod_sub_cats,id',
+            'sub_category_id' => 'integer|exists:prod_sub_cats,id',
             'item_code' => 'required|string|min:1|max:50|unique:items,item_code,'.$item->id,
             'item_desc' => 'required|string|min:5|max:500',
             'file' => 'array',
@@ -145,7 +145,7 @@ class ItemController extends Controller
         if ($request->method() == 'PATCH') {
             $rules = [
                 'category_id' => 'sometimes|required|integer|exists:prod_cats,id',
-                'sub_category_id' => 'sometimes|required|integer|exists:prod_sub_cats,id',
+                'sub_category_id' => 'sometimes|integer|exists:prod_sub_cats,id',
                 'item_code' => 'sometimes|required|string|min:3|max:100|unique:items,item_code,'.$item->id,
                 'item_desc' => 'sometimes|required|string|min:5|max:300',
                 'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
