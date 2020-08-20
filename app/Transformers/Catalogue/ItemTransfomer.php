@@ -55,6 +55,8 @@ class ItemTransfomer extends TransformerAbstract
             'supplier_name'=>$supplier_name,
             'vendor_store_id'=>(int)$model->vendor_store_id,
             'vendor'=>(string)$model->store->vendor_name,
+            'MRP'=>(float)$model->MRP,
+            'selling_price'=>(float)$model->selling_price,
             'updated_by'=>(int)$model->updated_by,
             'created_at' => (string)$model->created_at->getTimestamp(),
             'updated_at' => (string)$model->updated_at->getTimestamp(),

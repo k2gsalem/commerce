@@ -70,6 +70,8 @@ class ItemController extends Controller
             // 'item_image',
            
             'vendor_store_id' => 'required|integer|exists:vendors,id',
+            'MRP' => 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'selling_price' => 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
             // 'updated_by' => 'required|integer|exists:users,id'
@@ -140,6 +142,8 @@ class ItemController extends Controller
             // 'item_image',
            
             'vendor_store_id' => 'required|integer|exists:vendors,id',
+            'MRP' => 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'selling_price' => 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         if ($request->method() == 'PATCH') {
@@ -163,6 +167,8 @@ class ItemController extends Controller
                 // 'item_simage',
                
                 'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
+                'MRP' => 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                'selling_price' => 'sometimes|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
 

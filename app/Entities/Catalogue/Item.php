@@ -34,6 +34,8 @@ class Item extends Model implements Auditable
         'supplier_id',
         // 'item_image',
         'vendor_store_id',
+        'MRP',
+        'selling_price',
         'status_id',
         'created_by',
         'updated_by',
