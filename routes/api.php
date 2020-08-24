@@ -49,6 +49,7 @@ $api->version('v1', function ($api) {
             $api->resource('prodCat', 'Api\Config\ProdCatController');
             $api->resource('prodSubCat', 'Api\Config\ProdSubCatController');
             $api->resource('vendors', 'Api\Vendor\VendorController');
+            $api->resource('vendorStores', 'Api\Vendor\VendorStoreController');
             $api->resource('suppliers', 'Api\Vendor\SupplierController');
 
             $api->resource('item', 'Api\Catalogue\ItemController');
@@ -56,11 +57,6 @@ $api->version('v1', function ($api) {
             $api->resource('itemVariantGroup', 'Api\Catalogue\ItemVariantGroupController');                                                             
             $api->resource('stockMaster', 'Api\Stock\StockMasterController');
             $api->resource('stockTracker', 'Api\Stock\StockTrackerController');
-
-           
-                $api->get('/audits',['as'=>'model','uses' => 'Api\Audit\AuditController@show']);
-
-            
 
             $api->group(['prefix' => 'member'], function ($api) {
                 $api->group(['prefix' => 'me'], function ($api) {

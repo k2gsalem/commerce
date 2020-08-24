@@ -5,23 +5,25 @@ namespace App\Entities\Vendor;
 use App\Entities\Assets\Asset;
 use App\Entities\Catalogue\Item;
 use App\Entities\Stock\StockMaster;
-use App\Entities\Vendor\VendorStore;
+use App\Entities\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Vendor extends Model implements Auditable
+class VendorStore extends Model implements Auditable
 {
+    
     use SoftDeletes,AuditingAuditable;
     protected $fillable = [
-        'vendor_name',
+        'vendor_id',
         // 'vendor_logo',
-        'vendor_category_id',
-        'vendor_desc',
-        'vendor_address',
-        'vendor_contact',
-        'vendor_email',
+        'vendor_store_name',
+        'vendor_store_location',
+        'vendor_store_address',
+        'vendor_store_contact',
+        'latitude',
+        'longitude',
         'status_id',
         'created_by',
         'updated_by',
@@ -30,26 +32,21 @@ class Vendor extends Model implements Auditable
     {
         return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');        
     }
-    public function vendorCategory()
+    public function Vendor()
     {
-        return $this->hasOne('App\Entities\Config\ConfVendorCat','id','vendor_category_id');
-       
-    }
-    public function vendorStores()
-    {
-        return $this->hasMany(VendorStore::class,'vendor_store_id');
+        return $this->belongsTo(Vendor::class, 'vendor_id');
     }
     public function items()
     {
-        return $this->hasMany(Item::class,'vendor_id');
+        return $this->hasMany(Item::class,'vendor_store_id');
     }
-    public function stock()
+    public function stockMaster()
     {
-        return $this->hasMany(StockMaster::class,'vendor_id');
+        return $this->hasOne('App\Entities\Stock\stockMaster','id','vendor_store_id');        
     }
     public function assets()
     {
         return $this->morphMany(Asset::class,'imageable');
     }
-    //
+
 }

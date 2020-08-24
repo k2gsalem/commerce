@@ -47,9 +47,13 @@ class ItemVariant extends Model implements Auditable
     {
         return $this->hasOne(ConfStatus::class, 'id', 'status_id');
     }
-    public function store()
+    public function vendorStore()
     {
-        return $this->belongsTo(Vendor::class, 'vendor_store_id');
+        return $this->belongsTo(VendorStore::class, 'vendor_store_id');
+    }
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_id');
     }
     public function Supplier()
     {

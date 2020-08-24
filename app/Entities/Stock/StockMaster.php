@@ -40,4 +40,9 @@ class StockMaster extends Model implements Auditable
     {
         return $this->belongsTo(Vendor::class);
     }
+
+    public function vendorStore()
+    {
+        return $this->belongsTo(VendorStore::class);
+    }
 }
