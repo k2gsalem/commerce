@@ -112,6 +112,12 @@ class InstallAppHandler
             ['name' => 'Delete stock tracker'],
             ['name' => 'Update stock tracker'],
         ],
+        'vendor_store' => [
+            ['name' => 'List vendor store'],
+            ['name' => 'Create vendor store'],
+            ['name' => 'Delete vendor store'],
+            ['name' => 'Update vendor store'],
+        ],
     ];
 
     /**
