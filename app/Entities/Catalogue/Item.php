@@ -55,7 +55,7 @@ class Item extends Model implements Auditable
     {
         return $this->belongsTo(VendorStore::class, 'vendor_store_id');
     }
-    public function store()
+    public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id');
     }

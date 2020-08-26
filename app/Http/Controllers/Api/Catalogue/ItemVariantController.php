@@ -66,7 +66,8 @@ class ItemVariantController extends Controller
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
            
-            'vendor_store_id' => 'required|integer|exists:vendors,id',
+            'vendor_id' => 'required|integer|exists:vendors,id',
+            'vendor_store_id' => 'required|integer|exists:vendor_stores,id',
             'MRP' => 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/',
             'selling_price' => 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
             'default' => 'boolean',
@@ -145,7 +146,8 @@ class ItemVariantController extends Controller
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
            
-            'vendor_store_id' => 'required|integer|exists:vendors,id',
+            'vendor_id' => 'required|integer|exists:vendors,id',
+            'vendor_store_id' => 'required|integer|exists:vendor_stores,id',
             'MRP' => 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/',
             'selling_price' => 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
             'default' => 'boolean',
@@ -171,7 +173,8 @@ class ItemVariantController extends Controller
                 'supplier_id' => 'sometimes|required|integer|exists:suppliers,id',
                 // 'item_image',
                
-                'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
+                'vendor_id' => 'sometimes|required|integer|exists:vendors,id',
+                'vendor_store_id' => 'sometimes|required|integer|exists:vendor_stores,id',
                 'MRP' => 'sometimes|required|gt:0|regex:/^\d*(\.\d{1,2})?$/',
                 'selling_price' => 'sometimes|required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
                 'default' => 'sometimes|boolean',

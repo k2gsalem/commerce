@@ -8,6 +8,7 @@ use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
 use App\Entities\Vendor\Supplier;
 use App\Entities\Vendor\Vendor;
+use App\Entities\Vendor\VendorStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -31,6 +32,7 @@ class ItemVariant extends Model implements Auditable
         'threshold',
         'supplier_id',
         // 'item_image',
+        'vendor_id',
         'vendor_store_id',
         'MRP',
         'selling_price',

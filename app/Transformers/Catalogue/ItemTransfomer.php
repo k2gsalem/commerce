@@ -54,7 +54,7 @@ class ItemTransfomer extends TransformerAbstract
             'supplier_id' => (int)$model->supplier_id,
             'supplier_name'=>$supplier_name,
             'vendor_id'=>(int)$model->vendor_id,
-            'vendor'=>(string)$model->store->vendor_name,
+            'vendor'=>(string)$model->vendor->vendor_name,
             'vendor_store_id'=>(int)$model->vendor_store_id,
             'vendor_store_name'=>(string)$model->vendorStore->vendor_store_name,
             'MRP'=>(float)$model->MRP,
