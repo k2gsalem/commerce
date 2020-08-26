@@ -32,8 +32,10 @@ class CreateItemsTable extends Migration
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             // $table->string('item_image',1000)->nullable();
+            $table->unsignedBigInteger('vendor_id');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->unsignedBigInteger('vendor_store_id');
-            $table->foreign('vendor_store_id')->references('id')->on('vendors')->onDelete('cascade');
+            $table->foreign('vendor_store_id')->references('id')->on('vendor_stores')->onDelete('cascade');
             $table->decimal('MRP',10,2)->nullable();
             $table->decimal('selling_price',10,2)->nullable();
             $table->unsignedBigInteger('status_id');

@@ -9,6 +9,7 @@ use App\Entities\Config\ProdCat;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
 use App\Entities\Vendor\Vendor;
+use App\Entities\Vendor\VendorStore;
 use App\Entities\Vendor\Supplier;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,6 +34,7 @@ class Item extends Model implements Auditable
         'threshold',
         'supplier_id',
         // 'item_image',
+        'vendor_id',
         'vendor_store_id',
         'MRP',
         'selling_price',

@@ -68,8 +68,8 @@ class ItemController extends Controller
             'threshold'=> 'required|integer',
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
-           
-            'vendor_store_id' => 'required|integer|exists:vendors,id',
+            'vendor_id' => 'required|integer|exists:vendors,id',
+            'vendor_store_id' => 'required|integer|exists:vendor_stores,id',
             'MRP' => 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
             'selling_price' => 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
             'status_id' => 'required|integer|exists:conf_statuses,id',
@@ -141,7 +141,8 @@ class ItemController extends Controller
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
            
-            'vendor_store_id' => 'required|integer|exists:vendors,id',
+            'vendor_id' => 'required|integer|exists:vendors,id',
+            'vendor_store_id' => 'required|integer|exists:vendor_stores,id',
             'MRP' => 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
             'selling_price' => 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
             'status_id' => 'required|integer|exists:conf_statuses,id',
@@ -165,8 +166,8 @@ class ItemController extends Controller
                 'threshold'=> 'sometimes|required|integer',
                 'supplier_id' => 'sometimes|required|integer|exists:suppliers,id',
                 // 'item_simage',
-               
-                'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
+                'vendor_id' => 'sometimes|required|integer|exists:vendors,id',
+                'vendor_store_id' => 'sometimes|required|integer|exists:vendor_stores,id',
                 'MRP' => 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
                 'selling_price' => 'sometimes|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
