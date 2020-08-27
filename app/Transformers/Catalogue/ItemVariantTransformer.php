@@ -51,6 +51,8 @@ class ItemVariantTransformer extends TransformerAbstract
             'max_order_amount'=> (float) $model->max_order_amount,
             'discount_percentage'=> (float) $model->discount_percentage,
             'discount_amount'=> (float) $model->discount_amount,
+            'quantity'=>(int) $model->quantity,
+            'threshold'=> (float) $model->threshold,
             'supplier_id' => (int)$model->supplier_id,
             'supplier_name'=>$supplier_name,
             'vendor_id'=>(int)$model->vendor_id,
