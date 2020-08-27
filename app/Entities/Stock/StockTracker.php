@@ -6,6 +6,8 @@ use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariant;
 use App\Entities\Config\ConfStatus;
 use App\Entities\Vendor\Supplier;
+use App\Entities\Vendor\Vendor;
+use App\Entities\Vendor\VendorStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -18,6 +20,8 @@ class StockTracker extends Model implements Auditable
         'item_id',
         'variant_id',
         'supplier_id',
+        'vendor_id',
+        'vendor_store_id',
         'purchase_order_ref',
         'purchase_order_date',
         'purchase_price',
@@ -38,6 +42,14 @@ class StockTracker extends Model implements Auditable
     public function variant()
     {
         return $this->belongsTo(ItemVariant::class);
+    }
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_id');
+    }
+    public function vendorStore()
+    {
+        return $this->belongsTo(VendorStore::class, 'vendor_store_id');
     }
     public function supplier()
     {

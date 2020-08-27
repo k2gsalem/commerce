@@ -153,7 +153,7 @@ class ItemController extends Controller
                 'sub_category_id' => 'sometimes|integer|exists:prod_sub_cats,id',
                 'item_code' => 'sometimes|required|string|min:3|max:100|unique:items,item_code,'.$item->id,
                 'item_desc' => 'sometimes|required|string|min:5|max:300',
-                'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
+                // 'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
                 'file' => 'array',
                 'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',
                 'min_order_quantity'=> 'sometimes|required|integer',

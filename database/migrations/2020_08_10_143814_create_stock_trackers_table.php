@@ -21,6 +21,10 @@ class CreateStockTrackersTable extends Migration
             $table->foreign('variant_id')->references('id')->on('item_variants')->onDelete('cascade');
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
+            $table->unsignedBigInteger('vendor_id');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+            $table->unsignedBigInteger('vendor_store_id');
+            $table->foreign('vendor_store_id')->references('id')->on('vendor_stores')->onDelete('cascade');
             $table->string('purchase_order_ref')->nullable();
             $table->date('purchase_order_date')->nullable();
             $table->decimal('purchase_price',10,2);

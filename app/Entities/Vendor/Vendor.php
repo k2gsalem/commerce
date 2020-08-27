@@ -5,6 +5,7 @@ namespace App\Entities\Vendor;
 use App\Entities\Assets\Asset;
 use App\Entities\Catalogue\Item;
 use App\Entities\Stock\StockMaster;
+use App\Entities\Stock\StockTracker;
 use App\Entities\Vendor\VendorStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -46,6 +47,10 @@ class Vendor extends Model implements Auditable
     public function stock()
     {
         return $this->hasMany(StockMaster::class,'vendor_id');
+    }
+    public function stockTrackers()
+    {
+        return $this->hasMany(StockTracker::class, 'item_id');
     }
     public function assets()
     {
