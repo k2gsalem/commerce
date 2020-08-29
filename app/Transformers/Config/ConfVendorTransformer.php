@@ -13,6 +13,7 @@ class ConfVendorTransformer extends TransformerAbstract
         return [
             'id' =>(int)$model->id,
             'vendor_cat_desc' =>(string)$model->vendor_cat_desc,
+            'title'=>(string)$model->title,
             'status_id'=>(int)$model->status_id,
             'status_desc'=>(string)$model->confStatus->status_desc, 
             'created_at' => (string)$model->created_at->getTimestamp(),

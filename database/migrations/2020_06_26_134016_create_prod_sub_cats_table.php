@@ -19,6 +19,7 @@ class CreateProdSubCatsTable extends Migration
             $table->foreign('category_id')->references('id')->on('prod_cats')->onDelete('cascade');
             $table->string('sub_category_short_code',200)->unique();
             $table->mediumText('sub_category_desc');
+            $table->string('title',1000);
             // $table->string('sub_category_image',1000)->nullable();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');

@@ -18,6 +18,7 @@ class CreateItemVariantGroupsTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->mediumText('item_group_desc');
+            $table->string('title',1000);
             $table->boolean('default')->default(FALSE); 
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');

@@ -15,7 +15,7 @@ class ProdCat extends Model implements Auditable
     use AuditingAuditable, SoftDeletes;
 
     protected $fillable = [
-        'category_short_code', 'category_desc', 'status_id', 'created_by', 'updated_by',
+        'category_short_code', 'category_desc', 'title','status_id', 'created_by', 'updated_by',
     ];
     public function confStatus()
     {

@@ -21,7 +21,7 @@ class ConfStatus extends Model implements Auditable
    
 
     protected $fillable = [
-        'status_desc', 'created_by', 'updated_by'
+        'status_desc','title', 'created_by', 'updated_by'
     ];
 
     public function confSupplierCat()

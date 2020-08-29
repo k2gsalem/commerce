@@ -21,6 +21,7 @@ class CreateItemsTable extends Migration
             $table->foreign('sub_category_id')->references('id')->on('prod_sub_cats')->onDelete('cascade');
             $table->string('item_code',200)->unique();
             $table->mediumText('item_desc',1000);
+            $table->string('title',1000);
             $table->integer('min_order_quantity')->unsigned();
             $table->decimal('min_order_amount',10,2);
             $table->integer('max_order_quantity')->unsigned(); 

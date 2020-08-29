@@ -24,6 +24,7 @@ class Item extends Model implements Auditable
         'sub_category_id',
         'item_code',
         'item_desc',
+        'title',
         'min_order_quantity',
         'min_order_amount',  
         'max_order_quantity',

@@ -53,6 +53,7 @@ class ProdCatController extends Controller
         $rules = [
             'category_short_code' => 'required|string|unique:prod_cats,category_short_code|min:3|max:20',
             'category_desc' => 'required|string|max:300',
+            'title' => 'required|string|min:5|max:500|unique:prod_cats,title',
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
             'status_id' => 'required|integer|exists:conf_statuses,id',
@@ -106,12 +107,14 @@ class ProdCatController extends Controller
         $rules = [
             'category_short_code' => 'required|string|min:3|max:20|unique:prod_cats,category_short_code,' . $prodCat->id,
             'category_desc' => 'required|string|max:300',
+            'title' => 'required|string|min:5|max:500|unique:prod_cats,title,'.$prodCat->id,
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         if ($request->method() == 'PATCH') {
             $rules = [
                 'category_short_code' => 'sometimes|required|string|min:3|max:20|unique:prod_cats,category_short_code,' . $prodCat->id,
                 'category_desc' => 'sometimes|required|string|max:300',
+                'title' => 'sometimes|required|string|min:5|max:500|unique:prod_cats,title,'.$prodCat->id,
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
                 'file' => 'array',
                 'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',

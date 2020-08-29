@@ -17,6 +17,7 @@ class CreateProdCatsTable extends Migration
             $table->bigIncrements('id');
             $table->string('category_short_code',200)->unique();
             $table->mediumText('category_desc');
+            $table->string('title',1000);
             // $table->string('category_image',1000)->nullable();
             // $table->unsignedBigInteger('asset_id')->nullable();
             // $table->foreign('asset_id')->references('id')->on('assets')->onDelete('cascade');

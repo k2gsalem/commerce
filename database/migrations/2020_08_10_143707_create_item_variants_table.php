@@ -21,6 +21,7 @@ class CreateItemVariantsTable extends Migration
             $table->unsignedBigInteger('variant_group_id');
             $table->foreign('variant_group_id')->references('id')->on('item_variant_groups')->onDelete('cascade');
             $table->mediumText('variant_desc',1000);
+            $table->string('title',1000);
             $table->integer('min_order_quantity')->unsigned();
             $table->decimal('min_order_amount',10,2);
             $table->integer('max_order_quantity')->unsigned(); 

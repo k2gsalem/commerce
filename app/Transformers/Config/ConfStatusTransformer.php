@@ -13,6 +13,7 @@ class ConfStatusTransformer extends TransformerAbstract
         return [
             'id' =>(int)$model->id,
             'status_desc' =>(string)$model->status_desc,
+            'title'=>(string)$model->title,
             'created_at' => (string)$model->created_at->getTimestamp(),
             'updated_at' => (string)$model->updated_at->getTimestamp(),            
             // 'created_by' => $model->created_by,

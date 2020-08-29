@@ -16,6 +16,7 @@ class ItemVariantGroupTransformer extends TransformerAbstract
             'id' => (int) $model->id,
             'item_id' => (int) $model->item_id,
             'item_desc' => (string) $model->item->item_desc,
+            'title'=>(string)$model->title,
             'item_group_desc' => (string) $model->item_group_desc,
             'default'=>(boolean)$model->default,
             'status_id' => (int) $model->status_id,

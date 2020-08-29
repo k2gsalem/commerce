@@ -19,6 +19,7 @@ class ProdSubCat extends Model implements Auditable
         'category_id',
         'sub_category_short_code',
         'sub_category_desc',
+        'title',
         // 'sub_category_image',
         'status_id',
         'created_by',

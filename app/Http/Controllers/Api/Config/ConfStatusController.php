@@ -57,6 +57,7 @@ class ConfStatusController extends Controller
 
         $rules = [
             'status_desc' => 'required|string|min:1|max:300',
+            'title' => 'required|string|min:5|max:500|unique:conf_statuses,title',
         ];
 
         $this->validate($request, $rules);
@@ -91,7 +92,14 @@ class ConfStatusController extends Controller
 
         $rules = [
             'status_desc' => 'required|string|min:1|max:300',
+            'title' => 'required|string|min:5|max:500|unique:conf_statuses,title,'.$confStatus->id,
         ];
+        if ($request->method() == 'PATCH') {
+            $rules = [
+                'status_desc' => 'required|string|min:1|max:300',
+                'title' => 'sometimes|required|string|min:5|max:500|unique:conf_statuses,title,'.$confStatus->id,
+            ];
+        }
         $this->validate($request, $rules);
         $confStatus->update($request->except('created_by'));
         return $this->response->item($confStatus->fresh(), new ConfStatusTransformer());

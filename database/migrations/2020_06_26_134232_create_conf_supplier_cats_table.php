@@ -16,6 +16,7 @@ class CreateConfSupplierCatsTable extends Migration
         Schema::create('conf_supplier_cats', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->mediumText('supplier_cat_desc');
+            $table->string('title',1000);
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');
             $table->unsignedBigInteger('created_by');

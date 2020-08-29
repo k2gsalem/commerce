@@ -56,6 +56,7 @@ class ConfVendorCatController extends Controller
         $request['updated_by']=$request->user()->id;
         $rules=[
             'vendor_cat_desc' => 'required|string|min:5|max:300',
+            'title' => 'required|string|min:5|max:500|unique:conf_vendor_cats,title',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
             // 'updated_by' => 'required|integer|exists:users,id',
@@ -92,11 +93,13 @@ class ConfVendorCatController extends Controller
         $request['updated_by']=$request->user()->id;
         $rules=[
             'vendor_cat_desc' => 'required|string|min:5|max:300',
+            'title' => 'required|string|min:5|max:500|unique:conf_vendor_cats,title,'.$confVendorCat->id,
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         if ($request->method() == 'PATCH') {
             $rules=[
                 'vendor_cat_desc' => 'sometimes|required|string|min:5|max:300',
+                'title' => 'sometimes|required|string|min:5|max:500|unique:conf_vendor_cats,title,'.$confVendorCat->id,
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
         }

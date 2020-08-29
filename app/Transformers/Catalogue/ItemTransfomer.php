@@ -35,6 +35,7 @@ class ItemTransfomer extends TransformerAbstract
             'id' => (int) $model->id,
             'item_code'=>(string)$model->item_code,
             'item_desc'=>(string)$model->item_desc,
+            'title'=>(string)$model->title,
             'category_id'=>(int)$model->category_id,
             'category_desc'=>(string)$model->Category->category_desc,
             'sub_category_id'=>(int)$model->sub_category_id,

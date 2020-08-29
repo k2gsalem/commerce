@@ -13,7 +13,7 @@ class ConfVendorCat extends Model implements Auditable
     use AuditingAuditable,SoftDeletes;
 
     protected $fillable = [
-        'vendor_cat_desc','status_id', 'created_by', 'updated_by',
+        'vendor_cat_desc','title','status_id', 'created_by', 'updated_by',
     ];
     public function confStatus()
     {

@@ -22,6 +22,7 @@ class ItemVariant extends Model implements Auditable
         'variant_code',
         'variant_group_id',
         'variant_desc',
+        'title',
         'min_order_quantity',
         'min_order_amount',  
         'max_order_quantity',

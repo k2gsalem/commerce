@@ -49,6 +49,7 @@ class ItemVariantGroupController extends Controller
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
             'item_group_desc' => 'required|string|min:1|max:50',
+            'title' => 'required|string|min:5|max:500|unique:item_variant_groups,title',  
             'default' => 'boolean',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
@@ -89,6 +90,7 @@ class ItemVariantGroupController extends Controller
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
             'item_group_desc' => 'required|string|min:1|max:50',
+            'title' => 'required|string|min:5|max:500|unique:item_variant_groups,title,'.$itemVariantGroup->id,
             'default' => 'boolean',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
@@ -96,6 +98,7 @@ class ItemVariantGroupController extends Controller
             $rules = [
                 'item_id' => 'sometimes|required|integer|exists:items,id',
                 'item_group_desc' => 'sometimes|required|string|min:1|max:50',
+                'title' => 'sometimes|required|string|min:5|max:500|unique:item_variant_groups,title,'.$itemVariantGroup->id,
                 'default' => 'sometimes|boolean',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
