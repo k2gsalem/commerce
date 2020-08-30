@@ -3,6 +3,7 @@
 namespace App\Entities\Catalogue;
 
 use App\Entities\Assets\Asset;
+use App\Entities\CartManager\CartItemVariant;
 use App\Entities\Config\ConfStatus;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
@@ -77,6 +78,10 @@ class ItemVariant extends Model implements Auditable
     public function stockTrackers()
     {
         return $this->hasMany(StockTracker::class, 'variant_id');
+    }
+    public function cartItemVariants()
+    {
+        return $this->hasMany(CartItemVariant::class, 'cart_item_id');
     }
     //
 }

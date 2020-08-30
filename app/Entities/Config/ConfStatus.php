@@ -2,6 +2,9 @@
 
 namespace App\Entities\Config;
 
+use App\Entities\CartManager\Cart;
+use App\Entities\CartManager\CartItem;
+use App\Entities\CartManager\CartItemVariant;
 use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariant;
 use App\Entities\Catalogue\ItemVariantGroup;
@@ -73,6 +76,18 @@ class ConfStatus extends Model implements Auditable
     public function stockTracker()
     {
         return $this->belongsToMany(StockTracker::class, 'status_id','id');
+    }
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class, 'status_id','id');
+    }
+    public function cartItems()
+    {
+        return $this->belongsToMany(CartItem::class, 'status_id','id');
+    }
+    public function cartItemVariants()
+    {
+        return $this->belongsToMany(CartItemVariant::class, 'status_id','id');
     }
 
 }

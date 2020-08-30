@@ -2,22 +2,23 @@
 
 namespace App\Entities;
 
+use App\Entities\CartManager\Cart;
 use App\Support\HasRolesUuid;
 use App\Support\UuidScopeTrait;
-use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User.
  */
 class User extends Authenticatable implements Auditable
 {
-    use Notifiable,AuditingAuditable, UuidScopeTrait, HasApiTokens, HasRoles, SoftDeletes, HasRolesUuid {
+    use Notifiable, AuditingAuditable, UuidScopeTrait, HasApiTokens, HasRoles, SoftDeletes, HasRolesUuid {
         HasRolesUuid::getStoredRole insteadof HasRoles;
     }
 
@@ -56,7 +57,7 @@ class User extends Authenticatable implements Auditable
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public static function create(array $attributes = [])
+    function create(array $attributes = [])
     {
         if (array_key_exists('password', $attributes)) {
             $attributes['password'] = bcrypt($attributes['password']);
@@ -65,5 +66,9 @@ class User extends Authenticatable implements Auditable
         $model = static::query()->create($attributes);
 
         return $model;
+    }
+    function cart()
+    {
+        return $this->belongsToMany(Cart::class, 'user_id', 'id');
     }
 }

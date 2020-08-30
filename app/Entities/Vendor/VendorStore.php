@@ -3,6 +3,8 @@
 namespace App\Entities\Vendor;
 
 use App\Entities\Assets\Asset;
+use App\Entities\CartManager\CartItem;
+use App\Entities\CartManager\CartItemVariant;
 use App\Entities\Catalogue\Item;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
@@ -14,8 +16,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class VendorStore extends Model implements Auditable
 {
-    
-    use SoftDeletes,AuditingAuditable;
+
+    use SoftDeletes, AuditingAuditable;
     protected $fillable = [
         'vendor_id',
         // 'vendor_logo',
@@ -31,7 +33,7 @@ class VendorStore extends Model implements Auditable
     ];
     public function confStatus()
     {
-        return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');        
+        return $this->hasOne('App\Entities\Config\ConfStatus', 'id', 'status_id');
     }
     public function Vendor()
     {
@@ -39,15 +41,15 @@ class VendorStore extends Model implements Auditable
     }
     public function items()
     {
-        return $this->hasMany(Item::class,'vendor_store_id');
+        return $this->hasMany(Item::class, 'vendor_store_id');
     }
     public function itemVariants()
     {
-        return $this->hasMany(ItemVariant::class,'vendor_store_id');
+        return $this->hasMany(ItemVariant::class, 'vendor_store_id');
     }
     public function stockMaster()
     {
-        return $this->hasOne('App\Entities\Stock\stockMaster','id','vendor_store_id');        
+        return $this->hasOne('App\Entities\Stock\stockMaster', 'id', 'vendor_store_id');
     }
     public function stockTrackers()
     {
@@ -55,7 +57,14 @@ class VendorStore extends Model implements Auditable
     }
     public function assets()
     {
-        return $this->morphMany(Asset::class,'imageable');
+        return $this->morphMany(Asset::class, 'imageable');
     }
-
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'vendor_store_id');
+    }
+    public function cartItemVariants()
+    {
+        return $this->hasMany(CartItemVariant::class, 'vendor_store_id');
+    }
 }
