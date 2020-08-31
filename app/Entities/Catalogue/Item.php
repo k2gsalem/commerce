@@ -3,14 +3,15 @@
 namespace App\Entities\Catalogue;
 
 use App\Entities\Assets\Asset;
+use App\Entities\CartManager\CartItem;
 use App\Entities\Config\ConfStatus;
-use App\Entities\Config\ProdSubCat;
 use App\Entities\Config\ProdCat;
+use App\Entities\Config\ProdSubCat;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
+use App\Entities\Vendor\Supplier;
 use App\Entities\Vendor\Vendor;
 use App\Entities\Vendor\VendorStore;
-use App\Entities\Vendor\Supplier;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -26,7 +27,7 @@ class Item extends Model implements Auditable
         'item_desc',
         'title',
         'min_order_quantity',
-        'min_order_amount',  
+        'min_order_amount',
         'max_order_quantity',
         'max_order_amount',
         'discount_percentage',
@@ -62,7 +63,7 @@ class Item extends Model implements Auditable
     }
     public function Supplier()
     {
-        return $this->belongsTo(Supplier::class,'supplier_id');
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
     public function confStatus()
     {
@@ -87,5 +88,9 @@ class Item extends Model implements Auditable
     public function assets()
     {
         return $this->morphMany(Asset::class, 'imageable');
+    }
+    public function cartItem()
+    {
+        return $this->hasMany(CartItem::class, 'item_id');
     }
 }
