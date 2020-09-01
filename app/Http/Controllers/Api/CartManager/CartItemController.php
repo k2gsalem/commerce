@@ -38,13 +38,13 @@ class CartItemController extends Controller
     {
         //return $request;
 
-        if ($request->variant_group_id === null) {
-            $rules = [
-                'cart_id' => 'required|integer|exists:carts,id',
-                'item_id' => 'required|integer|exists:items,id',
-                'quantity' => 'required|integer',
-            ];
-        } 
+        // if ($request->variant_group_id === null) {
+        //     $rules = [
+        //         'cart_id' => 'required|integer|exists:carts,id',
+        //         'item_id' => 'required|integer|exists:items,id',
+        //         'quantity' => 'required|integer',
+        //     ];
+        // } 
         // else {
         //     $rules = [
         //         'cart_id' => 'required|integer|exists:carts,id',
