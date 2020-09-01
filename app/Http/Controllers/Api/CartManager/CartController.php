@@ -131,6 +131,7 @@ class CartController extends Controller
                     'quantity' => $request['quantity'],
                     'variant_group_id' => $request['variant_group_id'],
                     'variant_id' => $request['variant_id'],
+                    'status_id'=>$request['status_id'],
                 ]);
                 // $cartitem = $this->api->post('api/cartItem', [
                 //     'cart_id' => $cart->id,
