@@ -28,7 +28,7 @@ class CreateStockTrackersTable extends Migration
             $table->string('order_ref')->nullable();
             $table->date('order_date')->nullable();
             $table->unsignedBigInteger('order_type_id');
-            $table->foreign('order_type_id')->references('id')->on('order_types')->onDelete('cascade');
+            $table->foreign('order_type_id')->references('id')->on('conf_order_types')->onDelete('cascade');
             $table->decimal('MRP',10,2)->nullable();
             $table->decimal('purchase_price',10,2)->nullable();
             $table->decimal('selling_price',10,2)->nullable();
