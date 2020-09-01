@@ -71,7 +71,7 @@ class CartItemController extends Controller
         
         if ($request['variant_group_id'] === null) {
             $cartitem = $this->model->create($request->except('variant_group_id','variant_id'));
-            return $cartitem;
+           // return $cartitem;
         } else {
             //return $request;
             $cartitem = $this->model->create($request->except('variant_id'));

@@ -114,13 +114,13 @@ class CartController extends Controller
         $this->validate($request, $rules);
         if ($request['variant_group_id'] === null) {
             if (count($cart->cartItem->where('item_id', $request['item_id'])) == 0) {
-                $cartitem = $this->api->with(['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity']])->post('api/cartItem');
-                //$cartitem = $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity']]);
+             //   $cartitem = $this->api->with(['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity']])->post('api/cartItem');
+                $cartitem = $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity']]);
 
             } else {
                 $item_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;
+                //$cartitem = $this->api->put('api/cartItem/' . $item_id, ['quantity' => $request['quantity']]);
                 $cartitem = $this->api->put('api/cartItem/' . $item_id, ['quantity' => $request['quantity']]);
-               // $cartitem = $this->api->put('api/cartItem/' . $item_id, ['quantity' => $request['quantity']]);
             }
         } else {
             // return $cart->id;
