@@ -57,13 +57,13 @@ class CartItemController extends Controller
         $this->validate($request, $rules);
         $item = Item::findOrFail($request->item_id);
         //return $item;
-        $request['cart_id'] = $request['cart_id'];
-        $request['item_id'] = $request['item_id'];
+        // $request['cart_id'] = $request['cart_id'];
+        // $request['item_id'] = $request['item_id'];
      //   $request['variant_group_id'] = $item->variant_group_id;
         $request['item_selling_price'] = $item->selling_price;
         $request['item_discount_percentage'] = $item->discount_percentage;
         $request['item_discount_amount'] = $item->discount_amount;
-        $request['item_quantity'] = $request['quantity'];
+        $request['item_quantity'] = $request->quantity;
         $request['vendor_store_id'] = $item->vendor_store_id;
         $request['status_id'] = $item->status_id;
         $request['created_by'] = $request->user()->id;
