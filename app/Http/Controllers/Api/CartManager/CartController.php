@@ -125,8 +125,8 @@ class CartController extends Controller
             // return $cart->id;
 
             if (count($cart->cartItem->where('variant_group_id', $request['variant_group_id'])) == 0 && $request['variant_id'] !== null) {
-                return $cart->id;
-                $cartitem= $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity'], 'variant_group_id' => $request['variant_group_id'], 'variant_id' => $request['variant_id'], 'status_id' => $request['status_id']]);
+              
+                $cartitem= $this->api->with(['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity'], 'variant_group_id' => $request['variant_group_id'], 'variant_id' => $request['variant_id'], 'status_id' => $request['status_id']])->post('api/cartItem');
             } else {
 
                 $cart_item_id = $cart->cartItem->where('variant_group_id', $request['variant_group_id'])->first()->id;
