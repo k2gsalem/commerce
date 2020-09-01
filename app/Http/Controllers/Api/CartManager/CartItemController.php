@@ -57,20 +57,33 @@ class CartItemController extends Controller
         $this->validate($request, $rules);
         $item = Item::findOrFail($request['item_id']);
 
-        $request['cart_id'] = $request['cart_id'];
-        $request['item_id'] = $request['item_id'];
-     //   $request['variant_group_id'] = $item->variant_group_id;
-        $request['item_selling_price'] = $item->selling_price;
-        $request['item_discount_percentage'] = $item->discount_percentage;
-        $request['item_discount_amount'] = $item->discount_amount;
-        $request['item_quantity'] = $request['quantity'];
-        $request['vendor_store_id'] = $item->vendor_store_id;
-        $request['status_id'] = $item->status_id;
-        $request['created_by'] = $request->user()->id;
-        $request['updated_by'] = $request->user()->id;
+    //     $request['cart_id'] = $request['cart_id'];
+    //     $request['item_id'] = $request['item_id'];
+    //  //   $request['variant_group_id'] = $item->variant_group_id;
+    //     $request['item_selling_price'] = $item->selling_price;
+    //     $request['item_discount_percentage'] = $item->discount_percentage;
+    //     $request['item_discount_amount'] = $item->discount_amount;
+    //     $request['item_quantity'] = $request['quantity'];
+    //     $request['vendor_store_id'] = $item->vendor_store_id;
+    //     $request['status_id'] = $item->status_id;
+    //     $request['created_by'] = $request->user()->id;
+    //     $request['updated_by'] = $request->user()->id;
         
         if ($request['variant_group_id'] === null) {
-            $cartitem = $this->model->create($request->except('variant_group_id','variant_id'));
+            $cartitem = $this->model->create(
+               [ 'cart_id'=>$request->cart_id,
+                'item_id'=>$request->item_id,
+                'variant_group_id'=>$request->variant_group_id,
+                'item_selling_price'=>$item->selling_price,
+                'item_discount_percentage'=>$item->discount_percentage,
+                'item_discount_amount'=>$item->discount_amount,
+                'item_quantity'=>$request->quantity,
+                'vendor_store_id'=>$item->vendor_store_id,
+                'status_id'=>$request->status_id,
+                'created_by'=>$request->user()->id,
+                'updated_by'=>$request->user()->id
+                ]
+            );
         } else {
             //return $request;
             $cartitem = $this->model->create($request->except('variant_id'));
