@@ -119,7 +119,7 @@ class CartController extends Controller
 
             } else {
                 $item_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;
-                $cartitem = $this->api->with(['quantity' => $request['quantity']])->put('api/cartItem/' . $item_id );
+                $cartitem = $this->api->put('api/cartItem/' . $item_id, ['quantity' => $request['quantity']]);
                // $cartitem = $this->api->put('api/cartItem/' . $item_id, ['quantity' => $request['quantity']]);
             }
         } else {
