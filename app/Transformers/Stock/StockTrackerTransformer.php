@@ -31,7 +31,7 @@ class StockTrackerTransformer extends TransformerAbstract
             'stock_quantity' => (float)$model->stock_quantity,
             'total_amount'=>(float)$model->total_amount,
             'payment_status_id' => (int)$model->payment_status_id,
-            'payment_status_desc' => (string)$model->confStatus->status_desc,
+            'payment_status_desc' => (string)$model->confPaymentStatus->payment_status_desc,
             'payment_date'=>(string)$model->payment_date,
             'comments'=>(string)$model->comments,                      
             'status_id' => (int)$model->status_id,

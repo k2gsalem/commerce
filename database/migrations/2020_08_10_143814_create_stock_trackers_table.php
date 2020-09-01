@@ -35,7 +35,7 @@ class CreateStockTrackersTable extends Migration
             $table->integer('stock_quantity');
             $table->decimal('total_amount',10,2);
             $table->unsignedBigInteger('payment_status_id');
-            $table->foreign('payment_status_id')->references('id')->on('conf_statuses')->onDelete('cascade');
+            $table->foreign('payment_status_id')->references('id')->on('conf_payment_statuses')->onDelete('cascade');
             $table->date('payment_date')->nullable();
             $table->longText('comments')->nullable();
             $table->unsignedBigInteger('status_id');

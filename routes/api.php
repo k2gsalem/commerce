@@ -45,6 +45,7 @@ $api->version('v1', function ($api) {
             });
             $api->resource('confStatus', 'Api\Config\ConfStatusController');
             $api->resource('confOrderType', 'Api\Config\ConfOrderTypeController');
+            $api->resource('confPaymentStatus', 'Api\Config\ConfPaymentStatusController');
             $api->resource('confSupplierCat', 'Api\Config\ConfSupplierCatController');
             $api->resource('confVendorCat', 'Api\Config\ConfVendorCatController');
             $api->resource('prodCat', 'Api\Config\ProdCatController');
@@ -72,6 +73,9 @@ $api->version('v1', function ($api) {
         $api->group(['prefix' => 'member'], function ($api) {
 
             $api->get('/confStatus/{confStatus}', 'Api\Config\ConfStatusController@show');
+            $api->get('/confOrderType/{confOrderType}', 'Api\Config\ConfOrderTypeController@show');
+            $api->get('/confPaymentStatus/{confPaymentStatus}', 'Api\Config\ConfPaymentStatusController@show');
+            
             $api->get('/prodCat', 'Api\Config\ProdCatController@index');
             $api->get('/prodCat/{prodCat}', 'Api\Config\ProdCatController@show');
 
