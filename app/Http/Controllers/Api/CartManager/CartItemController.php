@@ -36,9 +36,9 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+       // return $request;
         
-        if ($request['variant_group_id'] === null) {
+        if ($request->variant_group_id === null) {
             $rules = [
                 'cart_id' => 'required|integer|exists:carts,id',
                 'item_id' => 'required|integer|exists:items,id',
@@ -55,8 +55,8 @@ class CartItemController extends Controller
         }
 
         $this->validate($request, $rules);
-        $item = Item::findOrFail($request['item_id']);
-
+        $item = Item::findOrFail($request->item_id);
+        return $item;
         $request['cart_id'] = $request['cart_id'];
         $request['item_id'] = $request['item_id'];
      //   $request['variant_group_id'] = $item->variant_group_id;
