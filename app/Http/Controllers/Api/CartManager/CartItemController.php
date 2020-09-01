@@ -71,7 +71,7 @@ class CartItemController extends Controller
         
         if ($request->variant_group_id === null) {
             //return $request;
-             $this->model->create($request->all());
+             $this->model->create($request);
             
         } else {
             //return $request;
