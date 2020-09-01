@@ -56,7 +56,7 @@ class CartItemController extends Controller
 
         $this->validate($request, $rules);
         $item = Item::findOrFail($request->item_id);
-        return $item;
+        //return $item;
         $request['cart_id'] = $request['cart_id'];
         $request['item_id'] = $request['item_id'];
      //   $request['variant_group_id'] = $item->variant_group_id;
@@ -69,7 +69,7 @@ class CartItemController extends Controller
         $request['created_by'] = $request->user()->id;
         $request['updated_by'] = $request->user()->id;
         
-        if ($request['variant_group_id'] === null) {
+        if ($request->variant_group_id === null) {
             $cartitem = $this->model->create($request->except('variant_group_id','variant_id'));
            // return $cartitem;
         } else {
