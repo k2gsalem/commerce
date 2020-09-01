@@ -36,7 +36,7 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
+        return $request;
         
         if ($request['variant_group_id'] === null) {
             $rules = [
