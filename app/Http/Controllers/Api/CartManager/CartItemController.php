@@ -76,7 +76,7 @@ class CartItemController extends Controller
             //return $request;
             $cartitem = $this->model->create($request->except('variant_id'));
          //  return $request;
-            $cartitemvariant = $this->api->post('api/cartItemVariant', [
+            $cartitemvariant = $this->api->post('api/cart/cartItemVariant', [
                 
                 'cart_item_id' => $cartitem->id,
                 'item_id' => $request['item_id'],
@@ -128,7 +128,7 @@ class CartItemController extends Controller
          //   $item_id = $cartItem->where('variant_id', $request['variant_id'])->first()->id;
             //$cartItem->cartItemVariants;
             //$itemvariant_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;
-            $cartitemvariant = $this->api->put('api/cartItemVariant/' . $item_variant_id, [
+            $cartitemvariant = $this->api->put('api/cart/cartItemVariant/' . $item_variant_id, [
                 'quantity' => $request['quantity'],
                 'variant_group_id' => $request['variant_group_id'],
                 'variant_id' => $request['variant_id'],
