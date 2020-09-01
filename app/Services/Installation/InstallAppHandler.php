@@ -46,6 +46,18 @@ class InstallAppHandler
             ['name' => 'Delete config status'],
             ['name' => 'Update config status'],
         ],
+        'config_payment_status' => [
+            ['name' => 'List config payment status'],
+            ['name' => 'Create config payment status'],
+            ['name' => 'Delete config payment status'],
+            ['name' => 'Update config payment status'],
+        ],
+        'config_order_type' => [
+            ['name' => 'List order type'],
+            ['name' => 'Create order type'],
+            ['name' => 'Delete order type'],
+            ['name' => 'Update order type'],
+        ],
         'config_suppliers' => [
             ['name' => 'List config supplier'],
             ['name' => 'Create config supplier'],

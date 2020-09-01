@@ -57,7 +57,7 @@ class User extends Authenticatable implements Auditable
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model
      */
-    function create(array $attributes = [])
+    static function create(array $attributes = [])
     {
         if (array_key_exists('password', $attributes)) {
             $attributes['password'] = bcrypt($attributes['password']);

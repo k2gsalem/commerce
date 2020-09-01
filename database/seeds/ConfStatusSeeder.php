@@ -15,6 +15,11 @@ class ConfStatusSeeder extends Seeder
         // factory(\App\Entities\Config\ConfStatus::class,20)->create();
         ConfStatus::create(['status_desc'=>'Active','title'=>'Active','created_by'=>1,'updated_by'=>1]);
         ConfStatus::create(['status_desc'=>'InActive','title'=>'Active','created_by'=>1,'updated_by'=>1]);
+        // ConfStatus::create(['status_desc'=>'Payment Settled','title'=>'Payment Settled','created_by'=>1,'updated_by'=>1]);
+        // ConfStatus::create(['status_desc'=>'Partially Settled','title'=>'Partially Settled','created_by'=>1,'updated_by'=>1]);
+        // ConfStatus::create(['status_desc'=>'Not Settled','title'=>'Not Settled','created_by'=>1,'updated_by'=>1]);
+        
+        
         // ConfStatus::create(['status_desc'=>'Processing','created_by'=>1,'updated_by'=>1]);
         // ConfStatus::create(['status_desc'=>'Hold','created_by'=>1,'updated_by'=>1]);
         //

@@ -96,7 +96,7 @@ class ConfStatusController extends Controller
         ];
         if ($request->method() == 'PATCH') {
             $rules = [
-                'status_desc' => 'required|string|min:1|max:300',
+                'status_desc' => 'sometimes|required|string|min:1|max:300',
                 'title' => 'sometimes|required|string|min:5|max:500|unique:conf_statuses,title,'.$confStatus->id,
             ];
         }
