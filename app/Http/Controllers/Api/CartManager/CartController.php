@@ -103,8 +103,8 @@ class CartController extends Controller
             $cart = $user->cart;
         }
 
-        $request['created_by'] = $request->user()->id;
-        $request['updated_by'] = $request->user()->id;
+        // $request['created_by'] = $request->user()->id;
+        // $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
             'status_id' => 'required|integer|exists:conf_statuses,id',
@@ -125,7 +125,7 @@ class CartController extends Controller
             // return $cart->id;
 
             if (count($cart->cartItem->where('variant_group_id', $request['variant_group_id'])) == 0 && $request['variant_id'] !== null) {
-                return $request;
+               
                 $cartitem = $this->api->post('api/cartItem', [
                     'cart_id' => $cart->id,
                     'item_id' => $request['item_id'],
