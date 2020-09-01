@@ -38,7 +38,7 @@ class CartItemController extends Controller
     {
         //return $request;
 
-        if ($request['variant_group_id'] === null) {
+        if ($request->variant_group_id === null) {
             $rules = [
                 'cart_id' => 'required|integer|exists:carts,id',
                 'item_id' => 'required|integer|exists:items,id',
@@ -70,7 +70,7 @@ class CartItemController extends Controller
         //     $request['created_by'] = $request->user()->id;
         //     $request['updated_by'] = $request->user()->id;
 
-        if ($request['variant_group_id'] === null) {
+        if ($request->variant_group_id === null) {
             
             $cartitem = $this->model->create(
                 [
