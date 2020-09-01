@@ -88,7 +88,7 @@ class CartItemController extends Controller
                 ]
             );
         } else {
-            return $request;
+            return "rr";
             $cartitem = $this->model->create([
                     'cart_id' => $request->cart_id,
                     'item_id' => $request->item_id,
