@@ -70,7 +70,7 @@ class CartItemController extends Controller
         $request['updated_by'] = $request->user()->id;
         
         if ($request->variant_group_id === null) {
-            $cartitem = $this->model->create($request->except('variant_group_id','variant_id'));
+            $cartitem = $this->model->create($request->except(['variant_group_id','variant_id']));
             return $cartitem;
         } else {
             //return $request;
