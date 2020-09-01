@@ -55,7 +55,8 @@ class CartItemController extends Controller
         }
 
         $this->validate($request, $rules);
-        $item = Item::findOrFail($request['item_id']);
+        $item = Item::findOrFail($request->item_id);
+        
 
         //     $request['cart_id'] = $request['cart_id'];
         //     $request['item_id'] = $request['item_id'];
@@ -87,11 +88,12 @@ class CartItemController extends Controller
                 ]
             );
         } else {
-            //return $request;
+            return $request;
             $cartitem = $this->model->create([
                     'cart_id' => $request->cart_id,
                     'item_id' => $request->item_id,
                     'variant_group_id'=>$request->variant_group_id,
+                  //  'variant_id'=>$request->variant_id,
                     'item_selling_price' => $item->selling_price,
                     'item_discount_percentage' => $item->discount_percentage,
                     'item_discount_amount' => $item->discount_amount,
