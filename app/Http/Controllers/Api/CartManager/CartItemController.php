@@ -56,7 +56,7 @@ class CartItemController extends Controller
 
         $this->validate($request, $rules);
         $item = Item::findOrFail($request->item_id);
-        //return $item;
+        return $request->quantity;
         // $request['cart_id'] = $request['cart_id'];
         // $request['item_id'] = $request['item_id'];
      //   $request['variant_group_id'] = $item->variant_group_id;
