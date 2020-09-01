@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Users;
 
+use App\Entities\CartManager\Cart;
 use App\Entities\User;
 use Illuminate\Http\Request;
 use Dingo\Api\Routing\Helpers;
@@ -78,8 +79,13 @@ class UsersController extends Controller
         $user = $this->model->create($request->all());
         if ($request->has('roles')) {
             $user->syncRoles($request['roles']);
-        }
-
+        }        
+    //    $cart=new Cart();
+    //    $cart->user_id=$user->id;
+    //    $cart->status_id=1;
+    //    $cart->created_by=$user->id;
+    //    $cart->updated_by=$user->id;
+    //    $user->cart()->save($cart);
         return $this->response->created(url('api/users/'.$user->uuid));
     }
 

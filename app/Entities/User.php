@@ -69,6 +69,6 @@ class User extends Authenticatable implements Auditable
     }
     function cart()
     {
-        return $this->belongsToMany(Cart::class, 'user_id', 'id');
+        return $this->hasOne(Cart::class, 'user_id');
     }
 }
