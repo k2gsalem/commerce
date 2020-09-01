@@ -84,10 +84,10 @@ class CartItemController extends Controller
                 'item_quantity' => $request['quantity'],
 
             ]);
-                return $cartitemvariant;
+                //return $cartitemvariant;
         }
 
-        return $this->response->created(url('api/cartItem/' . $cartitem->id));
+       // return $this->response->created(url('api/cartItem/' . $cartitem->id));
 
         //
     }
@@ -132,7 +132,7 @@ class CartItemController extends Controller
                 'variant_group_id' => $request['variant_group_id'],
                 'variant_id' => $request['variant_id'],
             ]);
-            return $cartitemvariant;
+        //    return $cartitemvariant;
         }
 
     }
