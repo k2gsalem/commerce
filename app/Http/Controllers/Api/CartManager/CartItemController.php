@@ -44,17 +44,18 @@ class CartItemController extends Controller
                 'item_id' => 'required|integer|exists:items,id',
                 'quantity' => 'required|integer',
             ];
-        } else {
-            $rules = [
-                'cart_id' => 'required|integer|exists:carts,id',
-                'item_id' => 'required|integer|exists:items,id',
-                'quantity' => 'required|integer',
-                'variant_id' => 'required|integer|exists:item_variants,id',
-                'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
-            ];
-        }
+        } 
+        // else {
+        //     $rules = [
+        //         'cart_id' => 'required|integer|exists:carts,id',
+        //         'item_id' => 'required|integer|exists:items,id',
+        //         'quantity' => 'required|integer',
+        //         'variant_id' => 'required|integer|exists:item_variants,id',
+        //         'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
+        //     ];
+        // }
 
-        $this->validate($request, $rules);
+       // $this->validate($request, $rules);
         $item = Item::findOrFail($request->item_id);
         
 
