@@ -87,17 +87,17 @@ class CartItemController extends Controller
            // return $request;
             $cartitem = $this->model->create(
                 [
-                'cart_id' => $request->cart_id,
-                'item_id' => $request->item_id,
-                'variant_group_id' => $request->variant_group_id,                
-                'item_selling_price' => $item->selling_price,
-                'item_discount_percentage' => $item->discount_percentage,
-                'item_discount_amount' => $item->discount_amount,
-                'item_quantity' => $request->quantity,
-                'vendor_store_id' => $item->vendor_store_id,
-                'status_id' => $request->status_id,
-                'created_by' => $request->user()->id,
-                'updated_by' => $request->user()->id,            
+                    'cart_id' => $request->cart_id,
+                    'item_id' => $request->item_id,
+                    // 'variant_group_id'=>$request->variant_group_id,
+                    'item_selling_price' => $item->selling_price,
+                    'item_discount_percentage' => $item->discount_percentage,
+                    'item_discount_amount' => $item->discount_amount,
+                    'item_quantity' => $request->quantity,
+                    'vendor_store_id' => $item->vendor_store_id,
+                    'status_id' => $request->status_id,
+                    'created_by' => $request->user()->id,
+                    'updated_by' => $request->user()->id,          
                 ]
             );
             return $cartitem;
