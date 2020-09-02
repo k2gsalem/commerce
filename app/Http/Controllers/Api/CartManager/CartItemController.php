@@ -208,9 +208,9 @@ class CartItemController extends Controller
             //$cartItem->cartItemVariants;
             //$itemvariant_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;
             $cartitemvariant = $this->api->put('api/cartItemVariant/' . $item_variant_id, [
-                'quantity' => $request['quantity'],
+                'item_quantity' => $request['quantity'],
                 'variant_group_id' => $request['variant_group_id'],
-                'variant_id' => $request['variant_id'],
+                'item_variant_id' => $request['variant_id'],
             ]);
 
         }else{
