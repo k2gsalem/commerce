@@ -107,6 +107,7 @@ class CartItemController extends Controller
                 'item_variant_id' => $request->variant_id,
                 'variant_group_id' => $request->variant_group_id,
                 'item_quantity' => $request->quantity,
+                'status_id' => $request->status_id,
             ]);
             return $cartitemvariant;
 

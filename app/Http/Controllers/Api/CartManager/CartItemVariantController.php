@@ -44,21 +44,33 @@ class CartItemVariantController extends Controller
         // ];
 
         // $this->validate($request, $rules);
-        return $request;        
-        $itemvariant = ItemVariant::findOrFail($request->item_variant_id);
-        $request['cart_item_id'] = $request->cart_item_id;
-        $request['item_id'] = $itemvariant->item_id;
-        $request['variant_group_id'] = $itemvariant->variant_group_id;
-        $request['item_selling_price'] = $itemvariant->selling_price;
-        $request['item_discount_percentage'] = $itemvariant->discount_percentage;
-        $request['item_discount_amount'] = $itemvariant->discount_amount;
-        $request['item_quantity'] = $request->item_quantity;
-        $request['vendor_store_id'] = $itemvariant->vendor_store_id;
-        $request['status_id'] = $itemvariant->status_id;
-        $request['created_by'] = $request->user()->id;
-        $request['updated_by'] = $request->user()->id;
+     //   return $request;        
+         $itemvariant = ItemVariant::findOrFail($request->item_variant_id);
+        // $request['cart_item_id'] = $request->cart_item_id;
+        // $request['item_id'] = $itemvariant->item_id;
+        // $request['variant_group_id'] = $itemvariant->variant_group_id;
+        // $request['item_selling_price'] = $itemvariant->selling_price;
+        // $request['item_discount_percentage'] = $itemvariant->discount_percentage;
+        // $request['item_discount_amount'] = $itemvariant->discount_amount;
+        // $request['item_quantity'] = $request->item_quantity;
+        // $request['vendor_store_id'] = $itemvariant->vendor_store_id;
+        // $request['status_id'] = $itemvariant->status_id;
+        // $request['created_by'] = $request->user()->id;
+        // $request['updated_by'] = $request->user()->id;
 
-        $cartitemvariant = $this->model->create($request->all());
+        $cartitemvariant = $this->model->create([
+            'cart_item_id' => $request->cart_item_id,
+            'item_id' => $request->item_id,
+            'variant_group_id' => $request->variant_group_id,
+            'item_selling_price' => $itemvariant->selling_price,
+            'item_discount_percentage' => $itemvariant->discount_percentage,
+            'item_discount_amount' => $itemvariant->discount_amount,
+            'item_quantity' => $request->item_quantity,
+            'vendor_store_id' => $itemvariant->vendor_store_id,
+            'status_id' => $request->status_id,
+            'created_by' => $request->user()->id,
+            'updated_by' => $request->user()->id,
+        ]);
         return $cartitemvariant;
         // return $this->response->created(url('api/cartItemVariant/' . $cartitemvariant->id));
         //
