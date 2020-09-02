@@ -36,7 +36,7 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        return $request['variant_group_id'] . "gopi";
+       
         if ($request->has('variant_group_id')) {
             $rules = [
                 'cart_id' => 'required|integer|exists:carts,id',
@@ -84,7 +84,7 @@ class CartItemController extends Controller
         //     $request['created_by'] = $request->user()->id;
         //     $request['updated_by'] = $request->user()->id;
         if ($request->has('variant_group_id')) {
-            return $request;
+           // return $request;
             $cartitem = $this->model->create([
                 'cart_id' => $request->cart_id,
                 'item_id' => $request->item_id,
