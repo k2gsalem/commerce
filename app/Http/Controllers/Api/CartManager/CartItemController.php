@@ -84,7 +84,7 @@ class CartItemController extends Controller
         //     $request['created_by'] = $request->user()->id;
         //     $request['updated_by'] = $request->user()->id;
         if ($request->has('variant_group_id')) {
-            //return $item;
+            return $request;
             $cartitem = $this->model->create([
                 'cart_id' => $request->cart_id,
                 'item_id' => $request->item_id,
