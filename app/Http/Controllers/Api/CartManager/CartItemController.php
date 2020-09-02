@@ -108,6 +108,7 @@ class CartItemController extends Controller
                 'variant_group_id' => $request->variant_group_id,
                 'item_quantity' => $request->quantity,
             ]);
+            return $cartitemvariant;
 
         } else {
             $cartitem = $this->model->create(
