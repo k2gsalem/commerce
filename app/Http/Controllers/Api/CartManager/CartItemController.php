@@ -100,7 +100,7 @@ class CartItemController extends Controller
                     'updated_by' => $request->user()->id,          
                 ]
             );
-           // return $cartitem;
+            return $cartitem;
             $cartitemvariant = $this->api->post('api/cartItemVariant', [
 
                 'cart_item_id' => $cartitem->id,
