@@ -104,6 +104,7 @@ class CartItemVariantController extends Controller
         $request['updated_by'] = $request->user()->id;
         if ($request['item_quantity'] >= 1) {
             $cartItemVariant->update($request->except('created_by'));
+            return "updated";
         } else {
             $cartItemVariant->delete();
             $cartItemVariant->cartItem()->delete();

@@ -202,7 +202,7 @@ class CartItemController extends Controller
     {
         if ($request->has('variant_group_id')) {
             $item_variant_id = CartItemVariant::where('cart_item_id', $cartItem->id)->first()->id;
-            return $request;
+            //return $request;
             //  return  $item_variant_id;
             //   $item_id = $cartItem->where('variant_id', $request['variant_id'])->first()->id;
             //$cartItem->cartItemVariants;
@@ -212,7 +212,7 @@ class CartItemController extends Controller
                 'variant_group_id' => $request['variant_group_id'],
                 'item_variant_id' => $request['variant_id'],
             ]);
-
+                return $cartitemvariant;
         }else{
             $cartItem->item_quantity = $request['quantity'];
             $request['updated_by'] = $request->user()->id;
