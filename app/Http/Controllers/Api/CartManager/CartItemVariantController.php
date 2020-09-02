@@ -72,7 +72,7 @@ class CartItemVariantController extends Controller
             'created_by' => $request->user()->id,
             'updated_by' => $request->user()->id,
         ]);
-        return $cartitemvariant;
+       // return $cartitemvariant;
         // return $this->response->created(url('api/cartItemVariant/' . $cartitemvariant->id));
         //
     }

@@ -126,6 +126,7 @@ class CartController extends Controller
                     'variant_group_id' => $request['variant_group_id'],
                     'variant_id' => $request['variant_id'],
                 ]);
+                return $cartitem;
             }
 
         }else{

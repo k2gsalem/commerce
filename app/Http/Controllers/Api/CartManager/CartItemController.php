@@ -200,17 +200,9 @@ class CartItemController extends Controller
      */
     public function update(Request $request, CartItem $cartItem)
     {
-        if ($request->variant_group_id === null) {
-            $cartItem->item_quantity = $request['quantity'];
-            $request['updated_by'] = $request->user()->id;
-            if ($cartItem->item_quantity >= 1) {
-                $cartItem->update($request->except('created_by'));
-            } else {
-                $cartItem->delete();
-            }
-        } else {
-
+        if ($request->has('variant_group_id')) {
             $item_variant_id = CartItemVariant::where('cart_item_id', $cartItem->id)->first()->id;
+            return $request;
             //  return  $item_variant_id;
             //   $item_id = $cartItem->where('variant_id', $request['variant_id'])->first()->id;
             //$cartItem->cartItemVariants;
@@ -220,8 +212,39 @@ class CartItemController extends Controller
                 'variant_group_id' => $request['variant_group_id'],
                 'variant_id' => $request['variant_id'],
             ]);
-            //    return $cartitemvariant;
+
+        }else{
+            $cartItem->item_quantity = $request['quantity'];
+            $request['updated_by'] = $request->user()->id;
+            if ($cartItem->item_quantity >= 1) {
+                $cartItem->update($request->except('created_by'));
+            } else {
+                $cartItem->delete();
+            }
+
         }
+        // if ($request->variant_group_id === null) {
+        //     $cartItem->item_quantity = $request['quantity'];
+        //     $request['updated_by'] = $request->user()->id;
+        //     if ($cartItem->item_quantity >= 1) {
+        //         $cartItem->update($request->except('created_by'));
+        //     } else {
+        //         $cartItem->delete();
+        //     }
+        // } else {
+
+        //     $item_variant_id = CartItemVariant::where('cart_item_id', $cartItem->id)->first()->id;
+        //     //  return  $item_variant_id;
+        //     //   $item_id = $cartItem->where('variant_id', $request['variant_id'])->first()->id;
+        //     //$cartItem->cartItemVariants;
+        //     //$itemvariant_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;
+        //     $cartitemvariant = $this->api->put('api/cartItemVariant/' . $item_variant_id, [
+        //         'quantity' => $request['quantity'],
+        //         'variant_group_id' => $request['variant_group_id'],
+        //         'variant_id' => $request['variant_id'],
+        //     ]);
+        //     //    return $cartitemvariant;
+        // }
 
     }
 
