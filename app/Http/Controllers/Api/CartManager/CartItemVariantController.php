@@ -44,7 +44,7 @@ class CartItemVariantController extends Controller
         // ];
 
         // $this->validate($request, $rules);
-       // return $request;        
+        return $request;        
         $itemvariant = ItemVariant::findOrFail($request->item_variant_id);
         $request['cart_item_id'] = $request->cart_item_id;
         $request['item_id'] = $itemvariant->item_id;
