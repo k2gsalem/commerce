@@ -57,7 +57,7 @@ class CartItemVariantController extends Controller
         // $request['status_id'] = $itemvariant->status_id;
         // $request['created_by'] = $request->user()->id;
         // $request['updated_by'] = $request->user()->id;
-
+            return $itemvariant;
         $cartitemvariant = $this->model->create([
             'cart_item_id' => $request->cart_item_id,
             'item_id' => $request->item_id,
