@@ -36,15 +36,15 @@ class CartItemVariantController extends Controller
     public function store(Request $request)
     {
 
-        $rules = [
-            'cart_item_id' => 'required|integer|exists:cart_items,id',
-            'item_id' => 'required|integer|exists:items,id',
-            'item_quantity' => 'required|integer',
-            'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
-        ];
+        // $rules = [
+        //     'cart_item_id' => 'required|integer|exists:cart_items,id',
+        //     'item_id' => 'required|integer|exists:items,id',
+        //     'item_quantity' => 'required|integer',
+        //     'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
+        // ];
 
-        $this->validate($request, $rules);
-
+        // $this->validate($request, $rules);
+       // return $request;        
         $itemvariant = ItemVariant::findOrFail($request->item_variant_id);
         $request['cart_item_id'] = $request->cart_item_id;
         $request['item_id'] = $itemvariant->item_id;
