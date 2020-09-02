@@ -38,24 +38,23 @@ class CartItemController extends Controller
     {
         //return $request;
 
-        // if ($request->variant_group_id === null) {
-        //     $rules = [
-        //         'cart_id' => 'required|integer|exists:carts,id',
-        //         'item_id' => 'required|integer|exists:items,id',
-        //         'quantity' => 'required|integer',
-        //     ];
-        // } 
-        // else {
-        //     $rules = [
-        //         'cart_id' => 'required|integer|exists:carts,id',
-        //         'item_id' => 'required|integer|exists:items,id',
-        //         'quantity' => 'required|integer',
-        //         'variant_id' => 'required|integer|exists:item_variants,id',
-        //         'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
-        //     ];
-        // }
+        if ($request['variant_group_id'] === null) {
+            $rules = [
+                'cart_id' => 'required|integer|exists:carts,id',
+                'item_id' => 'required|integer|exists:items,id',
+                'quantity' => 'required|integer',
+            ];
+        } else {
+            $rules = [
+                'cart_id' => 'required|integer|exists:carts,id',
+                'item_id' => 'required|integer|exists:items,id',
+                'quantity' => 'required|integer',
+                'variant_id' => 'required|integer|exists:item_variants,id',
+                'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
+            ];
+        }
 
-       // $this->validate($request, $rules);
+        $this->validate($request, $rules);
         $item = Item::findOrFail($request->item_id);
         
 
@@ -71,8 +70,8 @@ class CartItemController extends Controller
         //     $request['created_by'] = $request->user()->id;
         //     $request['updated_by'] = $request->user()->id;
 
-        if ($request->variant_group_id === null) {
-            
+        if ($request['variant_group_id'] === null) {
+            return $request;
             $cartitem = $this->model->create(
                 [
                     'cart_id' => $request->cart_id,
@@ -89,7 +88,7 @@ class CartItemController extends Controller
                 ]
             );
         } else {
-            //return "rr";
+           
             $cartitem = $this->model->create([
                     'cart_id' => $request->cart_id,
                     'item_id' => $request->item_id,
@@ -104,7 +103,7 @@ class CartItemController extends Controller
                     'created_by' => $request->user()->id,
                     'updated_by' => $request->user()->id,
             ]);
-            //  return $request;
+              return $cartitem;
             $cartitemvariant = $this->api->post('api/cartItemVariant', [
 
                 'cart_item_id' => $cartitem->id,
