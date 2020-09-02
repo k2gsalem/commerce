@@ -70,7 +70,7 @@ class CartItemController extends Controller
         // }
 
         $this->validate($request, $rules);
-        $item = Item::findOrFail($request->item_id);
+        $item = Item::find($request->item_id);
         return $item;
         //     $request['cart_id'] = $request['cart_id'];
         //     $request['item_id'] = $request['item_id'];
