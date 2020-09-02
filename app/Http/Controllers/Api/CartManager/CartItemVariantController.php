@@ -62,6 +62,7 @@ class CartItemVariantController extends Controller
             'cart_item_id' => $request->cart_item_id,
             'item_id' => $request->item_id,
             'variant_group_id' => $request->variant_group_id,
+            'item_variant_id'=>$request->item_variant_id,
             'item_selling_price' => $itemvariant->selling_price,
             'item_discount_percentage' => $itemvariant->discount_percentage,
             'item_discount_amount' => $itemvariant->discount_amount,
