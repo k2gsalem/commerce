@@ -9,9 +9,6 @@ use App\Entities\Catalogue\ItemVariant;
 use Spatie\Searchable\Search;
 
 
-
-
-
 class SearchController extends Controller
 {
     
@@ -28,7 +25,8 @@ class SearchController extends Controller
         }
         else
         {
-            return ["message"=>(string)"There is no result found"];
+            $message = ["message"=>(string)"There is no result found"];
+            return $message;
 
         }
 
