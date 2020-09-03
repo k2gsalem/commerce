@@ -14,8 +14,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class ItemVariant extends Model implements Auditable
+class ItemVariant extends Model implements Auditable,Searchable
 {
     use SoftDeletes, AuditingAuditable;
     protected $fillable = [
@@ -43,6 +45,19 @@ class ItemVariant extends Model implements Auditable
         'created_by',
         'updated_by',
     ];
+
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('itemVariant.show', $this->id);
+
+        return new SearchResult(
+            $this,
+            $this->title,
+            $this->variant_desc,
+            $url
+        );
+    }
+
     public function item()
     {
         return $this->belongsTo(Item::class);

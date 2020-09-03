@@ -97,6 +97,9 @@ $api->version('v1', function ($api) {
 
             // $api->get('/stock/{stock}', 'Api\Stock\StockMasterController@show');
             $api->get('/vendor/{vendor}', 'Api\Vendor\VendorController@show');
+
+
+            $api->post('/search', 'Api\Search\SearchController@search');
         });
     });
 });

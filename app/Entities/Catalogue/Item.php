@@ -16,10 +16,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Item extends Model implements Auditable
+class Item extends Model implements Auditable,Searchable
 {
     use AuditingAuditable, SoftDeletes;
+
     protected $fillable = [
         'category_id',
         'sub_category_id',
@@ -44,6 +47,18 @@ class Item extends Model implements Auditable
         'created_by',
         'updated_by',
     ];
+
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('item.show', $this->id);
+
+        return new SearchResult(
+            $this,
+            $this->title,
+            $this->item_desc,
+            $url
+         );
+    }
 
     public function Category()
     {
