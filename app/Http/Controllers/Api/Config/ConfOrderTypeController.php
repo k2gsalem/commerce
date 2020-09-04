@@ -111,6 +111,14 @@ class ConfOrderTypeController extends Controller
     public function destroy(ConfOrderType $confOrderType)
     {
         $record = $this->model->findOrFail($confOrderType->id);
+        if ($confOrderType->stockTracker()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This order type has stock tracker!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
         $record->delete();
         return $this->response->noContent();
     }

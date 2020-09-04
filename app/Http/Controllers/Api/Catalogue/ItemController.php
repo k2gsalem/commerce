@@ -199,6 +199,34 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->assets()->delete();
+
+        if ($item->itemVariants()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This item has item variants!'
+            );
+            return response()->json($response, 403);
+
+           
+        }
+
+        if ($item->itemVariantGroups()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This item has item variant groups!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+
+        if ($item->stockTrackers()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This item has stock tracker!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+        
         $item->delete();
         // $record = $this->model->findOrFail($item->id);
         // $record->delete();

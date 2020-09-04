@@ -119,6 +119,14 @@ class ConfVendorCatController extends Controller
     public function destroy(ConfVendorCat $confVendorCat)
     {
         $record = $this->model->findOrFail($confVendorCat->id);
+
+        if ($confVendorCat->vendor()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This vendor category has vendors!'
+            );
+            return response()->json($response, 403);
+          
+        }
         $record->delete();
         return $this->response->noContent();
     }

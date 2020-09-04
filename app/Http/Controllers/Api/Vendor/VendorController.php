@@ -155,6 +155,33 @@ class VendorController extends Controller
     public function destroy(Vendor $vendor)
     {
         $vendor->assets()->delete();
+
+        if ($vendor->stockTrackers()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This vendor has stock tracker!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+
+        if ($vendor->items()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This vendor has items!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+
+        if ($vendor->variant()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This vendor has item variants!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
         $vendor->delete();
         // $record = $this->model->findOrFail($vendor->id);
         // $record->delete();

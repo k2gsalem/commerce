@@ -152,6 +152,35 @@ class SupplierController extends Controller
     public function destroy(Supplier $supplier)
     {
         $supplier->assets()->delete();
+
+        
+        if ($supplier->stockTrackers()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This supplier has stock tracker!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+
+        if ($supplier->items()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This supplier has items!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+
+        if ($supplier->variant()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This supplier has item variants!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+        
         $supplier->delete();
         // $record = $this->model->findOrFail($supplier->id);
         // $record->delete();

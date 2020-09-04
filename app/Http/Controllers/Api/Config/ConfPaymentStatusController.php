@@ -109,6 +109,13 @@ class ConfPaymentStatusController extends Controller
     public function destroy(ConfPaymentStatus $confPaymentStatus)
     {
         $record = $this->model->findOrFail($confPaymentStatus->id);
+        if ($confPaymentStatus->stockTracker()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This payment status has stock tracker!'
+            );
+            return response()->json($response, 403);
+          
+        }
         $record->delete();
         return $this->response->noContent();
     }

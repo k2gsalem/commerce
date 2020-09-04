@@ -144,6 +144,16 @@ class ProdSubCatController extends Controller
     public function destroy(ProdSubCat $prodSubCat)
     {
         $prodSubCat->assets()->delete();
+
+        if ($prodSubCat->items()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This sub category has items!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+
         $prodSubCat->delete();
         // $record = $this->model->findOrFail($prodSubCat->id);
         // $record->delete();

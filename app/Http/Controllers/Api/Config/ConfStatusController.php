@@ -115,6 +115,118 @@ class ConfStatusController extends Controller
     public function destroy(ConfStatus $confStatus)
     {
         $record = $this->model->findOrFail($confStatus->id);
+
+        if ($confStatus->item()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has items!'
+            );
+            return response()->json($response, 403);
+          
+        }
+        if ($confStatus->itemVariant()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has item variants!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->itemVariantGroup()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has item variant groups!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->confSupplierCat()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has supplier categories!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->confVendorCat()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has vendor categories!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->prodCat()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has product categories!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->prodSubCat()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has product sub categories!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->vendor()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has vendors!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->vendorStore()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has vendor stores!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->supplier()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has suppliers!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->carts()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has carts!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->cartItems()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has cart items!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->cartItemVariants()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has cart item variants!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
+        if ($confStatus->stockTracker()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This status has stock tracker!'
+            );
+            return response()->json($response, 403);
+          
+        }
+
         $record->delete();
         return $this->response->noContent();
         //

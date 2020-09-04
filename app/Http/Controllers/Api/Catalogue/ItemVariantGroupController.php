@@ -122,7 +122,15 @@ class ItemVariantGroupController extends Controller
      */
     public function destroy(ItemVariantGroup $itemVariantGroup)
     {
+        if ($itemVariantGroup->itemVariants()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This variant group has item variants!'
+            );
+            return response()->json($response, 403);
+          
+        }
         $itemVariantGroup->delete();
+
         return $this->response->noContent();
         //
     }

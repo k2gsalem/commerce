@@ -357,6 +357,17 @@ class ItemVariantController extends Controller
     public function destroy(ItemVariant $itemVariant)
     {
         $itemVariant->assets()->delete();
+
+        if ($itemVariant->stockTrackers()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This item has stock tracker!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+        
+      
         $itemVariant->delete();
         // $record = $this->model->findOrFail($itemVariant->id);
         // $record->delete();

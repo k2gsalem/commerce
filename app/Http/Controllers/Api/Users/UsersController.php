@@ -124,7 +124,10 @@ class UsersController extends Controller
      */
     public function destroy(Request $request, $uuid)
     {
+     
+       
         $user = $this->model->byUuid($uuid)->firstOrFail();
+        // return $user->roles();
         $user->delete();
 
         return $this->response->noContent();

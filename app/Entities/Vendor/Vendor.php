@@ -44,6 +44,11 @@ class Vendor extends Model implements Auditable
     {
         return $this->hasMany(Item::class,'vendor_id');
     }
+    
+    public function variant()
+    {
+        return $this->hasMany(ItemVariant::class,'vendor_id');
+    }
     public function stock()
     {
         return $this->hasMany(StockMaster::class,'vendor_id');

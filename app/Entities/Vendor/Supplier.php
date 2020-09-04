@@ -3,6 +3,8 @@
 namespace App\Entities\Vendor;
 
 use App\Entities\Assets\Asset;
+use App\Entities\Catalogue\Item;
+use App\Entities\Catalogue\ItemVariant;
 use App\Entities\Stock\StockTracker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -39,8 +41,19 @@ class Supplier extends Model implements Auditable
     {
         return $this->morphMany(Asset::class,'imageable');
     }
-    public function stockTrackers(){
+    public function stockTrackers()
+    {
         return $this->hasMany(StockTracker::class,'supplier_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class,'supplier_id');
+    }
+    
+    public function variant()
+    {
+        return $this->hasMany(ItemVariant::class,'supplier_id');
     }
     //
 }

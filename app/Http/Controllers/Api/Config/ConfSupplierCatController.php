@@ -117,6 +117,14 @@ class ConfSupplierCatController extends Controller
     public function destroy(ConfSupplierCat $confSupplierCat)
     {
         $record = $this->model->findOrFail($confSupplierCat->id);
+
+        if ($confSupplierCat->supplier()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This supplier category has suppliers!'
+            );
+            return response()->json($response, 403);
+          
+        }
         $record->delete();
         return $this->response->noContent();
     }

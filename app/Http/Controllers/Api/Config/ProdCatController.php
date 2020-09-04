@@ -142,7 +142,27 @@ class ProdCatController extends Controller
      */
     public function destroy(ProdCat $prodCat)
     {
+        
+        
         $prodCat->assets()->delete();
+        // 
+        if ($prodCat->subCategories()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This category has sub categories!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
+
+        if ($prodCat->items()->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This category has items!'
+            );
+            return response()->json($response, 403);
+
+            // return $this->response('Cannot delete: this project has transactions');
+        }
         $prodCat->delete();
         // $record = $this->model->findOrFail($prodCat->id);
         // $record->delete();
