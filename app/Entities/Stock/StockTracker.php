@@ -48,7 +48,7 @@ class StockTracker extends Model implements Auditable
 
     public function confStatus()
     {
-        return $this->belongsTo('App\Entities\Config\ConfStatus');
+        return $this->belongsTo('App\Entities\Config\ConfStatus','status_id');
     }
     
     public function confOrderType()

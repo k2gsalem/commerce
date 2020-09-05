@@ -25,9 +25,9 @@ class ConfSupplierCat extends Model implements Auditable
 
     public function confStatus()
     {
-        return $this->belongsTo('App\Entities\Config\ConfStatus');
+        return $this->belongsTo('App\Entities\Config\ConfStatus','status_id');
     }
-    
+
     public function supplier()
     {
         return $this->hasMany(Supplier::class,'supplier_category_id');
