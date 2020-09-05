@@ -127,8 +127,15 @@ class UsersController extends Controller
      
        
         $user = $this->model->byUuid($uuid)->firstOrFail();
-         return $user->roles->count();
-        // $user->delete();
+        if ($user->roles->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This user has roles!'
+            );
+            return response()->json($response, 403);
+          
+        }
+        //  return $user->roles->count();
+        $user->delete();
 
         return $this->response->noContent();
     }
