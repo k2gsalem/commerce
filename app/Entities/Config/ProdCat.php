@@ -25,7 +25,7 @@ class ProdCat extends Model implements Auditable
 
     public function confStatus()
     {
-        return $this->belongsTo('App\Entities\Config\ConfStatus','id','status_id');
+        return $this->belongsTo('App\Entities\Config\ConfStatus','status_id','id');
     }
 
     public function subCategories()
