@@ -59,7 +59,7 @@ class ConfStatus extends Model implements Auditable
     }
     public function item()
     {
-        return $this->hasMany(Item::class);
+        return $this->hasMany(Item::class,'status_id');
     }
     public function itemVariant()
     {
