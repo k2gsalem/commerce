@@ -82,8 +82,13 @@ class Item extends Model implements Auditable,Searchable
     }
     public function confStatus()
     {
-        return $this->hasOne('App\Entities\Config\ConfStatus', 'id', 'status_id');
+        return $this->belongsTo('App\Entities\Config\ConfStatus');
     }
+
+    // public function confStatus()
+    // {
+    //     return $this->hasOne('App\Entities\Config\ConfStatus', 'id', 'status_id');
+    // }
     public function itemVariants()
     {
         return $this->hasMany(ItemVariant::class, 'item_id');
