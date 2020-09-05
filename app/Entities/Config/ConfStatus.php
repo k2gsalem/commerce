@@ -29,33 +29,33 @@ class ConfStatus extends Model implements Auditable
 
     public function confSupplierCat()
     {
-        return $this->belongsToMany(ConfSupplierCat::class, 'status_id','id');
+        return $this->hasMany(ConfSupplierCat::class, 'status_id');
     }
     public function confVendorCat()
     {
-        return $this->belongsToMany(ConfVendorCat::class, 'status_id','id');
+        return $this->hasMany(ConfVendorCat::class, 'status_id');
     }
     public function prodCat()
     {
-        return $this->belongsToMany(ProdCat::class,'status_id','id');
+        return $this->hasMany(ProdCat::class,'status_id');
     }
     public function prodSubCat()
     {
-        return $this->belongsToMany(ProdSubCat::class, 'status_id','id');
+        return $this->hasMany(ProdSubCat::class, 'status_id');
     }
     public function vendor()
     {
-        return $this->belongsToMany(Vendor::class,'status_id','id');
+        return $this->hasMany(Vendor::class,'status_id');
     }
 
     public function vendorStore()
     {
-        return $this->belongsToMany(VendorStore::class, 'status_id','id');
+        return $this->hasMany(VendorStore::class, 'status_id');
     }
 
     public function supplier()
     {
-        return $this->belongsToMany(Supplier::class, 'status_id','id');
+        return $this->hasMany(Supplier::class, 'status_id');
     }
     public function item()
     {
@@ -63,31 +63,31 @@ class ConfStatus extends Model implements Auditable
     }
     public function itemVariant()
     {
-        return $this->belongsToMany(ItemVariant::class, 'status_id','id');
+        return $this->hasMany(ItemVariant::class, 'status_id');
     }
     public function itemVariantGroup()
     {
-        return $this->belongsToMany(ItemVariantGroup::class, 'status_id','id');
+        return $this->hasMany(ItemVariantGroup::class, 'status_id');
     }
     public function stock()
     {
-        return $this->belongsToMany(StockMaster::class, 'status_id','id');
+        return $this->hasMany(StockMaster::class, 'status_id');
     }
     public function stockTracker()
     {
-        return $this->belongsToMany(StockTracker::class, 'status_id','id');
+        return $this->hasMany(StockTracker::class, 'status_id');
     }
     public function carts()
     {
-        return $this->belongsToMany(Cart::class, 'status_id','id');
+        return $this->hasMany(Cart::class, 'status_id');
     }
     public function cartItems()
     {
-        return $this->belongsToMany(CartItem::class, 'status_id','id');
+        return $this->hasMany(CartItem::class, 'status_id');
     }
     public function cartItemVariants()
     {
-        return $this->belongsToMany(CartItemVariant::class, 'status_id','id');
+        return $this->hasMany(CartItemVariant::class, 'status_id');
     }
 
 }

@@ -17,11 +17,17 @@ class ConfSupplierCat extends Model implements Auditable
     protected $fillable = [
         'supplier_cat_desc','title', 'status_id', 'created_by', 'updated_by',
     ];
+    // public function confStatus()
+    // {
+    //     return $this->hasOne(ConfStatus::class,'id','status_id');
+    //     # code...n
+    // }
+
     public function confStatus()
     {
-        return $this->hasOne(ConfStatus::class,'id','status_id');
-        # code...n
+        return $this->belongsTo('App\Entities\Config\ConfStatus');
     }
+    
     public function supplier()
     {
         return $this->hasMany(Supplier::class,'supplier_category_id');

@@ -62,10 +62,16 @@ class ItemVariant extends Model implements Auditable,Searchable
     {
         return $this->belongsTo(Item::class);
     }
-    public function conStatus()
+    // public function conStatus()
+    // {
+    //     return $this->hasOne(ConfStatus::class, 'id', 'status_id');
+    // }
+
+    public function confStatus()
     {
-        return $this->hasOne(ConfStatus::class, 'id', 'status_id');
+        return $this->belongsTo('App\Entities\Config\ConfStatus');
     }
+    
     public function vendorStore()
     {
         return $this->belongsTo(VendorStore::class, 'vendor_store_id');

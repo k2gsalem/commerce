@@ -41,9 +41,14 @@ class StockTracker extends Model implements Auditable
         'created_by',
         'updated_by'
     ];
+    // public function confStatus()
+    // {
+    //     return $this->hasOne(ConfStatus::class,'id','status_id');
+    // }
+
     public function confStatus()
     {
-        return $this->hasOne(ConfStatus::class,'id','status_id');
+        return $this->belongsTo('App\Entities\Config\ConfStatus');
     }
     
     public function confOrderType()

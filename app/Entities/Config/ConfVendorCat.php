@@ -16,11 +16,17 @@ class ConfVendorCat extends Model implements Auditable
     protected $fillable = [
         'vendor_cat_desc','title','status_id', 'created_by', 'updated_by',
     ];
+    // public function confStatus()
+    // {
+    //     return $this->hasOne(ConfStatus::class,'id','status_id');
+    //     # code...
+    // }
+
     public function confStatus()
     {
-        return $this->hasOne(ConfStatus::class,'id','status_id');
-        # code...
+        return $this->belongsTo('App\Entities\Config\ConfStatus');
     }
+    
     public function vendor()
     {
         return $this->hasMany(Vendor::class,'vendor_category_id');

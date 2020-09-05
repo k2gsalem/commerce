@@ -28,9 +28,14 @@ class Supplier extends Model implements Auditable
     ];
     
 
+    // public function confStatus()
+    // {
+    //     return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');        
+    // }
+
     public function confStatus()
     {
-        return $this->hasOne('App\Entities\Config\ConfStatus','id','status_id');        
+        return $this->belongsTo('App\Entities\Config\ConfStatus');
     }
     public function supplierCategory()
     {

@@ -26,10 +26,16 @@ class ItemVariantGroup extends Model implements Auditable
     {
         return $this->belongsTo(Item::class);
     }
-    public function conStatus()
+    // public function conStatus()
+    // {
+    //     return $this->hasOne(ConfStatus::class, 'id', 'status_id');
+    // }
+
+    public function confStatus()
     {
-        return $this->hasOne(ConfStatus::class, 'id', 'status_id');
+        return $this->belongsTo('App\Entities\Config\ConfStatus');
     }
+    
     public function itemVariants()
     {
         return $this->hasMany(ItemVariant::class, 'variant_group_id');
