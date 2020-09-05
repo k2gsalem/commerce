@@ -2,6 +2,7 @@
 
 namespace App\Entities\Config;
 
+use App\Entities\Vendor\Supplier;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -23,7 +24,7 @@ class ConfSupplierCat extends Model implements Auditable
     }
     public function supplier()
     {
-        return $this->belongsTo('App\Entities\Vendor\Supplier','supplier_category_id','id');
+        return $this->hasMany(Supplier::class,'supplier_category_id');
     }
    
 
