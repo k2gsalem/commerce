@@ -20,7 +20,7 @@ class ItemVariantGroupTransformer extends TransformerAbstract
             'item_group_desc' => (string) $model->item_group_desc,
             'default'=>(boolean)$model->default,
             'status_id' => (int) $model->status_id,
-            'status_desc' => (string) $model->conStatus->status_desc,
+            'status_desc' => (string) $model->confStatus->status_desc,
             'created_at' => (string) $model->created_at->getTimestamp(),
             'updated_at' => (string) $model->updated_at->getTimestamp(),
         ];
