@@ -127,7 +127,7 @@ class UsersController extends Controller
      
        
         $user = $this->model->byUuid($uuid)->firstOrFail();
-         return $user->roles()->count();
+         return $user->roles();
         // $user->delete();
 
         return $this->response->noContent();
