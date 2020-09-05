@@ -104,8 +104,15 @@ class RolesController extends Controller
     public function destroy(Request $request, $uuid)
     {
         $role = $this->model->byUuid($uuid)->firstOrFail();
-        return $role->permissions->count();
-        // $role->delete();
+        if ($role->permissions->count()) {
+            $response = array(
+                'message' => 'Cannot delete: This role has permissions!'
+            );
+            return response()->json($response, 403);
+          
+        }
+        // return $role->permissions->count();
+        $role->delete();
 
         return $this->response->noContent();
     }
