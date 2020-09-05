@@ -45,7 +45,7 @@ class ConfStatus extends Model implements Auditable
     }
     public function vendor()
     {
-        return $this->belongsToMany(Vendor::class, 'status_id','id');
+        return $this->belongsToMany(Vendor::class,'status_id','id');
     }
 
     public function vendorStore()
@@ -59,7 +59,7 @@ class ConfStatus extends Model implements Auditable
     }
     public function item()
     {
-        return $this->belongsToMany(Item::class, 'id','status_id');
+        return $this->belongsToMany('App\Entities\Catalogue\Item', 'status_id','id');
     }
     public function itemVariant()
     {
