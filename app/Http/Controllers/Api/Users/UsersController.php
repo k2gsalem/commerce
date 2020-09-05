@@ -126,8 +126,8 @@ class UsersController extends Controller
     {
      
        
-        $user = $this->model->byUuid($uuid)->firstOrFail();
-         return $user->roles()->toArray();
+        $user = $this->model->with('roles.permissions')->byUuid($uuid)->firstOrFail();
+         return $user->roles();
         // $user->delete();
 
         return $this->response->noContent();
