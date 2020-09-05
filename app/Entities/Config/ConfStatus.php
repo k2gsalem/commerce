@@ -59,7 +59,7 @@ class ConfStatus extends Model implements Auditable
     }
     public function item()
     {
-        return $this->belongsToMany('App\Entities\Catalogue\Item','conf_statuses','id','status_id',);
+        return $this->belongsToMany('App\Entities\Catalogue\Item','id','conf_statuses','status_id',);
     }
     public function itemVariant()
     {
