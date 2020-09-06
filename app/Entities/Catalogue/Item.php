@@ -23,7 +23,7 @@ use Dingo\Api\Routing\Helpers;
 
 class Item extends Model implements Auditable,Searchable
 {
-    use AuditingAuditable, SoftDeletes;
+    use AuditingAuditable, SoftDeletes,Helpers;
 
   
     protected $fillable = [

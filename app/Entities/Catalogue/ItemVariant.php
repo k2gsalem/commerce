@@ -21,7 +21,7 @@ use Dingo\Api\Routing\Helpers;
 
 class ItemVariant extends Model implements Auditable,Searchable
 {
-    use SoftDeletes, AuditingAuditable;
+    use SoftDeletes, AuditingAuditable,Helpers;
     protected $fillable = [
         'item_id',
         'variant_code',
