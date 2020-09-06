@@ -16,6 +16,8 @@ use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
+use App\Transformers\Catalogue\ItemVariantTransformer;
+use Dingo\Api\Routing\Helpers;
 
 class ItemVariant extends Model implements Auditable,Searchable
 {
@@ -50,12 +52,14 @@ class ItemVariant extends Model implements Auditable,Searchable
     {
         $url = route('itemVariant.show', $this->id);
 
-        return new SearchResult(
-            $this,
-            $this->title,
-            $this->variant_desc,
-            $url
-        );
+        // return new SearchResult(
+        //     $this,
+        //     $this->title,
+        //     $this->variant_desc,
+        //     $url
+        // );
+
+        return $this->response->item($this->id, new ItemVariantTransformer());
     }
 
     public function item()

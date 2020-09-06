@@ -18,6 +18,8 @@ use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
+use App\Transformers\Catalogue\ItemTransfomer;
+use Dingo\Api\Routing\Helpers;
 
 class Item extends Model implements Auditable,Searchable
 {
@@ -53,12 +55,14 @@ class Item extends Model implements Auditable,Searchable
     {
         $url = route('item.show', $this->id);
 
-        return new SearchResult(
-            $this,
-            $this->title,
-            $this->item_desc,
-            $url
-         );
+        // return new SearchResult(
+        //     $this,
+        //     $this->title,
+        //     $this->item_desc,
+        //     $url
+        //  );
+
+        return $this->response->item($this->id, new ItemTransfomer());
     }
 
     public function Category()
