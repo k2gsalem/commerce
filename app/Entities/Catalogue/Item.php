@@ -24,7 +24,7 @@ class Item extends Model implements Auditable,Searchable
     use AuditingAuditable, SoftDeletes;
 
     protected $casts = [
-        'min_order_amount' => 'double',
+        'min_order_amount' => 'float',
     ];
 
     protected $fillable = [
