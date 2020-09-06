@@ -45,7 +45,7 @@ class ItemTransfomer extends TransformerAbstract
             'status_desc'=>(string)$model->confStatus->status_desc,
             'created_by'=>(int)$model->created_by,
             'min_order_quantity'=> (int) $model->min_order_quantity,
-            'min_order_amount'=> (double) $model->min_order_amount,
+            'min_order_amount'=> number_format((double) $model->min_order_amount,2),
             'max_order_quantity'=>(int) $model->max_order_quantity,
             'max_order_amount'=> (double) $model->max_order_amount,
             'discount_percentage'=> (double) $model->discount_percentage,
