@@ -55,14 +55,14 @@ class Item extends Model implements Auditable,Searchable
     {
         $url = route('item.show', $this->id);
 
-        // return new SearchResult(
-        //     $this,
-        //     $this->title,
-        //     $this->item_desc,
-        //     $url
-        //  );
+        return new SearchResult(
+            $this,
+            $this->title,
+            $this->item_desc,
+            $url
+         );
 
-        return $this->response->item($this->id, new ItemTransfomer());
+        // return $this->response->item($this->id, new ItemTransfomer());
     }
 
     public function Category()

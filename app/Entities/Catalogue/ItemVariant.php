@@ -52,14 +52,14 @@ class ItemVariant extends Model implements Auditable,Searchable
     {
         $url = route('itemVariant.show', $this->id);
 
-        // return new SearchResult(
-        //     $this,
-        //     $this->title,
-        //     $this->variant_desc,
-        //     $url
-        // );
+        return new SearchResult(
+            $this,
+            $this->title,
+            $this->variant_desc,
+            $url
+        );
 
-        return $this->response->item($this->id, new ItemVariantTransformer());
+        // return $this->response->item($this->id, new ItemVariantTransformer());
     }
 
     public function item()
