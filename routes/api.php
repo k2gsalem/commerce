@@ -99,7 +99,7 @@ $api->version('v1', function ($api) {
             $api->get('/vendor/{vendor}', 'Api\Vendor\VendorController@show');
 
 
-            $api->post('/search', 'Api\Search\SearchController@search');
+            $api->get('/search', 'Api\Search\SearchController@search');
         });
     });
 });
