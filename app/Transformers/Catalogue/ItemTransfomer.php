@@ -60,6 +60,7 @@ class ItemTransfomer extends TransformerAbstract
             'vendor_store_name'=>(string)$model->vendorStore->vendor_store_name,
             'MRP'=>sprintf("%.2f",(double)$model->MRP),
             'selling_price'=>sprintf("%.2f",(double)$model->selling_price),
+            'has_variants'=>(boolean)$model->has_variants,           
             'updated_by'=>(int)$model->updated_by,
             'created_at' => (string)$model->created_at->getTimestamp(),
             'updated_at' => (string)$model->updated_at->getTimestamp(),

@@ -57,14 +57,14 @@ class ItemVariantController extends Controller
             'variant_code' => 'required|string|min:1|max:50|unique:item_variants,variant_code',
             'variant_desc' => 'required|string|min:5|max:500',
             'title' => 'required|string|min:5|max:500|unique:item_variants,title',
-            'min_order_quantity'=> 'integer',
-            'min_order_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'max_order_quantity'=> 'integer',
-            'max_order_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'discount_percentage'=> 'gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
-            'discount_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'min_order_quantity'=> 'nullable|integer',
+            'min_order_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'max_order_quantity'=> 'nullable|integer',
+            'max_order_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'discount_percentage'=> 'nullable|gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
+            'discount_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
             // 'quantity'=>  'required|integer',
-            // 'threshold'=> 'required|integer',
+            'threshold'=> 'nullable|integer',
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
            
@@ -83,51 +83,22 @@ class ItemVariantController extends Controller
 
         $item = Item::find($request->item_id);
 
-        if(is_null($item->threshold) || $item->quantity==0)
+        if($item->has_variants==true)
         {
            
-
-            $rules['quantity'] = 'required|gt:0|integer';
-
-        }
-        else
-        {
-            $rules['quantity'] = 'integer';
-
-        }
-
-        if(is_null($item->threshold) || $item->threshold==0)
-        {
-            $rules['threshold'] = 'required|gt:0|integer';
-
-        }
-        else
-        {
-            $rules['threshold'] = 'integer';
-
-        }
-
-        if(is_null($item->MRP) || $item->MRP==0)
-        {
+            $rules['quantity'] = 'required|integer';
             $rules['MRP'] = 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/';
-
-        }
-        else
-        {
-            $rules['MRP'] = 'gt:0|regex:/^\d*(\.\d{1,2})?$/';
-
-        }
-
-        if(is_null($item->selling_price) || $item->selling_price==0)
-        {
             $rules['selling_price'] = 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
 
         }
         else
         {
-            $rules['selling_price'] = 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['quantity'] = 'nullable|integer';
+            $rules['MRP'] = 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'nullable|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
 
         }
+        
         
         $this->validate($request, $rules);
 
@@ -188,14 +159,14 @@ class ItemVariantController extends Controller
             'variant_code' => 'required|string|min:1|max:50|unique:item_variants,variant_code,' . $itemVariant->id,
             'variant_desc' => 'required|string|min:5|max:500',
             'title' => 'required|string|min:5|max:500|unique:item_variants,title,'.$itemVariant->id,
-            'min_order_quantity'=> 'integer',
-            'min_order_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'max_order_quantity'=> 'integer',
-            'max_order_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'discount_percentage'=> 'gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
-            'discount_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'min_order_quantity'=> 'nullable|integer',
+            'min_order_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'max_order_quantity'=> 'nullable|integer',
+            'max_order_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'discount_percentage'=> 'nullable|gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
+            'discount_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
             // 'quantity'=>  'required|integer',
-            // 'threshold'=> 'required|integer',
+            'threshold'=> 'nullable|integer',
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
            
@@ -212,49 +183,19 @@ class ItemVariantController extends Controller
 
         $item = Item::find($request->item_id);
 
-        if(is_null($item->threshold) || $item->quantity==0)
+        if($item->has_variants==true)
         {
            
-
-            $rules['quantity'] = 'required|gt:0|integer';
-
-        }
-        else
-        {
-            $rules['quantity'] = 'integer';
-
-        }
-
-        if(is_null($item->threshold) || $item->threshold==0)
-        {
-            $rules['threshold'] = 'required|gt:0|integer';
-
-        }
-        else
-        {
-            $rules['threshold'] = 'integer';
-
-        }
-
-        if(is_null($item->MRP) || $item->MRP==0)
-        {
+            $rules['quantity'] = 'required|integer';
             $rules['MRP'] = 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/';
-
-        }
-        else
-        {
-            $rules['MRP'] = 'gt:0|regex:/^\d*(\.\d{1,2})?$/';
-
-        }
-
-        if(is_null($item->selling_price) || $item->selling_price==0)
-        {
             $rules['selling_price'] = 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
 
         }
         else
         {
-            $rules['selling_price'] = 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['quantity'] = 'nullable|integer';
+            $rules['MRP'] = 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'nullable|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
 
         }
         if ($request->method() == 'PATCH') {
@@ -264,14 +205,14 @@ class ItemVariantController extends Controller
                 'variant_code' => 'sometimes|required|string|min:1|max:50|unique:item_variants,variant_code,' . $itemVariant->id,
                 'variant_desc' => 'sometimes|required|string|min:5|max:500',
                 'title' => 'sometimes|required|string|min:5|max:500|unique:item_variants,title,'.$itemVariant->id,
-                'min_order_quantity'=> 'sometimesinteger',
-                'min_order_amount'=> 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
-                'max_order_quantity'=> 'sometimes|integer',
-                'max_order_amount'=> 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
-                'discount_percentage'=> 'sometimes|gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
-                'discount_amount'=> 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                'min_order_quantity'=> 'sometimes|nullable|integer',
+                'min_order_amount'=> 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                'max_order_quantity'=> 'sometimes|nullable|integer',
+                'max_order_amount'=> 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                'discount_percentage'=> 'sometimes|nullable|gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
+                'discount_amount'=> 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
                 // 'quantity'=>  'sometimes|required|integer',
-                // 'threshold'=> 'sometimes|required|integer',
+                'threshold'=> 'sometimes|nullable|required|integer',
                 'supplier_id' => 'sometimes|required|integer|exists:suppliers,id',
                 // 'item_image',
                
@@ -285,50 +226,20 @@ class ItemVariantController extends Controller
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
 
-            if(is_null($item->threshold) || $item->quantity==0)
+            if($item->has_variants==true)
             {
-               
-    
-                $rules['quantity'] = 'sometimes|required|gt:0|integer';
-    
-            }
-            else
-            {
-                $rules['quantity'] = 'sometimes|integer';
-    
-            }
-    
-            if(is_null($item->threshold) || $item->threshold==0)
-            {
-                $rules['threshold'] = 'sometimes|required|gt:0|integer';
-    
-            }
-            else
-            {
-                $rules['threshold'] = 'sometimes|integer';
-    
-            }
-    
-            if(is_null($item->MRP) || $item->MRP==0)
-            {
+            
+                $rules['quantity'] = 'sometimes|required|integer';
                 $rules['MRP'] = 'sometimes|required|gt:0|regex:/^\d*(\.\d{1,2})?$/';
-    
-            }
-            else
-            {
-                $rules['MRP'] = 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/';
-    
-            }
-    
-            if(is_null($item->selling_price) || $item->selling_price==0)
-            {
                 $rules['selling_price'] = 'sometimes|required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
-    
+
             }
             else
             {
-                $rules['selling_price'] = 'sometimes|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
-    
+                $rules['quantity'] = 'sometimes|nullable|integer';
+                $rules['MRP'] = 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+                $rules['selling_price'] = 'sometimes|nullable|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+
             }
         }
         $this->validate($request, $rules);

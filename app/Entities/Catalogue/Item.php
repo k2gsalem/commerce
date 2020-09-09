@@ -46,6 +46,7 @@ class Item extends Model implements Auditable,Searchable
         'vendor_store_id',
         'MRP',
         'selling_price',
+        'has_variants',
         'status_id',
         'created_by',
         'updated_by',

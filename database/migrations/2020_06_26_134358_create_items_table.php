@@ -22,12 +22,12 @@ class CreateItemsTable extends Migration
             $table->string('item_code',200)->unique();
             $table->mediumText('item_desc',1000);
             $table->string('title',1000);
-            $table->integer('min_order_quantity')->unsigned();
-            $table->decimal('min_order_amount',10,2);
-            $table->integer('max_order_quantity')->unsigned(); 
-            $table->decimal('max_order_amount',10,2);
-            $table->integer('quantity')->unsigned();
-            $table->integer('threshold')->unsigned();
+            $table->integer('min_order_quantity')->unsigned()->nullable();
+            $table->decimal('min_order_amount',10,2)->nullable();
+            $table->integer('max_order_quantity')->unsigned()->nullable(); 
+            $table->decimal('max_order_amount',10,2)->nullable();
+            $table->integer('quantity')->unsigned()->nullable();
+            $table->integer('threshold')->unsigned()->nullable();
             $table->decimal('discount_percentage',10,2)->nullable();
             $table->decimal('discount_amount',10,2)->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
@@ -39,6 +39,7 @@ class CreateItemsTable extends Migration
             $table->foreign('vendor_store_id')->references('id')->on('vendor_stores')->onDelete('cascade');
             $table->decimal('MRP',10,2)->nullable();
             $table->decimal('selling_price',10,2)->nullable();
+            $table->boolean('has_variants')->default(FALSE); 
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');
             $table->unsignedBigInteger('created_by');

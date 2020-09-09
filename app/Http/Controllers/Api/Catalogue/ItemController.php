@@ -66,18 +66,32 @@ class ItemController extends Controller
             'max_order_amount'=> 'nullable|regex:/^\d*(\.\d{1,2})?$/',
             'discount_percentage'=> 'nullable|lte:100|regex:/^\d*(\.\d{1,2})?$/',
             'discount_amount'=> 'nullable|regex:/^\d*(\.\d{1,2})?$/',
-            'quantity'=>  'integer',
             'threshold'=> 'nullable|integer',
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
             'vendor_id' => 'required|integer|exists:vendors,id',
             'vendor_store_id' => 'required|integer|exists:vendor_stores,id',
-            'MRP' => 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'selling_price' => 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+            'has_variants' => 'required|boolean',
             'status_id' => 'required|integer|exists:conf_statuses,id',
             // 'created_by' => 'required|integer|exists:users,id',
             // 'updated_by' => 'required|integer|exists:users,id'
         ];
+
+        if($request->has_variants==0)
+        {
+           
+            $rules['quantity'] = 'required|integer';
+            $rules['MRP'] = 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+
+        }
+        else
+        {
+            $rules['quantity'] = 'nullable|integer';
+            $rules['MRP'] = 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'nullable|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+
+        }
         $this->validate($request, $rules);
         $item = $this->model->create($request->all());
         if ($request->has('file')) {
@@ -133,23 +147,40 @@ class ItemController extends Controller
             'title' => 'required|string|min:5|max:500|unique:items,title,'.$item->id,
             'file' => 'array',
             'file.*' => 'image|mimes:jpeg,jpg,png|max:2048',
-            'min_order_quantity'=> 'integer',
-            'min_order_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'max_order_quantity'=> 'integer',
-            'max_order_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'discount_percentage'=> 'gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
-            'discount_amount'=> 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'quantity'=>  'integer',
-            'threshold'=> 'integer',
+            'min_order_quantity'=> 'nullable|integer',
+            'min_order_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'max_order_quantity'=> 'nullable|integer',
+            'max_order_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            'discount_percentage'=> 'nullable|gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
+            'discount_amount'=> 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            // 'quantity'=>  'integer',
+            'threshold'=> 'nullable|integer',
             'supplier_id' => 'integer|exists:suppliers,id',
             // 'item_image',
            
             'vendor_id' => 'required|integer|exists:vendors,id',
             'vendor_store_id' => 'required|integer|exists:vendor_stores,id',
-            'MRP' => 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
-            'selling_price' => 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+            // 'MRP' => 'gt:0|regex:/^\d*(\.\d{1,2})?$/',
+            // 'selling_price' => 'gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+            'has_variants' => 'required|boolean',
             'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
+
+        if($request->has_variants==0)
+        {
+           
+            $rules['quantity'] = 'required|integer';
+            $rules['MRP'] = 'required|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+
+        }
+        else
+        {
+            $rules['quantity'] = 'nullable|integer';
+            $rules['MRP'] = 'nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'nullable|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+
+        }
         if ($request->method() == 'PATCH') {
             $rules = [
                 'category_id' => 'sometimes|required|integer|exists:prod_cats,id',
@@ -160,22 +191,38 @@ class ItemController extends Controller
                 // 'vendor_store_id' => 'sometimes|required|integer|exists:vendors,id',
                 'file' => 'array',
                 'file.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:2048',
-                'min_order_quantity'=> 'sometimes|integer',
-                'min_order_amount'=> 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
-                'max_order_quantity'=> 'sometimes|integer',
-                'max_order_amount'=> 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
-                'discount_percentage'=> 'sometimes|gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
-                'discount_amount'=> 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
-                'quantity'=>  'sometimes|integer',
-                'threshold'=> 'sometimes|integer',
+                'min_order_quantity'=> 'sometimes|nullable|integer',
+                'min_order_amount'=> 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                'max_order_quantity'=> 'sometimes|nullable|integer',
+                'max_order_amount'=> 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                'discount_percentage'=> 'sometimes|nullable|gt:0|lte:100|regex:/^\d*(\.\d{1,2})?$/',
+                'discount_amount'=> 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                // 'quantity'=>  'sometimes|integer',
+                'threshold'=> 'sometimes|nullable|integer',
                 'supplier_id' => 'sometimes|required|integer|exists:suppliers,id',
                 // 'item_simage',
                 'vendor_id' => 'sometimes|required|integer|exists:vendors,id',
                 'vendor_store_id' => 'sometimes|required|integer|exists:vendor_stores,id',
-                'MRP' => 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
-                'selling_price' => 'sometimes|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+                // 'MRP' => 'sometimes|gt:0|regex:/^\d*(\.\d{1,2})?$/',
+                // 'selling_price' => 'sometimes|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/',
+                'has_variants' => 'sometimes|required|boolean',
                 'status_id' => 'sometimes|required|integer|exists:conf_statuses,id',
             ];
+
+        }
+        if($request->has_variants==0)
+        {
+           
+            $rules['quantity'] = 'sometimes|required|integer';
+            $rules['MRP'] = 'sometimes|required|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'sometimes|required|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
+
+        }
+        else
+        {
+            $rules['quantity'] = 'sometimes|nullable|integer';
+            $rules['MRP'] = 'sometimes|nullable|gt:0|regex:/^\d*(\.\d{1,2})?$/';
+            $rules['selling_price'] = 'sometimes|nullable|gt:0|lte:MRP|regex:/^\d*(\.\d{1,2})?$/';
 
         }
         $this->validate($request, $rules);
