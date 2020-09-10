@@ -43,7 +43,7 @@ class Vendor extends Model implements Auditable
     }
     public function vendorStores()
     {
-        return $this->hasMany(VendorStore::class,'vendor_store_id');
+        return $this->hasMany(VendorStore::class,'vendor_id');
     }
     public function items()
     {

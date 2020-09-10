@@ -7,6 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class VendorTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'VendorStores'
+    ];
+
     protected $defaultIncludes = [
         'Assets',
     ];
@@ -37,5 +41,10 @@ class VendorTransformer extends TransformerAbstract
     public function includeAssets(Vendor $model)
     {
         return $this->collection($model->assets, new AssetTransformer());
+    }
+
+    public function includeVendorStores(Vendor $model)
+    {
+        return $this->collection($model->vendorStores, new VendorStoreTransformer());
     }
 }

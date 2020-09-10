@@ -24,8 +24,8 @@ class VendorStoreController extends Controller
     public function __construct(VendorStore $model)
     {
         $this->model = $model;
-        $this->middleware('permission:List vendor store')->only('index');
-        $this->middleware('permission:List vendor store')->only('show');
+        // $this->middleware('permission:List vendor store')->only('index');
+        // $this->middleware('permission:List vendor store')->only('show');
         $this->middleware('permission:Create vendor store')->only('store');
         $this->middleware('permission:Update vendor store')->only('update');
         $this->middleware('permission:Delete vendor store')->only('destroy');
