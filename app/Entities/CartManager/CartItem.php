@@ -2,6 +2,7 @@
 
 namespace App\Entities\CartManager;
 
+use App\Entities\Assets\Asset;
 use App\Entities\Catalogue\Item;
 use App\Entities\Catalogue\ItemVariantGroup;
 use App\Entities\Config\ConfStatus;
@@ -56,5 +57,9 @@ class CartItem extends Model implements Auditable
     public function cartItemVariants()
     {
         return $this->hasMany(CartItemVariant::class, 'cart_item_id');
+    }
+    public function assets()
+    {
+        return $this->morphMany(Asset::class, 'imageable');
     }
 }

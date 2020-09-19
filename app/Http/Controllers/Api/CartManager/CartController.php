@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\CartManager;
 use App\Entities\CartManager\Cart;
 use App\Entities\User;
 use App\Http\Controllers\Controller;
+use App\Transformers\Cart\CartTransformer;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
@@ -140,44 +141,9 @@ class CartController extends Controller
             }
 
         }
-        // if ($request['variant_group_id'] === null) {
-        //     if (count($cart->cartItem->where('item_id', $request['item_id'])) == 0) {
-
-        //         $cartitem = $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity'], 'status_id' => $request['status_id']]);
-
-        //     } else {
-        //         $item_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;
-        //         $cartitem = $this->api->put('api/cartItem/' . $item_id, ['quantity' => $request['quantity']]);
-        //     }
-        // } else {
-        //     // return $cart->id;
-
-        //     if (count($cart->cartItem->where('variant_group_id', $request['variant_group_id'])) == 0 ) {
-               
-        //         $cartitem= $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity'], 'variant_group_id' => $request['variant_group_id'], 'variant_id' => $request['variant_id'], 'status_id' => $request['status_id'] ]);
-        //         return $cartitem;
-        //     } else {
-        //         //return $request;
-        //         $cart_item_id = $cart->cartItem->where('variant_group_id', $request['variant_group_id'])->first()->id;
-        //         //return $cart_item_id;
-        //         $cartitem = $this->api->put('api/cartItem/' . $cart_item_id, [
-        //             'quantity' => $request['quantity'],
-        //             'variant_group_id' => $request['variant_group_id'],
-        //             'variant_id' => $request['variant_id'],
-        //         ]);
-        //     }
-
-        // }
-
-        
-        // if (count($cart->cartItem->where('item_id', $request['item_id'])) == 0) {
-        //     $cartitem = $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity']]);
-        // } else {
-        //     $item_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;
-        //     $cartitem = $this->api->put('api/cartItem/' . $item_id, ['quantity' => $request['quantity']]);
-        // }
-
-        return 1;
+       // return $cart;
+        return $this->response->item($cart->fresh(), new CartTransformer());
+       // return 1;
         //
     }
 
