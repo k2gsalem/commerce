@@ -70,7 +70,7 @@ $api->version('v1', function ($api) {
             });
            // $api->put('/addToCart/{cart}', 'Api\CartManager\AddToCartController@update');
             //$api->resource('cart', 'Api\CartManager\CartController');
-            $api->get('fetchCart/{user}', 'Api\CartManager\CartController@fetchCart');
+            $api->get('fetchCart', 'Api\CartManager\CartController@fetchCart');
             $api->put('addToCart/{user}', 'Api\CartManager\CartController@update');
             //$api->get('fetchCart/{user}', 'Api\CartManager\CartController@fetchCart');
             $api->resource('cartItem', 'Api\CartManager\CartItemController');

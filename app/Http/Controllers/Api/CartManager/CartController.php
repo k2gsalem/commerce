@@ -44,6 +44,7 @@ class CartController extends Controller
         ];
         $this->validate($request, $rules);
         $cart = $this->model->create($request->all());
+        return $this->response->item($cart->fresh(), new CartTransformer());
         //
     }
 
@@ -66,8 +67,12 @@ class CartController extends Controller
         // return $this->response->created(url('api/cart/' . $user_cart->id));
         //
     }
-    public function fetchCart(User $user)
+    public function fetchCart(Request $request)
     {
+        $u = new User();
+        $user=$u->findOrFail($request->user()->id);
+
+        
         //return $user;
         $cart = new Cart();
         $user_exist = $cart->where('user_id', $user->id)->count();
@@ -77,7 +82,7 @@ class CartController extends Controller
         } else {
             $user_cart = $user->cart;
         }
-        return $user_cart;
+        return $this->response->item($user_cart->fresh(), new CartTransformer());
         //
     }
 
