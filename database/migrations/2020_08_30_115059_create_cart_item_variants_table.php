@@ -27,8 +27,8 @@ class CreateCartItemVariantsTable extends Migration
             $table->integer('item_quantity');
             $table->unsignedBigInteger('vendor_store_id');
             $table->foreign('vendor_store_id')->references('id')->on('vendor_stores')->onDelete('cascade');
-            $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');
+            // $table->unsignedBigInteger('status_id');
+            // $table->foreign('status_id')->references('id')->on('conf_statuses')->onDelete('cascade');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('updated_by');

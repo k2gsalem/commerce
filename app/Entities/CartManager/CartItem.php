@@ -25,7 +25,7 @@ class CartItem extends Model implements Auditable
         'item_discount_amount',
         'item_quantity',
         'vendor_store_id',
-        'status_id',
+        // 'status_id',
         'created_by',
         'updated_by',
     ];
@@ -33,10 +33,10 @@ class CartItem extends Model implements Auditable
     // {
     //     return $this->hasOne(ConfStatus::class, 'id', 'status_id');
     // }
-    public function confStatus()
-    {
-        return $this->belongsTo('App\Entities\Config\ConfStatus','status_id');
-    }
+    // public function confStatus()
+    // {
+    //     return $this->belongsTo('App\Entities\Config\ConfStatus','status_id');
+    // }
     public function cart()
     {
         return $this->belongsTo(Cart::class, 'cart_id', 'id');

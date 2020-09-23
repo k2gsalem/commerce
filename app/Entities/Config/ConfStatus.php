@@ -77,17 +77,17 @@ class ConfStatus extends Model implements Auditable
     {
         return $this->hasMany(StockTracker::class, 'status_id');
     }
-    public function carts()
-    {
-        return $this->hasMany(Cart::class, 'status_id');
-    }
-    public function cartItems()
-    {
-        return $this->hasMany(CartItem::class, 'status_id');
-    }
-    public function cartItemVariants()
-    {
-        return $this->hasMany(CartItemVariant::class, 'status_id');
-    }
+    // public function carts()
+    // {
+    //     return $this->hasMany(Cart::class, 'status_id');
+    // }
+    // public function cartItems()
+    // {
+    //     return $this->hasMany(CartItem::class, 'status_id');
+    // }
+    // public function cartItemVariants()
+    // {
+    //     return $this->hasMany(CartItemVariant::class, 'status_id');
+    // }
 
 }

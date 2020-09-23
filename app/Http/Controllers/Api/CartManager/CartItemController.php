@@ -83,6 +83,7 @@ class CartItemController extends Controller
         //     $request['status_id'] = $item->status_id;
         //     $request['created_by'] = $request->user()->id;
         //     $request['updated_by'] = $request->user()->id;
+       
         if ($request->has('variant_group_id')) {
            // return $request;
             $cartitem = $this->model->create(
@@ -95,7 +96,7 @@ class CartItemController extends Controller
                     'item_discount_amount' => $item->discount_amount,
                     'item_quantity' => $request->quantity,
                     'vendor_store_id' => $item->vendor_store_id,
-                    'status_id' => $request->status_id,
+                    // 'status_id' => $request->status_id,
                     'created_by' => $request->user()->id,
                     'updated_by' => $request->user()->id,          
                 ]
@@ -106,12 +107,13 @@ class CartItemController extends Controller
                 'item_id' => $request->item_id,
                 'item_variant_id' => $request->variant_id,
                 'variant_group_id' => $request->variant_group_id,
-                'item_quantity' => $request->quantity,
-                'status_id' => $request->status_id,
+                'item_quantity' => $request->quantity   
+                // 'status_id' => $request->status_id,
             ]);
             return $cartitemvariant;
 
         } else {
+           
             $cartitem = $this->model->create(
                 [
                     'cart_id' => $request->cart_id,
@@ -122,12 +124,13 @@ class CartItemController extends Controller
                     'item_discount_amount' => $item->discount_amount,
                     'item_quantity' => $request->quantity,
                     'vendor_store_id' => $item->vendor_store_id,
-                    'status_id' => $request->status_id,
+                    // 'status_id' => $request->status_id,
                     'created_by' => $request->user()->id,
                     'updated_by' => $request->user()->id,
                 ]
             );
-
+           
+           
         }
         // if ($request['variant_group_id'] === null) {
         //    // return $request;

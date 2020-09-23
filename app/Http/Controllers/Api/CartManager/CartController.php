@@ -40,7 +40,7 @@ class CartController extends Controller
         $request['updated_by'] = $request->user()->id;
         $rules = [
             'user_id' => 'required|integer|exists:users,id',
-            'status_id' => 'required|integer|exists:conf_statuses,id',
+            // 'status_id' => 'required|integer|exists:conf_statuses,id',
         ];
         $this->validate($request, $rules);
         $cart = $this->model->create($request->all());
@@ -78,7 +78,7 @@ class CartController extends Controller
         $user_exist = $cart->where('user_id', $user->id)->count();
         if ($user_exist == 0) {
 
-            $user_cart = $this->model->create(['user_id' => $user->id, 'status_id' => 1, 'created_by' => $user->id, 'updated_by' => $user->id]);
+            $user_cart = $this->model->create(['user_id' => $user->id,  'created_by' => $user->id, 'updated_by' => $user->id]);
         } else {
             $user_cart = $user->cart;
         }
@@ -104,7 +104,7 @@ class CartController extends Controller
         $newcart = new Cart();
         $user_exist = $newcart->where('user_id', $user->id)->count();
         if ($user_exist == 0) {
-            $cart = $this->model->create(['user_id' => $user->id, 'status_id' => 1, 'created_by' => $user->id, 'updated_by' => $user->id]);
+            $cart = $this->model->create(['user_id' => $user->id,  'created_by' => $user->id, 'updated_by' => $user->id]);
         } else {
             $cart = $user->cart;
         }
@@ -113,7 +113,7 @@ class CartController extends Controller
         // $request['updated_by'] = $request->user()->id;
         $rules = [
             'item_id' => 'required|integer|exists:items,id',
-            'status_id' => 'required|integer|exists:conf_statuses,id',
+            // 'status_id' => 'required|integer|exists:conf_statuses,id',
             'quantity' => 'required|integer',
         ];
 
@@ -121,7 +121,7 @@ class CartController extends Controller
         if($request->has('variant_group_id')){
             if (count($cart->cartItem->where('variant_group_id', $request['variant_group_id'])) == 0 ) {
                
-                $cartitem= $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity'], 'variant_group_id' => $request['variant_group_id'], 'variant_id' => $request['variant_id'], 'status_id' => $request['status_id'] ]);
+                $cartitem= $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity'], 'variant_group_id' => $request['variant_group_id'], 'variant_id' => $request['variant_id'] ]);
                 return $cartitem;
             } else {
                 //return $request;
@@ -137,8 +137,8 @@ class CartController extends Controller
 
         }else{
             if (count($cart->cartItem->where('item_id', $request['item_id'])) == 0) {
-
-                $cartitem = $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity'], 'status_id' => $request['status_id']]);
+               
+                $cartitem = $this->api->post('api/cartItem', ['cart_id' => $cart->id, 'item_id' => $request['item_id'], 'quantity' => $request['quantity']]);
 
             } else {
                 $item_id = $cart->cartItem->where('item_id', $request['item_id'])->first()->id;

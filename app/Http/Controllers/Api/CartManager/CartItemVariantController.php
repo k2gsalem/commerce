@@ -68,7 +68,7 @@ class CartItemVariantController extends Controller
             'item_discount_amount' => $itemvariant->discount_amount,
             'item_quantity' => $request->item_quantity,
             'vendor_store_id' => $itemvariant->vendor_store_id,
-            'status_id' => $request->status_id,
+            // 'status_id' => $request->status_id,
             'created_by' => $request->user()->id,
             'updated_by' => $request->user()->id,
         ]);
