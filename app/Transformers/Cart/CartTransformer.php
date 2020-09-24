@@ -19,7 +19,7 @@ class CartTransformer extends TransformerAbstract
         return[
             'id' => (int) $model->id,
             'user_id'=>(int)$model->user_id,
-            'status_id'=>(int)$model->status_id,
+            // 'status_id'=>(int)$model->status_id,
             'created_by'=>(int)$model->created_by,
             'updated_by'=>(int)$model->updated_by,
             'created_at'=>(string)$model->created_at,

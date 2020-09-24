@@ -37,22 +37,22 @@ class CartItemController extends Controller
     public function store(Request $request)
     {
        
-        // if ($request->has('variant_group_id')) {
-        //     $rules = [
-        //         'cart_id' => 'required|integer|exists:carts,id',
-        //         'item_id' => 'required|integer|exists:items,id',
-        //         'quantity' => 'required|integer',
-        //         'variant_id' => 'required|integer|exists:item_variants,id',
-        //         'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
-        //     ];
-        // } else {
-        //     $rules = [
-        //         'cart_id' => 'required|integer|exists:carts,id',
-        //         'item_id' => 'required|integer|exists:items,id',
-        //         'quantity' => 'required|integer',
-        //     ];
+        if ($request->has('variant_group_id')) {
+            $rules = [
+                'cart_id' => 'required|integer|exists:carts,id',
+                'item_id' => 'required|integer|exists:items,id',
+                'quantity' => 'required|integer',
+                'variant_id' => 'required|integer|exists:item_variants,id',
+                'variant_group_id' => 'required|integer|exists:item_variant_groups,id',
+            ];
+        } else {
+            $rules = [
+                'cart_id' => 'required|integer|exists:carts,id',
+                'item_id' => 'required|integer|exists:items,id',
+                'quantity' => 'required|integer',
+            ];
 
-        // }
+        }
         // if ($request['variant_group_id'] === null) {
         //     $rules = [
         //         'cart_id' => 'required|integer|exists:carts,id',
@@ -69,7 +69,7 @@ class CartItemController extends Controller
         //     ];
         // }
 
-       // $this->validate($request, $rules);
+        $this->validate($request, $rules);
         $item = Item::find($request->item_id);
       //  return $item;
         //     $request['cart_id'] = $request['cart_id'];
