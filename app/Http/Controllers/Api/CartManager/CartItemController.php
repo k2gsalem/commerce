@@ -17,6 +17,7 @@ class CartItemController extends Controller
     public function __construct(CartItem $model)
     {
         $this->model = $model;
+        
     }
     /**
      * Display a listing of the resource.
