@@ -16,7 +16,6 @@ class CartController extends Controller
     public function __construct(Cart $model)
     {
         $this->model = $model;
-
     }
     /**
      * Display a listing of the resource.
