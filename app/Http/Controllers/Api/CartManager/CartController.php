@@ -161,5 +161,6 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         //
+        
     }
 }
