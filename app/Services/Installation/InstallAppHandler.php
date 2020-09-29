@@ -203,7 +203,8 @@ class InstallAppHandler
         if ($validator->fails()) {
             throw new ValidationException($validator);
         }
-        $this->adminUser = User::create([
+        $user =new User();
+        $this->adminUser = $user->create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'password' => $attributes['password'],

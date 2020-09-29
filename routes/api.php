@@ -19,6 +19,11 @@ $api->version('v1', function ($api) {
                 $api->put('/{uuid}', 'Api\Users\UsersController@update');
                 $api->patch('/{uuid}', 'Api\Users\UsersController@update');
                 $api->delete('/{uuid}', 'Api\Users\UsersController@destroy');
+               
+
+            });
+            $api->group(['prefix' => 'profile'], function ($api) {
+                $api->resource('/userAddress', 'Api\Profile\UserAddressController');
             });
 
             $api->group(['prefix' => 'roles'], function ($api) {
@@ -37,6 +42,7 @@ $api->version('v1', function ($api) {
                 $api->put('/', 'Api\Users\ProfileController@update');
                 $api->patch('/', 'Api\Users\ProfileController@update');
                 $api->put('/password', 'Api\Users\ProfileController@updatePassword');
+                
             });
 
             $api->group(['prefix' => 'assets'], function ($api) {

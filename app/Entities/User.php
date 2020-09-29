@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\CartManager\Cart;
+use App\Entities\Profile\UserAddress;
 use App\Support\HasRolesUuid;
 use App\Support\UuidScopeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -57,7 +58,7 @@ class User extends Authenticatable implements Auditable
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model
      */
-    static function create(array $attributes = [])
+    function create(array $attributes = [])
     {
         if (array_key_exists('password', $attributes)) {
             $attributes['password'] = bcrypt($attributes['password']);
@@ -70,5 +71,9 @@ class User extends Authenticatable implements Auditable
     function cart()
     {
         return $this->hasOne(Cart::class, 'user_id');
+    }
+    function userAddress()
+    {
+        return $this->hasMany(UserAddress::class, 'user_id');
     }
 }
