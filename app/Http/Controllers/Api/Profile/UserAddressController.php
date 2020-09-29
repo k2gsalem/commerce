@@ -59,7 +59,7 @@ class UserAddressController extends Controller
 
         $this->validate($request, $rules);
         $userAddress = $this->model->create($request->all());
-        return $this->response->created(url('api/users/address' . $userAddress->id));
+        return $this->response->created(url('api/profile/userAddress' . $userAddress->id));
         //
     }
 
