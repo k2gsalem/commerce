@@ -15,6 +15,11 @@ class UserAddressController extends Controller
     public function __construct(UserAddress $model)
     {
         $this->model = $model;
+        // $this->middleware('permission:List user address')->only('index');
+        // $this->middleware('permission:List user address)->only('show');
+        $this->middleware('permission:Create user address')->only('store');
+        $this->middleware('permission:Update user address')->only('update');
+        $this->middleware('permission:Delete user address')->only('destroy');
     }
     /**
      * Display a listing of the resource.

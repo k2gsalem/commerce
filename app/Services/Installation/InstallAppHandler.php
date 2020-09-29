@@ -130,6 +130,12 @@ class InstallAppHandler
             ['name' => 'Delete vendor store'],
             ['name' => 'Update vendor store'],
         ],
+        'user_address' => [
+            ['name' => 'List user address'],
+            ['name' => 'Create user address'],
+            ['name' => 'Delete user address'],
+            ['name' => 'Update user address'],
+        ],
     ];
 
     /**
