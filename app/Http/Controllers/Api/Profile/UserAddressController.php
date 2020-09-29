@@ -53,7 +53,7 @@ class UserAddressController extends Controller
             'area'=>'string|max:250',
             'city_town'=>'string|max:250',
             'state'=>'string|max:250',
-            'pincode'=>'regex:^[1-9][0-9]{5}$',
+            'pincode'=>'regex:/^[1-9][0-9]{5}$/',
             
         ];
 
