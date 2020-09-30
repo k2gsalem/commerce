@@ -64,7 +64,7 @@ class UserAddressController extends Controller
 
         $this->validate($request, $rules);
         $userAddress = $this->model->create($request->all());
-        return $this->response->created(url('api/profile/userAddress' . $userAddress->id));
+        return $this->response->created(url('api/profile/userAddress/' . $userAddress->id));
         //
     }
 
@@ -139,5 +139,11 @@ class UserAddressController extends Controller
         $userAddress->delete();
         return $this->response->noContent();
         //
+    }
+    public function getAddress(Request $request){
+        $user_id= $request->user()->id; 
+        $address=$this->model::where('user_id',$user_id)->get();
+        return $this->response->collection($address, new UserAddressTransformer());
+        
     }
 }
