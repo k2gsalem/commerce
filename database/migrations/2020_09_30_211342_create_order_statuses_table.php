@@ -16,6 +16,10 @@ class CreateOrderStatusesTable extends Migration
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('status_desc');
+            $table->unsignedBigInteger('created_by');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

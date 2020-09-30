@@ -26,6 +26,10 @@ class CreateUserOrdersTable extends Migration
             $table->foreign('user_address_id')->references('id')->on('user_addresses')->onDelete('cascade');
             $table->decimal('order_amount',10,2);
             $table->timestamp('order_date');
+            $table->unsignedBigInteger('created_by');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

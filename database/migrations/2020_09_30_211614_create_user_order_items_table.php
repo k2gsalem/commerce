@@ -25,6 +25,10 @@ class CreateUserOrderItemsTable extends Migration
             $table->decimal('item_selling_price',10,2);
             $table->decimal('item_discount_amount',10,2)->nullable();
             $table->decimal('item_discount_percentage',10,2)->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
