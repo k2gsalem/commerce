@@ -140,4 +140,10 @@ class UserAddressController extends Controller
         return $this->response->noContent();
         //
     }
+    public function getAddress(Request $request){
+        $user_id= $request->user()->id; 
+        $address=$this->model::where('user_id',$user_id)->get();
+        return $this->response->collection($address, new UserAddressTransformer());
+        
+    }
 }

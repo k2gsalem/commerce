@@ -67,12 +67,14 @@ $api->version('v1', function ($api) {
             $api->resource('stockTracker', 'Api\Stock\StockTrackerController');
 
             $api->group(['prefix' => 'member'], function ($api) {
-                $api->group(['prefix' => 'me'], function ($api) {
+                $api->get('/getAddress','Api\Profile\UserAddressController@getAddress');
+                $api->group(['prefix' => 'me'], function ($api) {                    
                     $api->get('/', 'Api\Users\ProfileController@index');
                     $api->put('/', 'Api\Users\ProfileController@update');
                     $api->patch('/', 'Api\Users\ProfileController@update');
                     $api->put('/password', 'Api\Users\ProfileController@updatePassword');
                 });
+                
             });
            // $api->put('/addToCart/{cart}', 'Api\CartManager\AddToCartController@update');
             //$api->resource('cart', 'Api\CartManager\CartController');
