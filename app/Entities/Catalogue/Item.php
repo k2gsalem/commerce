@@ -7,6 +7,7 @@ use App\Entities\CartManager\CartItem;
 use App\Entities\Config\ConfStatus;
 use App\Entities\Config\ProdCat;
 use App\Entities\Config\ProdSubCat;
+use App\Entities\Order\UserOrderItem;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
 use App\Entities\Vendor\Supplier;
@@ -119,5 +120,9 @@ class Item extends Model implements Auditable,Searchable
     public function cartItem()
     {
         return $this->hasMany(CartItem::class, 'item_id');
+    }
+    public function userOrderItems()
+    {
+        return $this->hasMany(UserOrderItem::class, 'item_id');
     }
 }

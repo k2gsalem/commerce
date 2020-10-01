@@ -32,4 +32,7 @@ class UserAddress extends Model implements Auditable
     {
         return $this->belongsTo(User::class,'user_id');
     }
+    public function userOrders(){
+        return $this->hasMany(UserAddress::class,'user_address_id');
+    }
 }

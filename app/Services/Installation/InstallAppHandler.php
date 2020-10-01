@@ -136,6 +136,24 @@ class InstallAppHandler
             ['name' => 'Delete user address'],
             ['name' => 'Update user address'],
         ],
+        'conf_order_status' => [
+            ['name' => 'List conf order status'],
+            ['name' => 'Create conf order status'],
+            ['name' => 'Delete conf order status'],
+            ['name' => 'Update conf order status'],
+        ],
+        'user_order' => [
+            ['name' => 'List user order'],
+            ['name' => 'Create user order'],
+            ['name' => 'Delete user order'],
+            ['name' => 'Update user order'],
+        ],
+        'user_order_item' => [
+            ['name' => 'List user order item'],
+            ['name' => 'Create user order item'],
+            ['name' => 'Delete user order item'],
+            ['name' => 'Update user order item'],
+        ],
     ];
 
     /**

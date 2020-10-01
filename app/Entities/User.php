@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\CartManager\Cart;
+use App\Entities\Order\UserOrder;
 use App\Entities\Profile\UserAddress;
 use App\Support\HasRolesUuid;
 use App\Support\UuidScopeTrait;
@@ -75,5 +76,9 @@ class User extends Authenticatable implements Auditable
     function userAddress()
     {
         return $this->hasMany(UserAddress::class, 'user_id');
+    }
+    function userOrder()
+    {
+        return $this->hasMany(UserOrder::class, 'user_id');
     }
 }

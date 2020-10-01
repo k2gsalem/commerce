@@ -25,7 +25,10 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'profile'], function ($api) {
                 $api->resource('/userAddress', 'Api\Profile\UserAddressController');
             });
-
+            $api->group(['prefix' => 'orders'], function ($api) {
+                $api->resource('/userOrder', 'Api\Order\UserOrderController');
+                $api->resource('/userOrderItem', 'Api\Order\UserOrderItemController');
+            });
             $api->group(['prefix' => 'roles'], function ($api) {
                 $api->get('/', 'Api\Users\RolesController@index');
                 $api->post('/', 'Api\Users\RolesController@store');
@@ -54,6 +57,7 @@ $api->version('v1', function ($api) {
             $api->resource('confPaymentStatus', 'Api\Config\ConfPaymentStatusController');
             $api->resource('confSupplierCat', 'Api\Config\ConfSupplierCatController');
             $api->resource('confVendorCat', 'Api\Config\ConfVendorCatController');
+            $api->resource('confOrderStatus', 'Api\Config\ConfigOrderStatusController');
             $api->resource('prodCat', 'Api\Config\ProdCatController');
             $api->resource('prodSubCat', 'Api\Config\ProdSubCatController');
             $api->resource('vendors', 'Api\Vendor\VendorController');
@@ -65,6 +69,7 @@ $api->version('v1', function ($api) {
             $api->resource('itemVariantGroup', 'Api\Catalogue\ItemVariantGroupController');                                                             
             $api->resource('stockMaster', 'Api\Stock\StockMasterController');
             $api->resource('stockTracker', 'Api\Stock\StockTrackerController');
+            
 
             $api->group(['prefix' => 'member'], function ($api) {
                 $api->get('/getAddress','Api\Profile\UserAddressController@getAddress');

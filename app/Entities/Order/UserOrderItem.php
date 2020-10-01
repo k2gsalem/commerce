@@ -2,6 +2,8 @@
 
 namespace App\Entities\Order;
 
+use App\Entities\Catalogue\Item;
+use App\Entities\Vendor\VendorStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
@@ -22,4 +24,16 @@ class UserOrderItem extends Model implements Auditable
         'updated_by',
     ];
     //
+    public function userOrder()
+    {
+        return $this->belongsTo(UserOrder::class, 'order_id');
+    }
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'item_id');
+    }
+    public function vendorStore()
+    {
+        return $this->belongsTo(VendorStore::class, 'vendor_store_id');
+    }
 }

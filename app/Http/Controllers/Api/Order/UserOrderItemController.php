@@ -4,10 +4,22 @@ namespace App\Http\Controllers\Api\Order;
 
 use App\Entities\Order\UserOrderItem;
 use App\Http\Controllers\Controller;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
 class UserOrderItemController extends Controller
 {
+    use Helpers;
+    protected $model;
+    public function __construct(UserOrderItem $model)
+    {
+        $this->model = $model;
+        // $this->middleware('permission:List user order item')->only('index');
+        // $this->middleware('permission:List user order item')->only('show');
+        // $this->middleware('permission:Create user order item')->only('store');
+        // $this->middleware('permission:Update user order item')->only('update');
+        // $this->middleware('permission:Delete user order item')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *

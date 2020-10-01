@@ -6,6 +6,8 @@ use App\Entities\Assets\Asset;
 use App\Entities\CartManager\CartItem;
 use App\Entities\CartManager\CartItemVariant;
 use App\Entities\Catalogue\Item;
+use App\Entities\Order\UserOrder;
+use App\Entities\Order\UserOrderItem;
 use App\Entities\Stock\StockMaster;
 use App\Entities\Stock\StockTracker;
 use App\Entities\Vendor\Vendor;
@@ -71,4 +73,13 @@ class VendorStore extends Model implements Auditable
     {
         return $this->hasMany(CartItemVariant::class, 'vendor_store_id');
     }
+    public function userOrders()
+    {
+        return $this->hasMany(UserOrder::class, 'vendor_store_id');
+    }
+    public function userOrderItems()
+    {
+        return $this->hasMany(UserOrderItem::class, 'vendor_store_id');
+    }
+
 }
